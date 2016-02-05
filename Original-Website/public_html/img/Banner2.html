@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0019)chrome://downloads/ -->
+<html i18n-values="dir:textdirection;" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title i18n-content="title">Downloads</title>
+  <link rel="stylesheet" href="chrome://resources/css/chrome_shared.css">
+  <!-- This has to come after chrome_shared.css -->
+  <style>/* Copyright (c) 2012 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file. */
+
+/* Copyright 2014 The Chromium Authors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file. */
+
+/* This is a common file for pages that have a title and search box as their
+ * header. This visually looks like:
+ * _____________________________________________________________________________
+ * |                                                                           |
+ * |  I Am So Great!                                  [ Search greatness... ]  |
+ * |___________________________________________________________________________|
+ * | Summary (90235 things currently great)                      _Great links_ |
+ *
+ * The title expands to fill any space it needs and the search bar is locked to
+ * the end of the header (e.g., right in LTR, left in RTL).
+ */
+
+header,
+.summary {
+  min-width: 400px;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  padding: 0 12px;
+}
+
+header h1 {
+  flex: 1;
+  /* TODO(dbeam): reconcile font/line-height/margin with chrome_shared.css */
+  font-size: 1.5em;
+  font-weight: normal;
+  line-height: 1;
+  margin: 15px 0;
+}
+
+header > :-webkit-any(form, input[type='search']) {
+  flex: none;
+}
+
+.summary {
+  background-color: rgb(235, 239, 249);
+  border-top: 1px solid rgb(156, 194, 239);
+  display: flex;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.summary > * {
+  flex: none;
+}
+
+.summary > :first-child {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+#downloads-summary-text {
+  font-weight: bold;
+}
+
+#download-actions {
+  -webkit-margin-start: 16px;
+}
+
+#downloads-actions > * ~ * {
+  -webkit-margin-start: 10px;
+}
+
+#downloads-display,
+#no-downloads-or-results {
+  max-width: 740px;
+  padding: 0 10px 34px;
+}
+
+.download {
+  -webkit-margin-start: 114px;
+  -webkit-padding-start: 52px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.download,
+#no-downloads-or-results {
+  margin-top: 6px;
+}
+
+.date-container {
+  left: -110px;
+  position: absolute;
+  width: 110px;
+}
+
+html[dir=rtl] .date-container {
+  left: auto;
+  right: -110px;
+}
+
+.date-container .since {
+  color: black;
+}
+
+.date-container .date {
+  color: #666;
+}
+
+.download .icon {
+  height: 32px;
+  left: 9px;
+  position: absolute;
+  top: 2px;
+  width: 32px;
+}
+
+html[dir=rtl] .icon {
+  left: auto;
+  right: 9px;
+}
+
+.download.otr > .safe,
+.download.otr > .show-dangerous {
+  -webkit-transition: opacity 150ms;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAhCAYAAABeD2IVAAAFN0lEQVR4Xt2YaUwUZxjHFSxUCm3SStJIEARW7oBNQKhfyCKFVKUlJQEVaKMNbUqxCSDwgVIi8cIq1sYqsQlWqBy1Sq1cC3Is9yK4Qt3lkcNKI7dWLKd8oP/3LZOgzKzbsm3avskvy8zCzm+eeY53WTE/P/+v4/8hNTc3p5Pe3r4V7e03OFjmYC2wAWtw7u+RwnoBbACOYB14BZgvnH9pQcLFyMhIHhYWFnn06OcpWVlZh5OSkvdCTGZwKazVO3fuCkcUstTqm2dLS8sOHj+e+TFWVHR0dERqamr0sWPHP7t06fL5hoZG1fXrbdTael1Aa21tHQQxY0NL2VRWXst4/HiOxJienuECKlUrp6VFJcCP5XJ5KLsxQ0vZIwInpaRmZx9zqebmliUwsYiIiPcgZWFoKRkicJoJSHHrlkZSKiFhXyzLQYNHqrGx6UtdUvfuDUhKZWRkpLBCWLYU1nNgHdgUHPxWaHd3T74uqZmZWUKCi0plZ587aWJiIl9oEUZ/SQrLzsvLa3tZWfmh+/cfKEUk9I6WkOx1dfWNJ058kWZhYbFFKmo6hRDujyYmJttZAv9JeG41NTUv5gm5a9eqFN7em94WE5MSMraysgqEkFpaQDf4W2praxeEqLZWyaL0hFxVVXWVmZkZi9hKfaRWh4eHh4kI8A9Hl6b6+np6+HBcp9jw8AidPfs1RUZGka+vL6HHLYlafHwCr0h9pFaamprKkUcNLHGfAkINFBISQra2tuTn50d79rxPycnJqK6jdOjQYVwonoKDg8ne3p6cnJwoLi6eampquQyqV4Afp6R8Gg8pS0mphbVqgXX796d/ODU1rWEiYqjVai4SHr6DfHx8yM3NjTw8PCggIIAweujChTwaG7uPRzlBQ0PDNDg49DRdgYGB70DqebBqiRRPJGNjuaen57bFnDmTFf/o0W832AgxNJ2dP+W7urpuc3R05EDhRbFIud++3V3wRySYgOGZnJxC1IZIq+1CTrVwVCoVXbx48RwEnMWkXt648bXtCHkzHhstF0SYP76BgUHCPos6OjpRcVUazE8CQm6xfFNJRkrYCaSlpX2Aktayu5Kip6eX/P39WfXQqVNfUVHRD+zDeRFcufIjlZcr0MGzKTPzBJI5hQ1jQiOmI0eOtLLfWQxm4ifsus+qPhl6SCbESApEgSe1g4MD2dnZ0fr163k12tjYcAoLv4OENzvP35fJZPxVoajQsH4lkJ+fnwMhF31agqm5ufmWvr47peziUhw4cJALOTs7C/A2EBQUxPtYXl4eubi4sHNcKDY2lp9XKpUcPMpWJPh2tmPVd8y8il4TipxQj48/IjHQx1hj5BESorV582YqLi4RIoGfiyGzlxITk9B4mUwdfwU4lxgHIVt9x4wMDXC3paXlG2gJ+x48+JV0UVJSShiyVFBQyPsRtstUXV3DQZ4JEvwYacHJzf2WPTZXvQYylgMSNwFR0N6583MlNv87MBKycUwSLBbkxxqNllWZAGSqOcKxQqEQeWzSHX1NVNS7u3C3naOjYwRY1+3IyclNQ34pR0ZGSR9wM1RRUSkJKrMNebaVtQB9pDxv3uwoWjwSIMjBqmbH+oKtCbu4GFzs/Pmcb1jVAWkpZh0TE7O7v/8Xunu3f7nwPdPVq8Vi8ELA1zNKT09PY/1Jl5QMv3wanZc1xmXT1UW8iaKpisHfw/fDJki9rkvKG1+PqthMMhRoCZhp30ty+XIRYVscADEjKam1mNhvuru7bzUkqLKt6PoSyFiyb3hWoq/6p/nP/Cvod4M+AYycVdHoAAAAAElFTkSuQmCC)
+              no-repeat right bottom;
+  opacity: .66;
+}
+
+html[dir=rtl] .download.otr > .safe,
+html[dir=rtl] .download.otr > .show-dangerous {
+  background-position: left bottom;
+}
+
+.download.otr > .safe:hover,
+.download.otr > .show-dangerous:hover {
+  opacity: 1;
+}
+
+.malware-description {
+  color: rgb(196, 42, 23);
+}
+
+.progress {
+  height: 48px;
+  left: 0;
+  position: absolute;
+  top: -6px;
+  width: 48px;
+}
+
+html[dir=rtl] .progress {
+  left: auto;
+  right: 0;
+}
+
+.progress.background {
+  background: url(chrome://theme/IDR_DOWNLOAD_PROGRESS_BACKGROUND_32);
+  background-size: 48px;
+}
+
+.name,
+.src-url,
+.controls a {
+  -webkit-padding-end: 4px;
+  -webkit-padding-start: 4px;
+}
+
+.name {
+  -webkit-padding-end: 16px;
+  display: none;
+  max-width: 450px;
+  word-break: break-all;
+}
+
+.interrupted {
+  color: red;
+}
+
+.download .status {
+  color: #999;
+  white-space: nowrap;
+}
+
+.download .src-url {
+  color: rgb(85, 102, 221);
+  display: inline-block;
+  max-width: 500px;
+  overflow: hidden;
+  padding-bottom: 1px;
+  padding-top: 4px;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.controls a {
+  -webkit-margin-end: 12px;
+  color: #777;
+}
+
+#downloads-pagination {
+  -webkit-margin-start: 18px;
+  padding-top: 24px;
+}
+</style>
+  <script src="chrome://resources/js/action_link.js"></script>
+  <script src="chrome://resources/js/cr.js"></script>
+  <script src="chrome://resources/js/cr/ui.js"></script>
+  <script src="chrome://resources/js/cr/ui/command.js"></script>
+  <script src="chrome://resources/js/load_time_data.js"></script>
+  <script src="chrome://resources/js/util.js"></script>
+  <script src="chrome://downloads/downloads.js"></script>
+</head>
+<body>
+  <header>
+    <h1 i18n-content="downloads">Downloads</h1>
+    <input id="term" type="search" tabindex="1" i18n-values="placeholder:searchbutton" autofocus="" incremental="" placeholder="Search downloads">
+  </header>
+  <div class="main">
+    <div class="summary" id="downloads-summary">
+      <span id="downloads-summary-text"></span>
+      <span id="downloads-actions">
+        <a is="action-link" id="open-downloads-folder" i18n-content="open_downloads_folder" tabindex="0">Open downloads folder</a>
+        <a is="action-link" id="clear-all" i18n-content="clear_all" tabindex="0">Clear all</a>
+      </span>
+    </div>
+    <div id="downloads-display"><div class="download"><div class="date-container" style="display: block;"><div class="since">Today</div><div class="date">Apr 6, 2015</div></div><div class="safe" style="display: block;"><div class="progress background" style="display: block;"></div><canvas class="progress" width="48" height="48" style="display: block;"></canvas><img class="icon" alt="" src="chrome://fileicon/C%3A%5CUsers%5Cdesti_000%5CDocuments%5C911now%5Cimg%5CBanner2.html?scale=1x"><div class="title-area"><a is="action-link" tabindex="0" class="name" style="display: none;"></a><span class="name" style="display: inline-block;">Banner2.html</span><span class="status">0 B/s - 0 B</span></div><div class="url-container"><a class="src-url" target="_blank" href="./Banner2_files/Banner2.html">chrome://downloads/</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: none;">Show in folder</a><a download="" href="./Banner2_files/Banner2.html" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: inline;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: none;">Remove from list</a><a is="action-link" tabindex="0" style="display: inline;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since">Today</div><div class="date">Apr 6, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" style="display: none;"></a><span class="name" style="display: inline-block;">Banner2.jpg</span><span class="status">Removed</span></div><div class="url-container"><a class="src-url" target="_blank" href="https://gm1.ggpht.com/BgPKJYdBNVjfd6pnngHyZOVNydGCaqPckiZFhGpiMrXILX5sPy-zfe1iF7Zf8D0fpG8it1dXpMIcelOdXUnKmaMpTxjleyRf8WuflKbRJGk4t4rJymndEr4q3fVN8L01x8A_48dhobKjAHsKgR4QbUvc9agwJTpyYQ9EsW7oAEg71iSGjcFQn6ZC9KwlUf5Z8eIhX--PED7fwWeIjckbsWn5kdir9d2Keihj7WjfSS6kbgNeO_TPCgQM4TKSyPnz066ARRhheHWA7IJiYE2PC-_zlzvUykrkbFQvWp78I2P8v0BZjdT9sP0nXVpWjziII8myVGuiPCjiwePdy9KBxYMZw-tTAhbkunF4Fs7HO0CoBKP36EQ013khJ1rI5kARDB4Rdm_LwyvTU_6nC_vrhTWnv9RUaFiibHe6CGeb5olOK3-vv2dHQnBTFrrHZLWyUoyPL5qYE4oUJpuhjB3olOuMf924LyvivN3P0SmjYc569RVtwCanCLFmejG-Vd86hNP2fjllME6LJNcX9DnA04nvri9-OWX-wZvrAe9MmHvqLpdfR591vvQtMvuzdlWV0wlsgaZtCQ=w1122-h400-l75-ft">https://gm1.ggpht.com/BgPKJYdBNVjfd6pnngHyZOVNydGCaqPckiZFhGpiMrXILX5sPy-zfe1iF7Zf8D0fpG8it1dXpMIcelOdXUnKmaMpTxjleyRf8WuflKbRJGk4t4rJymndEr4q3fVN8L01x8A_48dhobKjAHsKgR4QbUvc9agwJTpyYQ9EsW7oAEg71iSGjcFQn6ZC9KwlUf5Z8eIhX--PED7fwWeIjckbsWn5kdir9d2Keihj7WjfSS6kbgNeO_TPCgQM4TKSyPnz066ARRhheHWA7IJiYE2PC-_zlzvUykrkbFQvWp78I2P8v0BZjdT9sP0nXVpWjziII8myVGuiPCjiwePdy9KBxYMZw-tTAhbkunF4Fs7HO0CoBKP36EQ013khJ1rI5kARDB4Rdm_LwyvTU_6nC_vrhTWnv9RUaFiibHe6CGeb5olOK3-vv2dHQnBTFrrHZLWyUoyPL5qYE4oUJpuhjB3olOuMf924LyvivN3P0SmjYc569RVtwCanCLFmejG-Vd86hNP2fjllME6LJNcX9DnA04nvri9-OWX-wZvrAe9MmHvqLpdfR591vvQtMvuzdlWV0wlsgaZtCQ=w1122-h400-l75-ft</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: none;">Show in folder</a><a download="" href="https://gm1.ggpht.com/BgPKJYdBNVjfd6pnngHyZOVNydGCaqPckiZFhGpiMrXILX5sPy-zfe1iF7Zf8D0fpG8it1dXpMIcelOdXUnKmaMpTxjleyRf8WuflKbRJGk4t4rJymndEr4q3fVN8L01x8A_48dhobKjAHsKgR4QbUvc9agwJTpyYQ9EsW7oAEg71iSGjcFQn6ZC9KwlUf5Z8eIhX--PED7fwWeIjckbsWn5kdir9d2Keihj7WjfSS6kbgNeO_TPCgQM4TKSyPnz066ARRhheHWA7IJiYE2PC-_zlzvUykrkbFQvWp78I2P8v0BZjdT9sP0nXVpWjziII8myVGuiPCjiwePdy9KBxYMZw-tTAhbkunF4Fs7HO0CoBKP36EQ013khJ1rI5kARDB4Rdm_LwyvTU_6nC_vrhTWnv9RUaFiibHe6CGeb5olOK3-vv2dHQnBTFrrHZLWyUoyPL5qYE4oUJpuhjB3olOuMf924LyvivN3P0SmjYc569RVtwCanCLFmejG-Vd86hNP2fjllME6LJNcX9DnA04nvri9-OWX-wZvrAe9MmHvqLpdfR591vvQtMvuzdlWV0wlsgaZtCQ=w1122-h400-l75-ft" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: block;"><div class="since"></div><div class="date">Mar 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" style="display: none;"></a><span class="name" style="display: inline-block;">backimage3.jpg</span><span class="status">Removed</span></div><div class="url-container"><a class="src-url" target="_blank" href="http://t0.gstatic.com/images?q=tbn:ANd9GcQgiesI7Zmpi6QZmf1h2OkyveUr5dK2t7PfDEjrUku4fsPOCbYeuQ">http://t0.gstatic.com/images?q=tbn:ANd9GcQgiesI7Zmpi6QZmf1h2OkyveUr5dK2t7PfDEjrUku4fsPOCbYeuQ</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: none;">Show in folder</a><a download="" href="http://t0.gstatic.com/images?q=tbn:ANd9GcQgiesI7Zmpi6QZmf1h2OkyveUr5dK2t7PfDEjrUku4fsPOCbYeuQ" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Mar 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" style="display: none;"></a><span class="name" style="display: inline-block;">backimage2.jpg</span><span class="status">Removed</span></div><div class="url-container"><a class="src-url" target="_blank" href="http://t2.gstatic.com/images?q=tbn:ANd9GcSt-Xjo42_bXrBtorG9UrrrU8nRTtnRRuWhVZFCdn49FOOFzBMT">http://t2.gstatic.com/images?q=tbn:ANd9GcSt-Xjo42_bXrBtorG9UrrrU8nRTtnRRuWhVZFCdn49FOOFzBMT</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: none;">Show in folder</a><a download="" href="http://t2.gstatic.com/images?q=tbn:ANd9GcSt-Xjo42_bXrBtorG9UrrrU8nRTtnRRuWhVZFCdn49FOOFzBMT" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: block;"><div class="since"></div><div class="date">Mar 11, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/lavish-bootstrap.css" style="display: inline;">lavish-bootstrap.css</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="blob:http%3A//www.lavishbootstrap.com/80de7046-458a-440a-99b3-3289c59387a2">blob:http%3A//www.lavishbootstrap.com/80de7046-458a-440a-99b3-3289c59387a2</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="blob:http%3A//www.lavishbootstrap.com/80de7046-458a-440a-99b3-3289c59387a2" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: block;"><div class="since"></div><div class="date">Feb 16, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Johnny%20Gill-%20There%20You%20Go.mp3" style="display: inline;">Johnny Gill- There You Go.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://17e6.vd.aclst.com/dl.php/9-mJE54x_2Q/Johnny%20Gill-%20There%20You%20Go.mp3?video_id=9-mJE54x_2Q&t=OS1tSkU1NHhfMlEtMTgwODAzNjI0MC0xNDI0MDY2NTIzLTEzNzQyNg%3D%3D&exp=19-02-2015&s=851ba755c203fbccceae4ac197150764">http://17e6.vd.aclst.com/dl.php/9-mJE54x_2Q/Johnny%20Gill-%20There%20You%20Go.mp3?video_id=9-mJE54x_2Q&amp;t=OS1tSkU1NHhfMlEtMTgwODAzNjI0MC0xNDI0MDY2NTIzLTEzNzQyNg%3D%3D&amp;exp=19-02-2015&amp;s=851ba755c203fbccceae4ac197150764</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://17e6.vd.aclst.com/dl.php/9-mJE54x_2Q/Johnny%20Gill-%20There%20You%20Go.mp3?video_id=9-mJE54x_2Q&t=OS1tSkU1NHhfMlEtMTgwODAzNjI0MC0xNDI0MDY2NTIzLTEzNzQyNg%3D%3D&exp=19-02-2015&s=851ba755c203fbccceae4ac197150764" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 16, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/R.%20Kelly%20-%20your%20body's%20calling%20[extended%20jazz%20mix].mp3" style="display: inline;">R. Kelly - your body's calling [extended jazz mix].mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://006b.f.aclst.com/dl.php/kZWASg83CFs/R.%20Kelly%20-%20your%20body%27s%20calling%20%5Bextended%20jazz%20mix%5D.mp3?video_id=kZWASg83CFs&t=a1pXQVNnODNDRnMtMTgwODAzNjI0MC0xNDI0MDY2NDU1LTg3Mzg1NC1mZjk3ZWRhOWM5ZGY0MzcxNDA1YzJjYjVmNDM3ZDVmNg%3D%3D&exp=19-02-2015&s=2f0ca15c0dc9f94dbc8b28ac8fe11b36">http://006b.f.aclst.com/dl.php/kZWASg83CFs/R.%20Kelly%20-%20your%20body%27s%20calling%20%5Bextended%20jazz%20mix%5D.mp3?video_id=kZWASg83CFs&amp;t=a1pXQVNnODNDRnMtMTgwODAzNjI0MC0xNDI0MDY2NDU1LTg3Mzg1NC1mZjk3ZWRhOWM5ZGY0MzcxNDA1YzJjYjVmNDM3ZDVmNg%3D%3D&amp;exp=19-02-2015&amp;s=2f0ca15c0dc9f94dbc8b28ac8fe11b36</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://006b.f.aclst.com/dl.php/kZWASg83CFs/R.%20Kelly%20-%20your%20body%27s%20calling%20%5Bextended%20jazz%20mix%5D.mp3?video_id=kZWASg83CFs&t=a1pXQVNnODNDRnMtMTgwODAzNjI0MC0xNDI0MDY2NDU1LTg3Mzg1NC1mZjk3ZWRhOWM5ZGY0MzcxNDA1YzJjYjVmNDM3ZDVmNg%3D%3D&exp=19-02-2015&s=2f0ca15c0dc9f94dbc8b28ac8fe11b36" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: block;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/R%20Kelly%20Bump%20N%20Grind%20How%20I%20Feel%20It%20Mix.mp3" style="display: inline;">R Kelly Bump N Grind How I Feel It Mix.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://67c6.vd.aclst.com/dl.php/iV2ZcSmA8kI/R%20Kelly%20Bump%20N%20Grind%20How%20I%20Feel%20It%20Mix.mp3?video_id=iV2ZcSmA8kI&t=aVYyWmNTbUE4a0ktMTgwODAzNjI0MC0xNDI0MDY2Mzg4LTg5MjcxMw%3D%3D&exp=19-02-2015&s=c6bd8266e893a284e24ee3dee8c4bc26">http://67c6.vd.aclst.com/dl.php/iV2ZcSmA8kI/R%20Kelly%20Bump%20N%20Grind%20How%20I%20Feel%20It%20Mix.mp3?video_id=iV2ZcSmA8kI&amp;t=aVYyWmNTbUE4a0ktMTgwODAzNjI0MC0xNDI0MDY2Mzg4LTg5MjcxMw%3D%3D&amp;exp=19-02-2015&amp;s=c6bd8266e893a284e24ee3dee8c4bc26</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://67c6.vd.aclst.com/dl.php/iV2ZcSmA8kI/R%20Kelly%20Bump%20N%20Grind%20How%20I%20Feel%20It%20Mix.mp3?video_id=iV2ZcSmA8kI&t=aVYyWmNTbUE4a0ktMTgwODAzNjI0MC0xNDI0MDY2Mzg4LTg5MjcxMw%3D%3D&exp=19-02-2015&s=c6bd8266e893a284e24ee3dee8c4bc26" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/You%20-%20Bad%20Boy%20Family.mp3" style="display: inline;">You - Bad Boy Family.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://1679.vd.aclst.com/dl.php/Up10ouqr0SU/You%20-%20Bad%20Boy%20Family.mp3?video_id=Up10ouqr0SU&t=VXAxMG91cXIwU1UtMTgwODAzNjI0MC0xNDI0MDY2MjU3LTIwNTAxMA%3D%3D&exp=19-02-2015&s=68cd608c50834db0b321d99fc8274a18">http://1679.vd.aclst.com/dl.php/Up10ouqr0SU/You%20-%20Bad%20Boy%20Family.mp3?video_id=Up10ouqr0SU&amp;t=VXAxMG91cXIwU1UtMTgwODAzNjI0MC0xNDI0MDY2MjU3LTIwNTAxMA%3D%3D&amp;exp=19-02-2015&amp;s=68cd608c50834db0b321d99fc8274a18</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://1679.vd.aclst.com/dl.php/Up10ouqr0SU/You%20-%20Bad%20Boy%20Family.mp3?video_id=Up10ouqr0SU&t=VXAxMG91cXIwU1UtMTgwODAzNjI0MC0xNDI0MDY2MjU3LTIwNTAxMA%3D%3D&exp=19-02-2015&s=68cd608c50834db0b321d99fc8274a18" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/SOUFSIDE%20x%20GORILLA%20ZOE%20-%20I'M%20JUST%20COOLIN%20(booking%20%20601.941.7671).mp3" style="display: inline;">SOUFSIDE x GORILLA ZOE - I'M JUST COOLIN (booking  601.941.7671).mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://3c59.vd.aclst.com/dl.php/BGETjWLMOxE/SOUFSIDE%20x%20GORILLA%20ZOE%20-%20I%27M%20JUST%20COOLIN%20%28booking%20%20601.941.7671%29.mp3?video_id=BGETjWLMOxE&t=QkdFVGpXTE1PeEUtMTgwODAzNjI0MC0xNDI0MDY2MjE2LTIwNTY3Ng%3D%3D&exp=19-02-2015&s=b96968c32a308c5543c7696e8805bc62">http://3c59.vd.aclst.com/dl.php/BGETjWLMOxE/SOUFSIDE%20x%20GORILLA%20ZOE%20-%20I%27M%20JUST%20COOLIN%20%28booking%20%20601.941.7671%29.mp3?video_id=BGETjWLMOxE&amp;t=QkdFVGpXTE1PeEUtMTgwODAzNjI0MC0xNDI0MDY2MjE2LTIwNTY3Ng%3D%3D&amp;exp=19-02-2015&amp;s=b96968c32a308c5543c7696e8805bc62</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://3c59.vd.aclst.com/dl.php/BGETjWLMOxE/SOUFSIDE%20x%20GORILLA%20ZOE%20-%20I%27M%20JUST%20COOLIN%20%28booking%20%20601.941.7671%29.mp3?video_id=BGETjWLMOxE&t=QkdFVGpXTE1PeEUtMTgwODAzNjI0MC0xNDI0MDY2MjE2LTIwNTY3Ng%3D%3D&exp=19-02-2015&s=b96968c32a308c5543c7696e8805bc62" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Mint%20condition%20-%20Someone%20To%20Love.mp3" style="display: inline;">Mint condition - Someone To Love.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://17e6.vd.aclst.com/dl.php/4pLtELlza40/Mint%20condition%20-%20Someone%20To%20Love.mp3?video_id=4pLtELlza40&t=NHBMdEVMbHphNDAtMTgwODAzNjI0MC0xNDI0MDY2MTU0LTY3Njk0Mg%3D%3D&exp=19-02-2015&s=80dedc173481b55be869498f0d3c29d6">http://17e6.vd.aclst.com/dl.php/4pLtELlza40/Mint%20condition%20-%20Someone%20To%20Love.mp3?video_id=4pLtELlza40&amp;t=NHBMdEVMbHphNDAtMTgwODAzNjI0MC0xNDI0MDY2MTU0LTY3Njk0Mg%3D%3D&amp;exp=19-02-2015&amp;s=80dedc173481b55be869498f0d3c29d6</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://17e6.vd.aclst.com/dl.php/4pLtELlza40/Mint%20condition%20-%20Someone%20To%20Love.mp3?video_id=4pLtELlza40&t=NHBMdEVMbHphNDAtMTgwODAzNjI0MC0xNDI0MDY2MTU0LTY3Njk0Mg%3D%3D&exp=19-02-2015&s=80dedc173481b55be869498f0d3c29d6" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Kem%20-%20It's%20You%20(Official%20Lyric%20Video).mp3" style="display: inline;">Kem - It's You (Official Lyric Video).mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://c0c7.vd.aclst.com/dl.php/m-UU2lLR4HE/Kem%20-%20It%27s%20You%20%28Official%20Lyric%20Video%29.mp3?video_id=m-UU2lLR4HE&t=bS1VVTJsTFI0SEUtMTgwODAzNjI0MC0xNDI0MDY2MDg4LTQ3MTIwOA%3D%3D&exp=19-02-2015&s=f8d46cbc21270e50f0d7f73cfe3c3835">http://c0c7.vd.aclst.com/dl.php/m-UU2lLR4HE/Kem%20-%20It%27s%20You%20%28Official%20Lyric%20Video%29.mp3?video_id=m-UU2lLR4HE&amp;t=bS1VVTJsTFI0SEUtMTgwODAzNjI0MC0xNDI0MDY2MDg4LTQ3MTIwOA%3D%3D&amp;exp=19-02-2015&amp;s=f8d46cbc21270e50f0d7f73cfe3c3835</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://c0c7.vd.aclst.com/dl.php/m-UU2lLR4HE/Kem%20-%20It%27s%20You%20%28Official%20Lyric%20Video%29.mp3?video_id=m-UU2lLR4HE&t=bS1VVTJsTFI0SEUtMTgwODAzNjI0MC0xNDI0MDY2MDg4LTQ3MTIwOA%3D%3D&exp=19-02-2015&s=f8d46cbc21270e50f0d7f73cfe3c3835" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Shy%20Glizzy%20-%20So%20Awesome.mp3" style="display: inline;">Shy Glizzy - So Awesome.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://8f14.vd.aclst.com/dl.php/hR-Irx014Sc/Shy%20Glizzy%20-%20So%20Awesome.mp3?video_id=hR-Irx014Sc&t=aFItSXJ4MDE0U2MtMTgwODAzNjI0MC0xNDI0MDY2MDIwLTY4Mzg3Nw%3D%3D&exp=19-02-2015&s=ae1ae448e6690a45a8e377e0b5469644">http://8f14.vd.aclst.com/dl.php/hR-Irx014Sc/Shy%20Glizzy%20-%20So%20Awesome.mp3?video_id=hR-Irx014Sc&amp;t=aFItSXJ4MDE0U2MtMTgwODAzNjI0MC0xNDI0MDY2MDIwLTY4Mzg3Nw%3D%3D&amp;exp=19-02-2015&amp;s=ae1ae448e6690a45a8e377e0b5469644</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://8f14.vd.aclst.com/dl.php/hR-Irx014Sc/Shy%20Glizzy%20-%20So%20Awesome.mp3?video_id=hR-Irx014Sc&t=aFItSXJ4MDE0U2MtMTgwODAzNjI0MC0xNDI0MDY2MDIwLTY4Mzg3Nw%3D%3D&exp=19-02-2015&s=ae1ae448e6690a45a8e377e0b5469644" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/New%20direction%20-%20Ive%20got%20Favor.mp3" style="display: inline;">New direction - Ive got Favor.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://9a11.vd.aclst.com/dl.php/u2R-6RAGQxQ/New%20direction%20-%20Ive%20got%20Favor.mp3?video_id=u2R-6RAGQxQ&t=dTJSLTZSQUdReFEtMTgwODAzNjI0MC0xNDI0MDY1OTc3LTg4MDA5NA%3D%3D&exp=19-02-2015&s=b1f4f6a12a9c35f005ac3843050190c3">http://9a11.vd.aclst.com/dl.php/u2R-6RAGQxQ/New%20direction%20-%20Ive%20got%20Favor.mp3?video_id=u2R-6RAGQxQ&amp;t=dTJSLTZSQUdReFEtMTgwODAzNjI0MC0xNDI0MDY1OTc3LTg4MDA5NA%3D%3D&amp;exp=19-02-2015&amp;s=b1f4f6a12a9c35f005ac3843050190c3</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://9a11.vd.aclst.com/dl.php/u2R-6RAGQxQ/New%20direction%20-%20Ive%20got%20Favor.mp3?video_id=u2R-6RAGQxQ&t=dTJSLTZSQUdReFEtMTgwODAzNjI0MC0xNDI0MDY1OTc3LTg4MDA5NA%3D%3D&exp=19-02-2015&s=b1f4f6a12a9c35f005ac3843050190c3" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Vanessa%20Bell%20Armstrong%20%20%20Good%20News.mp3" style="display: inline;">Vanessa Bell Armstrong   Good News.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://02e7.vd.aclst.com/dl.php/scbzIO-w-CM/Vanessa%20Bell%20Armstrong%20%20%20Good%20News.mp3?video_id=scbzIO-w-CM&t=c2NieklPLXctQ00tMTgwODAzNjI0MC0xNDI0MDY1OTM0LTgzMjU4OA%3D%3D&exp=19-02-2015&s=0aba51a1c755692239040677ed0a5ca9">http://02e7.vd.aclst.com/dl.php/scbzIO-w-CM/Vanessa%20Bell%20Armstrong%20%20%20Good%20News.mp3?video_id=scbzIO-w-CM&amp;t=c2NieklPLXctQ00tMTgwODAzNjI0MC0xNDI0MDY1OTM0LTgzMjU4OA%3D%3D&amp;exp=19-02-2015&amp;s=0aba51a1c755692239040677ed0a5ca9</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://02e7.vd.aclst.com/dl.php/scbzIO-w-CM/Vanessa%20Bell%20Armstrong%20%20%20Good%20News.mp3?video_id=scbzIO-w-CM&t=c2NieklPLXctQ00tMTgwODAzNjI0MC0xNDI0MDY1OTM0LTgzMjU4OA%3D%3D&exp=19-02-2015&s=0aba51a1c755692239040677ed0a5ca9" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div><div class="download"><div class="date-container" style="display: none;"><div class="since"></div><div class="date">Feb 15, 2015</div></div><div class="safe" style="display: block;"><img class="icon" alt=""><div class="title-area"><a is="action-link" tabindex="0" class="name" href="file:///C:/Users/desti_000/Downloads/Minister%20DeAndre%20Patterson%20-%20Give%20Him%20Glory.mp3" style="display: inline;">Minister DeAndre Patterson - Give Him Glory.mp3</a><span class="name" style="display: none;"></span><span class="status"></span></div><div class="url-container"><a class="src-url" target="_blank" href="http://3417.vd.aclst.com/dl.php/GNGNS_LU-_g/Minister%20DeAndre%20Patterson%20-%20Give%20Him%20Glory.mp3?video_id=GNGNS_LU-_g&t=R05HTlNfTFUtX2ctMTgwODAzNjI0MC0xNDI0MDY1ODk3LTg5ODU2OA%3D%3D&exp=19-02-2015&s=6b9e2e8505c669b168a858738aaedab5">http://3417.vd.aclst.com/dl.php/GNGNS_LU-_g/Minister%20DeAndre%20Patterson%20-%20Give%20Him%20Glory.mp3?video_id=GNGNS_LU-_g&amp;t=R05HTlNfTFUtX2ctMTgwODAzNjI0MC0xNDI0MDY1ODk3LTg5ODU2OA%3D%3D&amp;exp=19-02-2015&amp;s=6b9e2e8505c669b168a858738aaedab5</a></div><div class="controls"><a is="action-link" tabindex="0" style="display: inline;">Show in folder</a><a download="" href="http://3417.vd.aclst.com/dl.php/GNGNS_LU-_g/Minister%20DeAndre%20Patterson%20-%20Give%20Him%20Glory.mp3?video_id=GNGNS_LU-_g&t=R05HTlNfTFUtX2ctMTgwODAzNjI0MC0xNDI0MDY1ODk3LTg5ODU2OA%3D%3D&exp=19-02-2015&s=6b9e2e8505c669b168a858738aaedab5" style="display: none;">Retry download</a><a is="action-link" tabindex="0" style="display: none;">Pause</a><a is="action-link" tabindex="0" style="display: none;">Resume</a><a is="action-link" tabindex="0" class="control-remove-link" style="display: inline;">Remove from list</a><a is="action-link" tabindex="0" style="display: none;">Cancel</a><span></span></div></div><div class="show-dangerous" style="display: none;"><img class="icon" alt=""><div></div><div class="controls"><a is="action-link" tabindex="0">Recover malicious file</a><a is="action-link" tabindex="0">Remove from list</a></div><input type="button" value="Keep"><input type="button" value="Discard"></div></div></div>
+    <div id="no-downloads-or-results" hidden="">No downloads found.</div>
+  </div>
+  <command id="clear-all-command" shortcut="Alt-U+0043" disabled="disabled"></command><!-- Alt+C -->
+
+<command id="undo-command" shortcut="Ctrl-U+005A" disabled="disabled"></command><!-- Ctrl+Z -->
+  <script src="chrome://downloads/strings.js"></script>
+  <script src="chrome://resources/js/i18n_template2.js"></script>
+
+
+</body></html>
