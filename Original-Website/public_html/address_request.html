@@ -1,0 +1,310 @@
+<html>
+
+
+
+	<head>
+
+		<title>Address Request Form</title>
+
+		<link href="forms-style.css" type="text/css" rel="stylesheet"/>
+
+	</head>
+
+
+
+	<body>
+
+
+
+		<!-- Below is the Address Request Form -->
+
+		<form id="addreqform" class="elegant-aero" action="php/addressform.php" method="post">
+
+
+
+			<h1>Address Request Form</h1>
+
+				<p>Use this form to request an address...<p>
+
+
+
+				<!-- Line Break in page-->
+
+				<hr />
+
+
+
+				<h2> Request and Contact Information</h2>
+
+
+
+				<fieldset>
+
+					<legend>Requestor Details</legend>
+
+				<!--Form Field 1: Date of Request - date of address request submission
+
+					Field Validation: *Required, Should default to current date and not accept any value other than a date -->
+
+					<label>Date of Request:<br />
+
+						<input type="date" name="dateofreq" size="20" maxlength="10" />
+
+					</label><br />
+
+
+
+				<!--Form Field 2: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+
+					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+					<label>Requestor Name:<br />
+
+						<input type="text" name="requestor" size="20" maxlength="60" />
+
+					</label><br />
+
+
+
+				<!--Form Field 3: Req Phone 1 - primary contact number for requestor
+
+					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+					no text or special characters. Display in format (###) ###-##### -->
+
+					<label>Requestor Phone 1:<br />
+
+						<input type="text" name="reqphone1" size = "20" maxlength="10" />
+
+					</label><br />
+
+
+
+				<!--Form field 4: Req Phone 2 - secondary contact number for requestor
+
+					Field Validation: must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+					no text or special characters. Display in format (###) ###-#### -->
+
+					<label>Requestor Phone 2:<br />
+
+						<input type="text" name="reqphone2" size = "20" maxlength="10" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+
+				<!--*NOTE**********************************************************-->
+
+				<!-- Could possibly add another check box field here that asks if the
+
+					 requestor is the same as the resident. This would automatically
+
+					 fill the resident name and contact information using the info
+
+					 entered into Requestor section. Would eliminate duplication of
+
+					 efforts for a resident who submits the form.-->
+
+				<!--***************************************************************-->
+
+
+
+				<!--Checkbox field test (see above)-->
+
+				<p>Check the box below if Requestor is also the Resident for the new address<br />
+
+					<input type="checkbox" name="reqisresYN" value="Y" />
+
+				</p><br />
+
+
+
+
+
+				<fieldset>
+
+					<legend>Resident Details</legend>
+
+				<!--Form Field 5: Resident - person that will be residing in new address
+
+					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+					<label>Resident Name:<br />
+
+						<input type="text" name="resident" size="20" maxlength="60" />
+
+					</label><br />
+
+
+
+					<!--Form Field 6: Res Phone 1 - primary contact number for resident
+
+					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+					no text or special characters. Display in format (###) ###-##### -->
+
+					<label>Resident Phone 1:<br />
+
+						<input type="text" name="resphone1" size="20" maxlength="10" />
+
+					</label><br />
+
+
+
+				<!--Form field 7: Res Phone 2 - secondary contact number for resident
+
+					Field Validation: Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+					no text or special characters. Display in format (###) ###-#### -->
+
+					<label>Resident Phone 2:<br />
+
+						<input type="text" name="resphone2" size="20" maxlength="10" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+
+				<!-- Line Break in page-->
+
+				<hr />
+
+
+
+				<h2>Structure and Address Details</h2>
+
+				<!--Form Field 8: Structure Type - drop down for user to select the type of structure
+
+					Field Validation: *Required -->
+
+					<p>What type of structure will be associated with the new address? Please select from the following options.</p>
+
+					<select name="structype">
+
+						<option value="house">House</option>
+
+						<option value="manufhome">Manufactured Home</option>
+
+						<option value="other">Other Structure Type</option>
+
+					</select>
+
+
+
+				<!--Form Field 9: Structure Details - user should enter any other details about the structure, such as color or structure type
+
+					if user selected Other Structure Type for Structure Type
+
+					Field Validation: *Required -->
+
+					<p>Please explain what type of structure. Include any other details such as color or how the property is marked.</p>
+
+					<textarea name="strucdetails" cols="50" rows="10"> </textarea> <br />
+
+
+			<!-- Form 10: Direction - User will enter will fill out which direction the address is located in
+
+				Field Validation: *Required -->
+
+				<label>North of ADD#<br />
+
+						<input type="text" name="northadd" size="20" maxlength="15" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+				<label>South of ADD#<br />
+
+						<input type="text" name="southadd" size="20" maxlength="15" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+				<label>East of ADD#<br />
+
+						<input type="text" name="eastadd" size="20" maxlength="15" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+				<label>West of ADD#<br />
+
+						<input type="text" name="westadd" size="20" maxlength="15" />
+
+					</label><br />
+
+				</fieldset><br />
+
+
+
+         <!-- Form 11: Markers - User will input what type of markers there are
+
+				Field Validation: *Required -->
+
+			<p>Markers:</p>
+
+					<textarea name="markers" cols="30" rows="5"> </textarea> <br />
+
+
+			<p>Other:</p>
+
+					<textarea name="others" cols="30" rows="5"> </textarea> <br />
+
+
+
+		<!-- Line Break in page-->
+
+
+		<!-- Form 12: Eperation Date - User will enter experiation date
+
+				Field Validation: * Required -->
+
+				<label>Exp Date:<br />
+
+						<input type="date" name="expdate" size="20" maxlength="10" />
+
+					</label><br />
+
+
+				<hr />
+
+		<!-- Form 13: Road Street - User will enter street name
+
+				Field Validation: * Required -->
+
+				<label>Road-Street:<br />
+
+						<input type="text" name="roadstreet" size="20" maxlength="10" />
+
+					</label><br />
+
+
+				<hr />
+
+
+
+				<input type="submit" name="submit" value="Submit!">
+
+
+		</form>
+
+
+
+
+
+	</body>
+
+
+
+</html>
