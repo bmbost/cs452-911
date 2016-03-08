@@ -99,5 +99,34 @@ else {
   echo "<p>Database entry failed.</p>" . mysqli_error($dbhandle);
 }
 
-mysqli_close($dbhandle);
+mysqli_close($dbhandle); // Close the database.
+
+require('Mail.php'); // Include the PEAR Mail header
+
+// Create all of the options to use to set up the mailer object
+$options = array();
+$options['host'] = 'smtp-mail.outlook.com';
+$options['port'] = 587;
+$options['auth'] = true;
+$options['username'] = 'alc911@outlook.com';
+$options['password'] = 'Limestone911';
+
+$mailer = Mail::factory('smtp', $options); // Create mailer object
+
+// Set up headers
+$headers = array();
+$headers['From'] = 'alc911@outlook.com';
+$headers['To'] = 'bmbost1983@gmail.com';
+$headers['Subject'] = $name . ' Address Request Form Submission';
+
+$recipients = 'bmbost1983@gmail.com';
+$body = "$name has just submitted an address request form. Please log into the ALC911 page to view the submission and to print the form.";
+
+$result = $mailer->send($recipients, $headers, $body); // Send the message
+
+// Print error message if failed
+if (PEAR::isError($result)) {
+  $error = 'Error sending email: ' . $result->getMessage();
+  echo htmlspecialchars($error);
+}
 ?>
