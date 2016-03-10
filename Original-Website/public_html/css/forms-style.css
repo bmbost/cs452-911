@@ -1,0 +1,198 @@
+			body {
+				background-color:#DCDCDC;
+			}
+			.wrapsheetborder {
+				width: 1000px;
+				height: 1100px;
+				border-radius: 25px;
+				border: 2px solid black;
+				margin: auto;
+				background-color:white;
+			}
+			.banner {
+				border-radius: 25px;
+				width:1000px;
+				margin:auto;
+			}
+			img{
+				border:1px solid #;
+				-webkit-border-radius: 20px 20px 0 0;
+				-moz-border-radius: 20px 20px 0 0;
+				border-radius: 20px 20px 0 0;
+			} 
+			h1 {
+				width: 800px;
+				margin: auto;
+				font-size:1.75em;
+				text-align:center;
+				font-family:Arial, Helvetica, sans-serif;
+				padding-top:20px;
+				color:#333333;
+			}
+			h2 {
+				width: 800px;
+				height:40px;
+				margin: auto;
+				text-align:left;
+				font-family:Arial, Helvetica, sans-serif;
+				color:#333333;
+			}
+			label {
+				display:block;
+				font-size: .75em;
+				font-weight: bold;
+				padding-top:12px;
+				padding-bottom:2px;
+				margin-left:2px;
+				color:#333333;
+			}
+			.formfieldpair {
+				display:inline-block;
+			}
+			input[type=text],input[type=email],input[type=date]{
+				height:25px;
+				margin-left:2px;
+				box-shadow:inset 0 0 0 0 #888;
+				background: #fff;
+				font-size: .85em;
+			}
+			textarea{
+				margin-left:2px;
+				box-shadow:inset 0 0 0 0 #888;
+				background: #fff;
+				overflow:auto;
+				font-family:Arial,Helvetica,sans-serif;
+				vertical-align:middle;
+			}
+			input[type=text]:focus,input[type=email]:focus,input[type=date]:focus,textarea:focus {
+				box-shadow: 0 1px 0 #2392F3 inset, 0 -1px 0 #2392F3 inset, 1px 0 0 #2392F3 inset, -1px 0 0 #2392F3 inset, 0 0 4px rgba(35,146,243,0.5);
+				outline: none;
+				background-color:#ffffe6;
+			}
+			.formenclosure {
+				width: 800px;
+				margin:auto;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			.formtext {
+				font-weight:medium;
+				padding-top:10px;
+				color:#333333;
+			}
+			th,td {
+				padding-left:10px;
+				padding-right:10px;
+				padding-bottom:10px;
+				padding-top:10px;
+			}
+			table.table1 {
+				width:800px;
+				border: 2px solid #9797e7;
+				background-color:GhostWhite;
+				font-family:Arial, Helvetica, sans-serif;
+				font-size: .90em;
+				color:#333333;
+				table-layout:fixed;
+			}
+			table.table2 {
+				width:800px;
+				border: 2px solid #a6a6a6;
+				background-color:GhostWhite;
+				border-collapse: collapse;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+			th.table2 {
+				background-color:#a6a6a6;
+				border:2px solid #8c8c8c;
+				color:white;
+				font-size: .90em;
+				font-weight: bold;
+			}
+			td.table2 {
+				border: 1px dotted #9797e7;
+			}
+			table.table3 {
+				width:800px;
+				border:2px solid #8c8c8c;
+				background-color:GhostWhite;
+				border-collapse: collapse;
+				font-family: Arial, Helvetica, sans-serif;
+				table-layout:fixed;
+			}
+			th.table3 {
+				background-color:#a6a6a6;
+				border:2px solid #8c8c8c;
+				color:white;
+				font-size: .70em;
+				font-weight: bold;
+				padding-left:1.5px;
+				padding-right:1.5px;
+				padding-bottom:5px;
+				padding-top:5px;
+			}
+			td.table3 {
+				font-size:.80em;
+				border: 1px dotted #9797e7;
+				padding-left:1.5px;
+				padding-right:1.5px;
+				padding-bottom:15px;
+				padding-top:15px;				
+			}
+			.explanatoryformtext {
+				font-size: .85em;
+				color: #666666;
+				font-family:Arial, Helvetica, sans-serif;
+			}
+			.employmenthistory {
+				border: 2px solid #8c8c8c;
+				background-color:GhostWhite;
+			}
+			.employer{
+				border-top: 20px solid #9797e7;
+				padding-bottom:25px;
+				padding-top:5px;
+			}
+			li {
+				padding-bottom:10px;
+			}
+			
+		.formbutton {
+		   background-color: #bbb;
+		   padding: .5em;
+		   -moz-border-radius: 5px;
+		   -webkit-border-radius: 5px;
+		   border-radius: 6px;
+		   color: #fff;
+		   font-family: 'Oswald';
+		   font-size: 20px;
+		   text-decoration: none;
+		   border: none;
+		 }
+
+		 .formbutton:hover {
+		   border: none;
+		   background: orange;
+		   box-shadow: 0px 0px 1px #777;
+		 }
+		 .formsubmit {
+		   background-color: #bbb;
+		   padding: .5em;
+		   -moz-border-radius: 5px;
+		   -webkit-border-radius: 5px;
+		   border-radius: 6px;
+		   color: #fff;
+		   font-family: 'Oswald';
+		   font-size: 20px;
+		   text-decoration: none;
+		   border: none;
+		   margin: 0 auto;
+		   display:block;
+		 }
+
+		 .formsubmit:hover {
+		   border: none;
+		   background: green;
+		   box-shadow: 0px 0px 1px #777;
+		 }
+		 
+		

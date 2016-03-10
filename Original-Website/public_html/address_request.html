@@ -6,7 +6,7 @@
 
 		<title>Address Request Form</title>
 
-		<link href="forms-style.css" type="text/css" rel="stylesheet"/>
+		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
 
 	</head>
 
@@ -46,7 +46,8 @@
 
 					Field Validation: *Required, Should default to current date and not accept any value other than a date -->
 
-					<label>Date of Request:<br />
+					<!-- The id below is an example of how you can reference a specific label **************************************************************************************-->
+					<label id="Example">Date of Request:<br />
 
 						<input type="date" name="dateofreq" size="20" maxlength="10" />
 
@@ -58,15 +59,26 @@
 
 					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-					<label>Requestor Name:<br />
+					<label>Requestor First Name:<br />
 
-						<input type="text" name="requestor" size="20" maxlength="60" />
+						<input type="text" name="requestor_firstName" size="20" maxlength="60" />
+
+					</label><br />
+
+
+					<!--Form Field 3: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+
+					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+					<label>Requestor Last Name:<br />
+
+						<input type="text" name="requestor_lastName" size="20" maxlength="60" />
 
 					</label><br />
 
 
 
-				<!--Form Field 3: Req Phone 1 - primary contact number for requestor
+				<!--Form Field 4: Req Phone 1 - primary contact number for requestor
 
 					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
 
@@ -74,13 +86,13 @@
 
 					<label>Requestor Phone 1:<br />
 
-						<input type="text" name="reqphone1" size = "20" maxlength="10" />
+						<input type="text" name="reqphone1" size = "20" maxlength="14" />
 
 					</label><br />
 
 
 
-				<!--Form field 4: Req Phone 2 - secondary contact number for requestor
+				<!--Form field 5: Req Phone 2 - secondary contact number for requestor
 
 					Field Validation: must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
 
@@ -88,7 +100,7 @@
 
 					<label>Requestor Phone 2:<br />
 
-						<input type="text" name="reqphone2" size = "20" maxlength="10" />
+						<input type="text" name="reqphone2" size = "20" maxlength="14" />
 
 					</label><br />
 
@@ -114,7 +126,7 @@
 
 				<!--Checkbox field test (see above)-->
 
-				<p>Check the box below if Requestor is also the Resident for the new address<br />
+				<p>Check the box below if requestor is also the resident for the new address<br />
 
 					<input type="checkbox" name="reqisresYN" value="Y" />
 
@@ -128,33 +140,45 @@
 
 					<legend>Resident Details</legend>
 
-				<!--Form Field 5: Resident - person that will be residing in new address
+				<!--Form Field 6: Resident - person that will be residing in new address
 
 					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-					<label>Resident Name:<br />
+					<label>Resident First Name:<br />
 
-						<input type="text" name="resident" size="20" maxlength="60" />
+						<input type="text" name="resident_firstName" size="20" maxlength="60" />
+
+					</label><br />
+
+
+					<!--Form Field 7: Resident - person that will be residing in new address
+
+					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+					<label>Resident Last Name:<br />
+
+						<input type="text" name="resident_lastName" size="20" maxlength="60" />
 
 					</label><br />
 
 
 
-					<!--Form Field 6: Res Phone 1 - primary contact number for resident
+					<!--Form Field 8: Res Phone 1 - primary contact number for resident
 
-					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10
+					numerals present with
 
 					no text or special characters. Display in format (###) ###-##### -->
 
-					<label>Resident Phone 1:<br />
+					<label >Resident Phone 1:<br />
 
-						<input type="text" name="resphone1" size="20" maxlength="10" />
+						<input type="text" name="resphone1" size="20" maxlength="14" />
 
 					</label><br />
 
 
 
-				<!--Form field 7: Res Phone 2 - secondary contact number for resident
+				<!--Form field 9: Res Phone 2 - secondary contact number for resident
 
 					Field Validation: Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
 
@@ -162,7 +186,7 @@
 
 					<label>Resident Phone 2:<br />
 
-						<input type="text" name="resphone2" size="20" maxlength="10" />
+						<input type="text" name="resphone2" size="20" maxlength="14" />
 
 					</label><br />
 
@@ -178,7 +202,7 @@
 
 				<h2>Structure and Address Details</h2>
 
-				<!--Form Field 8: Structure Type - drop down for user to select the type of structure
+				<!--Form Field 10: Structure Type - drop down for user to select the type of structure
 
 					Field Validation: *Required -->
 
@@ -196,7 +220,7 @@
 
 
 
-				<!--Form Field 9: Structure Details - user should enter any other details about the structure, such as color or structure type
+				<!--Form Field 11: Structure Details - user should enter any other details about the structure, such as color or structure type
 
 					if user selected Other Structure Type for Structure Type
 
@@ -207,7 +231,7 @@
 					<textarea name="strucdetails" cols="50" rows="10"> </textarea> <br />
 
 
-			<!-- Form 10: Direction - User will enter will fill out which direction the address is located in
+			<!-- Form 12: Direction - User will enter will fill out which direction the address is located in
 
 				Field Validation: *Required -->
 
@@ -248,7 +272,7 @@
 
 
 
-         <!-- Form 11: Markers - User will input what type of markers there are
+         <!-- Form 13: Markers - User will input what type of markers there are
 
 				Field Validation: *Required -->
 
@@ -266,7 +290,7 @@
 		<!-- Line Break in page-->
 
 
-		<!-- Form 12: Eperation Date - User will enter experiation date
+		<!-- Form 14: Eperation Date - User will enter experiation date
 
 				Field Validation: * Required -->
 
@@ -279,7 +303,7 @@
 
 				<hr />
 
-		<!-- Form 13: Road Street - User will enter street name
+		<!-- Form 15: Road Street - User will enter street name
 
 				Field Validation: * Required -->
 
@@ -295,6 +319,7 @@
 
 
 				<input type="submit" name="submit" value="Submit!">
+
 
 
 		</form>

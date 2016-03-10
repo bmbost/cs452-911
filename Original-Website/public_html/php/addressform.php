@@ -5,8 +5,12 @@ if (isset($_POST['dateofreq'])) { // If date is entered,
   $date = $_POST['dateofreq']; // store date provided in form.
 }
 
-if (isset($_POST['requestor'])) { // If name is entered,
-  $name = htmlentities($_POST['requestor'], ENT_QUOTES); // cleanse data and store in $name.
+if (isset($_POST['requestor_firstName'])) { // If first name is entered,
+  $name = htmlentities($_POST['requestor_firstName'], ENT_QUOTES); // cleanse data and store in $name.
+}
+
+if (isset($_POST['requestor_lastName'])) {
+  $name = $name . ' ' . htmlentities($_POST['requestor_lastName'], ENT_QUOTES); // cleanse data and concatenate in $name.
 }
 
 if (isset($_POST['reqphone1'])) {// If phone # 1 is entered,
@@ -24,8 +28,12 @@ if (isset($_POST['reqisresYN'])) { // If the checkbox for residency is marked,
 }
 
 if ($residency == 'N') {
-  if (isset($_POST['resident'])) { // Check if name for resident was entered,
-    $resident = htmlentities($_POST['resident'], ENT_QUOTES); // cleanse data and store in $resident.
+  if (isset($_POST['resident_firstName'])) { // Check if first name for resident was entered,
+    $resident = htmlentities($_POST['resident_firstName'], ENT_QUOTES); // cleanse data and store in $resident.
+  }
+
+  if (isset($_POST['resident_lastName'])) { // Check if last name is entered,
+    $resident = $resident . ' ' . htmlentities($_POST['resident_lastName'], ENT_QUOTES);
   }
 
   if (isset($_POST['resphone1'])) { // If resident phone # 1 is entered,
@@ -116,10 +124,10 @@ $mailer = Mail::factory('smtp', $options); // Create mailer object
 // Set up headers
 $headers = array();
 $headers['From'] = 'alc911@outlook.com';
-$headers['To'] = 'bmbost1983@gmail.com';
+$headers['To'] = 'bmbost1983@gmail.com,';
 $headers['Subject'] = $name . ' Address Request Form Submission';
 
-$recipients = 'bmbost1983@gmail.com';
+$recipients = 'bmbost1983@gmail.com,';
 $body = "$name has just submitted an address request form. Please log into the ALC911 page to view the submission and to print the form.";
 
 $result = $mailer->send($recipients, $headers, $body); // Send the message
