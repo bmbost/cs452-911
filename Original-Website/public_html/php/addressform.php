@@ -124,10 +124,10 @@ $mailer = Mail::factory('smtp', $options); // Create mailer object
 // Set up headers
 $headers = array();
 $headers['From'] = 'alc911@outlook.com';
-$headers['To'] = 'jackson@alc911.org,';
+$headers['To'] = 'bmbost1983@gmail.com';
 $headers['Subject'] = $name . ' Address Request Form Submission';
 
-$recipients = 'jackson@alc911.org,';
+$recipients = 'bmbost1983@gmail.com';
 $body = "$name has just submitted an address request form. Please log into the ALC911 page to view the submission and to print the form.";
 
 $result = $mailer->send($recipients, $headers, $body); // Send the message

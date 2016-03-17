@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login Page</title>
+    <title>Address Form Submission Management</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -104,17 +104,62 @@
                     <?php
                     require('../php/connect_db.php');
 
-                    $query = "SELECT *
-                              FROM address_form";
+                     if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
+                      $query = "SELECT *
+                                FROM address_form";
 
-                    $db = mysqli_query($dbhandle, $query);
+                      $db = mysqli_query($dbhandle, $query);
 
-                    if (mysqli_num_rows($db) > 0) {
-                      foreach($db as $line) {
-                        echo '<input type="checkbox" name=\'' . $line['id'] . '\']>
-                              <p>' . $line['id'] . ' --- ' . $line['requestor'] . ' --- ' . $line['request_date'] . ' --- ' . $line['expiration_date'] . '</p>';
+                      if (mysqli_num_rows($db) > 0) {
+                        echo '<form method="post" action="address_forms.php">';
+                        foreach($db as $line) {
+                          echo '<input type="radio" name="selection" value=\'' . $line['id'] . '\']> ' . $line['requestor'] . ' --- ' . $line['request_date'] . ' --- ' . $line['expiration_date'] . '</input><br>';
+                        }
+                        echo '<input type="submit" name="submit" value="Select" />
+                              <input type="submit" name="submit" value="Delete" />
+                              <input type="submit" name="submit" value="Refresh" />
+                              </form>';
+                      }
+                      
+                      mysqli_close($dbhandle);
+                    }
+                    
+                    else if ($_POST['submit'] == 'Select') {
+                      $query = "SELECT *
+                                FROM address_form
+                                WHERE id = " . $_POST['selection'];
+                                
+                      $db = mysqli_query($dbhandle, $query);
+                      
+                      if (mysqli_num_rows($db) == 1) {
+                        $result = mysqli_fetch_array($db);
+                        echo '<p>Date of request: ' . $result['request_date'] . '</p>
+                              <form method="post" action="address_forms.php">
+                                <input type="submit" name="submit" value="Ok" />
+                              </form>';
                       }
                     }
+                    
+                    else if ($_POST['submit'] == 'Delete') {
+                      $query = "DELETE FROM address_form
+                                WHERE id = " . $_POST['selection'];
+                                
+                      $deleted_rows = mysqli_query($dbhandle, $query);
+                      if ($deleted_rows == 1) {
+                        echo '<p>The selected entry has been deleted.</p>
+                              <form method="post" action="address_forms.php">
+                                <input type="submit" name="submit" value="Ok" />
+                              </form>';
+                      } else {
+                        echo '<p>An error has occurred. Please check the database to make sure nothing has been deleted.</p>
+                              <form method="post" action="address_forms.php">
+                                <input type="submit" name="submit" value="Ok" />
+                              </form>';
+                      }
+                      
+                      mysqli_close($dbhandle);
+                    }
+
                     ?>
                 </div>
             </div>
