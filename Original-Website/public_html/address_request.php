@@ -1,3 +1,39 @@
+<?php
+	// initialize variables if first use
+	if (!isset($firstName)) { $firstName = ''; }
+	if (!isset($lastName)) { $lastName = ''; }
+	if (!isset($phone1)) { $phone1 = ''; }
+	if (!isset($phone2)) { $phone2 = ''; }
+	if (!isset($residency)) { $residency = ''; } else { $residency = 'checked'; }
+	if (!isset($resFirstName)) { $resFirstName = ''; }
+	if (!isset($resLastName)) { $resLastName = ''; }
+	if (!isset($resphone1)) { $resphone1 = ''; }
+	if (!isset($resphone2)) { $resphone2 = ''; }
+
+	// set drop down box to selected option if it was filled out
+	$house = '';
+	$manufhome = '';
+	$otherHome = '';
+	if (!isset($structure)) { $structure = ''; }
+	else if ($structure == 'house') { $house = 'selected'; }
+	else if ($structure == 'manufhome') { $manufhome = 'selected'; }
+	else if ($structure == 'other') { $otherHome = 'selected'; }
+
+	// Continue initializing variables
+	if (!isset($details)) { $details = ''; }
+	if (!isset($northadd)) { $northadd = ''; }
+	if (!isset($southadd)) { $southadd = ''; }
+	if (!isset($eastadd)) { $eastadd = ''; }
+	if (!isset($westadd)) { $westadd = ''; }
+	if (!isset($markers)) { $markers = ''; }
+	if (!isset($others)) { $others = ''; }
+	if (!isset($expMonth)) { $expMonth = ''; }
+	if (!isset($expDate)) { $expDate = ''; }
+	if (!isset($expYear)) { $expYear = ''; }
+	if (!isset($roadstreet)) { $roadstreet = ''; }
+?>
+
+<!DOCTYPE html>
 <html>
 
 
@@ -42,18 +78,6 @@
 
 					<legend>Requestor Details</legend>
 
-				<!--Form Field 1: Date of Request - date of address request submission
-
-					Field Validation: *Required, Should default to current date and not accept any value other than a date -->
-
-					<!-- The id below is an example of how you can reference a specific label **************************************************************************************-->
-					<label id="Example">Date of Request:<br />
-
-						<input type="date" name="dateofreq" size="20" maxlength="10" />
-
-					</label><br />
-
-
 
 				<!--Form Field 2: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
 
@@ -61,7 +85,7 @@
 
 					<label>Requestor First Name:<br />
 
-						<input type="text" name="requestor_firstName" size="20" maxlength="60" />
+						<input type="text" name="requestor_firstName" size="20" maxlength="60" value="<?php echo htmlspecialchars($firstName); ?>" />
 
 					</label><br />
 
@@ -72,7 +96,7 @@
 
 					<label>Requestor Last Name:<br />
 
-						<input type="text" name="requestor_lastName" size="20" maxlength="60" />
+						<input type="text" name="requestor_lastName" size="20" maxlength="60" value="<?php echo htmlspecialchars($lastName); ?>" />
 
 					</label><br />
 
@@ -86,7 +110,7 @@
 
 					<label>Requestor Phone 1:<br />
 
-						<input type="text" name="reqphone1" size = "20" maxlength="14" />
+						<input type="text" name="reqphone1" size = "20" maxlength="14" value="<?php echo htmlspecialchars($reqphone1); ?>" />
 
 					</label><br />
 
@@ -100,7 +124,7 @@
 
 					<label>Requestor Phone 2:<br />
 
-						<input type="text" name="reqphone2" size = "20" maxlength="14" />
+						<input type="text" name="reqphone2" size = "20" maxlength="14" value="<?php echo htmlspecialchars($reqphone2); ?>" />
 
 					</label><br />
 
@@ -128,7 +152,7 @@
 
 				<p>Check the box below if requestor is also the resident for the new address<br />
 
-					<input type="checkbox" name="reqisresYN" value="Y" />
+					<input type="checkbox" name="reqisresYN" value="Y" <?php echo htmlspecialchars($residency); ?> />
 
 				</p><br />
 
@@ -146,7 +170,7 @@
 
 					<label>Resident First Name:<br />
 
-						<input type="text" name="resident_firstName" size="20" maxlength="60" />
+						<input type="text" name="resident_firstName" size="20" maxlength="60" value="<?php echo htmlspecialchars($resFirstName); ?>" />
 
 					</label><br />
 
@@ -157,7 +181,7 @@
 
 					<label>Resident Last Name:<br />
 
-						<input type="text" name="resident_lastName" size="20" maxlength="60" />
+						<input type="text" name="resident_lastName" size="20" maxlength="60" value="<?php echo htmlspecialchars($resLastName); ?>" />
 
 					</label><br />
 
@@ -172,7 +196,7 @@
 
 					<label >Resident Phone 1:<br />
 
-						<input type="text" name="resphone1" size="20" maxlength="14" />
+						<input type="text" name="resphone1" size="20" maxlength="14" value="<?php echo htmlspecialchars($resphone1); ?>" />
 
 					</label><br />
 
@@ -186,7 +210,7 @@
 
 					<label>Resident Phone 2:<br />
 
-						<input type="text" name="resphone2" size="20" maxlength="14" />
+						<input type="text" name="resphone2" size="20" maxlength="14" value="<?php echo htmlspecialchars($resphone2); ?>" />
 
 					</label><br />
 
@@ -294,9 +318,11 @@
 
 				Field Validation: * Required -->
 
-				<label>Exp Date:<br />
+				<label>Exp Date (in MM, DD, and YYYY format):<br />
 
-						<input type="date" name="expdate" size="20" maxlength="10" />
+						<input type="text" name="expMonth" maxlength="2" size="2" />
+						<input type="text" name="expDay" maxlength="2" size="2" />
+						<input type="text" name="expYear" maxlength="4" size="4" />
 
 					</label><br />
 

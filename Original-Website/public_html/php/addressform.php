@@ -1,94 +1,29 @@
 <?php
 require('connect_db.php');
 
-if (isset($_POST['dateofreq'])) { // If date is entered,
-  $date = $_POST['dateofreq']; // store date provided in form.
-}
-
-if (isset($_POST['requestor_firstName'])) { // If first name is entered,
-  $name = htmlentities($_POST['requestor_firstName'], ENT_QUOTES); // cleanse data and store in $name.
-}
-
-if (isset($_POST['requestor_lastName'])) {
-  $name = $name . ' ' . htmlentities($_POST['requestor_lastName'], ENT_QUOTES); // cleanse data and concatenate in $name.
-}
-
-if (isset($_POST['reqphone1'])) {// If phone # 1 is entered,
-  $phone1 = htmlentities($_POST['reqphone1'], ENT_QUOTES); // cleanse data and store in $phone1.
-}
-
-if (isset($_POST['reqphone2'])) { // If phone # 2 is entered,
-  $phone2 = htmlentities($_POST['reqphone2'], ENT_QUOTES); // cleanse data and store in $phone2.
-}
-
-if (isset($_POST['reqisresYN'])) { // If the checkbox for residency is marked,
-  $residency = $_POST['reqisresYN']; // Stores the state of the residency checkmark box.
-} else { // Else if the checkbox was not marked,
-  $residency = 'N'; // Place N for No into the variable.
-}
-
-if ($residency == 'N') {
-  if (isset($_POST['resident_firstName'])) { // Check if first name for resident was entered,
-    $resident = htmlentities($_POST['resident_firstName'], ENT_QUOTES); // cleanse data and store in $resident.
-  }
-
-  if (isset($_POST['resident_lastName'])) { // Check if last name is entered,
-    $resident = $resident . ' ' . htmlentities($_POST['resident_lastName'], ENT_QUOTES);
-  }
-
-  if (isset($_POST['resphone1'])) { // If resident phone # 1 is entered,
-    $resphone1 = htmlentities($_POST['resphone1'], ENT_QUOTES); // cleanse data and store in $resphone1.
-  }
-
-  if (isset($_POST['resphone2'])) { // If resident phone #2 is entered,
-    $resphone2 = htmlentities($_POST['resphone2'], ENT_QUOTES); // cleanse data and store in $resphone2.
-  }
-}
-else {
-  $resident = $name;
-  $resphone1 = $phone1;
-  $resphone2 = $phone2;
-}
-
-if (isset($_POST['structype'])) { // If the structure type is selected,
-  $structure = $_POST['structype']; // store the type of structure in $structure.
-}
-
-if (isset($_POST['strucdetails'])) { // If data was entered for the structure details,
-  $details = htmlentities($_POST['strucdetails'], ENT_QUOTES); // cleanse data and store in $details.
-}
-
-if (isset($_POST['northadd'])) { // Check for north of address number,
-  $northadd = htmlentities($_POST['northadd'], ENT_QUOTES); // cleanse data and store in $northadd.
-}
-
-if (isset($_POST['southadd'])) { // Check for south of address number,
-  $southadd = htmlentities($_POST['southadd'], ENT_QUOTES); // cleanse data and store in $southadd.
-}
-
-if (isset($_POST['eastadd'])) { // Check for east of address number,
-  $eastadd = htmlentities($_POST['eastadd'], ENT_QUOTES); // cleanse data and store in $eastadd.
-}
-
-if (isset($_POST['westadd'])) { // Check for west of address number,
-  $westadd = htmlentities($_POST['westadd'], ENT_QUOTES); // cleanse data and store in $westadd.
-}
-
-if (isset($_POST['markers'])) { // If data was entered for the markers textarea,
-  $markers = htmlentities($_POST['markers'], ENT_QUOTES); // cleanse data and store in $markers.
-}
-
-if (isset($_POST['others'])) { // If data was entered for the others textarea,
-  $others = htmlentities($_POST['others'], ENT_QUOTES); // cleanse data and store in $others
-}
-
-if (isset($_POST['expdate'])) { // If expiration date is entered,
-  $expdate = $_POST['expdate']; // store in $expdate.
-}
-
-if (isset($_POST['roadstreet'])) { // If Road-Street is entered,
-  $roadstreet = htmlentities($_POST['roadstreet'], ENT_QUOTES); // cleanse data and store in $roadstreet.
-}
+// Creates variables and filters input from user
+$date = date('m/d/Y');
+$firstName = filter_input(INPUT_POST, 'requestor_firstName');
+$lastName = filter_input(INPUT_POST, 'requestor_lastName');
+$phone1 = filter_input(INPUT_POST, 'reqphone1');
+$phone2 = filter_input(INPUT_POST, 'reqphone2');
+$residency = filter_input(INPUT_POST, 'reqisresYN');
+$resFirstName = filter_input(INPUT_POST, 'resident_firstName');
+$resLastName = filter_input(INPUT_POST, 'resident_lastName');
+$resphone1 = filter_input(INPUT_POST, 'resphone1');
+$resphone2 = filter_input(INPUT_POST, 'resphone2');
+$structure = filter_input(INPUT_POST, 'structype');
+$details = filter_input(INPUT_POST, 'strucdetails');
+$northadd = filter_input(INPUT_POST, 'northadd');
+$southadd = filter_input(INPUT_POST, 'southadd');
+$eastadd = filter_input(INPUT_POST, 'eastadd');
+$westadd = filter_input(INPUT_POST, 'westadd');
+$markers = filter_input(INPUT_POST, 'markers');
+$others = filter_input(INPUT_POST, 'others');
+$expMonth = filter_input(INPUT_POST, 'expMonth');
+$expDay = filter_input(INPUT_POST, 'expDay');
+$expYear = filter_input(INPUT_POST, 'expYear');
+$roadstreet = filter_input(INPUT_POST, 'roadstreet');
 
 $sql = "INSERT INTO address_form (request_date, requestor, requestor_phone1,
         requestor_phone2, residency, resident, resident_phone1, resident_phone2,
