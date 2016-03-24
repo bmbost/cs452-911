@@ -2,13 +2,21 @@
 	// initialize variables if first use
 	if (!isset($firstName)) { $firstName = ''; }
 	if (!isset($lastName)) { $lastName = ''; }
-	if (!isset($phone1)) { $phone1 = ''; }
-	if (!isset($phone2)) { $phone2 = ''; }
+  if (!isset($reqArea1)) { $reqArea1 = ''; }
+  if (!isset($reqFirstThree1)) { $reqFirstThree1 = ''; }
+  if (!isset($reqLastFour1)) { $reqLastFour1 = ''; }
+  if (!isset($reqArea2)) { $reqArea2 = ''; }
+  if (!isset($reqFirstThree2)) { $reqFirstThree2 = ''; }
+  if (!isset($reqLastFour2)) { $reqLastFour2 = ''; }
 	if (!isset($residency)) { $residency = ''; } else { $residency = 'checked'; }
 	if (!isset($resFirstName)) { $resFirstName = ''; }
 	if (!isset($resLastName)) { $resLastName = ''; }
-	if (!isset($resphone1)) { $resphone1 = ''; }
-	if (!isset($resphone2)) { $resphone2 = ''; }
+  if (!isset($resArea1)) { $resArea1 = ''; }
+  if (!isset($resFirstThree1)) { $resFirstThree1 = ''; }
+  if (!isset($resLastFour1)) { $resLastFour1 = ''; }
+  if (!isset($resArea2)) { $resArea2 = ''; }
+  if (!isset($resFirstThree2)) { $resFirstThree2 = ''; }
+  if (!isset($resLastFour2)) { $resLastFour2 = ''; }
 
 	// set drop down box to selected option if it was filled out
 	$house = '';
@@ -68,6 +76,11 @@
 
 				<hr />
 
+        <?php
+          if (!empty($message)) {
+            echo '<p style="color: red; font-weight: bold">' . $message . '</p>';
+          }
+        ?>
 
 
 				<h2> Request and Contact Information</h2>
@@ -108,9 +121,11 @@
 
 					no text or special characters. Display in format (###) ###-##### -->
 
-					<label>Requestor Phone 1:<br />
+					<label>Requestor Phone 1: (
 
-						<input type="text" name="reqphone1" size = "20" maxlength="14" value="<?php echo htmlspecialchars($reqphone1); ?>" />
+						<input type="text" name="reqArea1" size = "3" maxlength="3" value="<?php echo htmlspecialchars($reqArea1); ?>" /> )
+            <input type="text" name="reqFirstThree1" size="3" maxlength="3" value="<?php echo htmlspecialchars($reqFirstThree1); ?>" /> -
+            <input type="text" name="reqLastFour1" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour1); ?>" />
 
 					</label><br />
 
@@ -122,9 +137,11 @@
 
 					no text or special characters. Display in format (###) ###-#### -->
 
-					<label>Requestor Phone 2:<br />
+					<label>Requestor Phone 2: (
 
-						<input type="text" name="reqphone2" size = "20" maxlength="14" value="<?php echo htmlspecialchars($reqphone2); ?>" />
+            <input type="text" name="reqArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($reqArea2); ?>" /> )
+            <input type="text" name="reqFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($reqFirstThree2); ?>" /> -
+            <input type="text" name="reqLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour2); ?>" />
 
 					</label><br />
 
@@ -194,9 +211,11 @@
 
 					no text or special characters. Display in format (###) ###-##### -->
 
-					<label >Resident Phone 1:<br />
+					<label >Resident Phone 1: (
 
-						<input type="text" name="resphone1" size="20" maxlength="14" value="<?php echo htmlspecialchars($resphone1); ?>" />
+            <input type="text" name="resArea1" size = "3" maxlength="3" value="<?php echo htmlspecialchars($resArea1); ?>" /> )
+            <input type="text" name="resFirstThree1" size="3" maxlength="3" value="<?php echo htmlspecialchars($resFirstThree1); ?>" /> -
+            <input type="text" name="resLastFour1" size="4" maxlength="4" value="<?php echo htmlspecialchars($resLastFour1); ?>" />
 
 					</label><br />
 
@@ -208,9 +227,11 @@
 
 					no text or special characters. Display in format (###) ###-#### -->
 
-					<label>Resident Phone 2:<br />
+					<label>Resident Phone 2: (
 
-						<input type="text" name="resphone2" size="20" maxlength="14" value="<?php echo htmlspecialchars($resphone2); ?>" />
+            <input type="text" name="resArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($resArea2); ?>" /> )
+            <input type="text" name="resFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($resFirstThree2); ?>" /> -
+            <input type="text" name="resLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($resLastFour2); ?>" />
 
 					</label><br />
 
@@ -234,11 +255,11 @@
 
 					<select name="structype">
 
-						<option value="house">House</option>
+						<option value="house" <?php echo $house; ?> >House</option>
 
-						<option value="manufhome">Manufactured Home</option>
+						<option value="manufhome" <?php echo $manufhome; ?> >Manufactured Home</option>
 
-						<option value="other">Other Structure Type</option>
+						<option value="other" <?php echo $otherHome; ?> >Other Structure Type</option>
 
 					</select>
 
@@ -318,10 +339,10 @@
 
 				Field Validation: * Required -->
 
-				<label>Exp Date (in MM, DD, and YYYY format):<br />
+				<label>Exp Date (in MM / DD / YYYY format):
 
-						<input type="text" name="expMonth" maxlength="2" size="2" />
-						<input type="text" name="expDay" maxlength="2" size="2" />
+						<input type="text" name="expMonth" maxlength="2" size="2" /> /
+						<input type="text" name="expDay" maxlength="2" size="2" /> /
 						<input type="text" name="expYear" maxlength="4" size="4" />
 
 					</label><br />

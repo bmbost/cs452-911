@@ -102,15 +102,18 @@
                 <div class="col-lg-12"> <!--text for welcome-->
                   <h2>Address Forms:</h2>
                     <?php
-                    require('../php/connect_db.php');
+                    require('../php/connect_db.php'); // Connect to the database
 
-                     if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
+                    // If page is first loaded, or OK button from Delete / Display page is selected,
+                    // or if the Refresh button is selected, display the initial set of database entries to choose from
+                    if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
+                      // Query the database for any entries
                       $query = "SELECT *
                                 FROM address_form";
 
                       $db = mysqli_query($dbhandle, $query);
 
-                      if (mysqli_num_rows($db) > 0) {
+                      if (mysqli_num_rows($db) > 0) { // If there is at least one entry, display data
                         echo '<form method="post" action="address_forms.php">';
                         foreach($db as $line) {
                           echo '<input type="radio" name="selection" value=\'' . $line['id'] . '\']> ' . $line['requestor'] . ' --- ' . $line['request_date'] . ' --- ' . $line['expiration_date'] . '</input><br>';
@@ -119,18 +122,25 @@
                               <input type="submit" name="submit" value="Delete" />
                               <input type="submit" name="submit" value="Refresh" />
                               </form>';
+                      } else { // If no entries are found, display message and refresh button.
+                        echo "<p>There are currently no address requests submitted.</p>";
+                        echo '<form method="post" action="address_forms.php">
+                                <input type="submit" name="submit" value="Refresh" />
+                              </form>';
                       }
-                      
+
                       mysqli_close($dbhandle);
                     }
-                    
+
+                    // If the Select button from the main page is clicked, display the data for that specific entry
                     else if ($_POST['submit'] == 'Select') {
                       $query = "SELECT *
                                 FROM address_form
                                 WHERE id = " . $_POST['selection'];
-                                
+
                       $db = mysqli_query($dbhandle, $query);
-                      
+
+                      // If it finds the data requested, fetch that line and display the data.
                       if (mysqli_num_rows($db) == 1) {
                         $result = mysqli_fetch_array($db);
                         echo '<p>Date of request: ' . $result['request_date'] . '</p>
@@ -139,11 +149,12 @@
                               </form>';
                       }
                     }
-                    
+
+                    // If the Delete button is selected, delete the entry that was selected.
                     else if ($_POST['submit'] == 'Delete') {
                       $query = "DELETE FROM address_form
                                 WHERE id = " . $_POST['selection'];
-                                
+
                       $deleted_rows = mysqli_query($dbhandle, $query);
                       if ($deleted_rows == 1) {
                         echo '<p>The selected entry has been deleted.</p>
@@ -156,7 +167,7 @@
                                 <input type="submit" name="submit" value="Ok" />
                               </form>';
                       }
-                      
+
                       mysqli_close($dbhandle);
                     }
 
