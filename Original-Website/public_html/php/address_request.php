@@ -1,5 +1,6 @@
 <?php
 	// initialize variables if first use
+  $residencyCheck = '';
 	if (!isset($firstName)) { $firstName = ''; }
 	if (!isset($lastName)) { $lastName = ''; }
   if (!isset($reqArea1)) { $reqArea1 = ''; }
@@ -8,7 +9,7 @@
   if (!isset($reqArea2)) { $reqArea2 = ''; }
   if (!isset($reqFirstThree2)) { $reqFirstThree2 = ''; }
   if (!isset($reqLastFour2)) { $reqLastFour2 = ''; }
-	if (!isset($residency)) { $residency = ''; } else { $residency = 'checked'; }
+	if ($residency == 'Y') { $residencyCheck = 'checked'; }
 	if (!isset($resFirstName)) { $resFirstName = ''; }
 	if (!isset($resLastName)) { $resLastName = ''; }
   if (!isset($resArea1)) { $resArea1 = ''; }
@@ -50,7 +51,7 @@
 
 		<title>Address Request Form</title>
 
-		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
+		<link href="../css/forms-style.css" type="text/css" rel="stylesheet"/>
 
 	</head>
 
@@ -62,7 +63,7 @@
 
 		<!-- Below is the Address Request Form -->
 
-		<form id="addreqform" class="elegant-aero" action="php/addressform.php" method="post">
+		<form id="addreqform" class="elegant-aero" action="addressform.php" method="post">
 
 
 
@@ -169,7 +170,7 @@
 
 				<p>Check the box below if requestor is also the resident for the new address<br />
 
-					<input type="checkbox" name="reqisresYN" value="Y" <?php echo htmlspecialchars($residency); ?> />
+					<input type="checkbox" name="reqisresYN" value="Y" <?php echo htmlspecialchars($residencyCheck); ?> />
 
 				</p><br />
 

@@ -108,7 +108,7 @@
                     // or if the Refresh button is selected, display the initial set of database entries to choose from
                     if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
                       // Query the database for any entries
-                      $query = "SELECT *
+                      $query = "SELECT requestor, request_date, expiration_date
                                 FROM address_form";
 
                       $db = mysqli_query($dbhandle, $query);
