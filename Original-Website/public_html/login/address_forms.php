@@ -108,7 +108,7 @@
                     // or if the Refresh button is selected, display the initial set of database entries to choose from
                     if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
                       // Query the database for any entries
-                      $query = "SELECT requestor, request_date, expiration_date
+                      $query = "SELECT id, requestor, request_date, expiration_date
                                 FROM address_form";
 
                       $db = mysqli_query($dbhandle, $query);
@@ -121,6 +121,7 @@
                         echo '<input type="submit" name="submit" value="Select" />
                               <input type="submit" name="submit" value="Delete" />
                               <input type="submit" name="submit" value="Refresh" />
+                              <a href="index.html">Back</a>
                               </form>';
                       } else { // If no entries are found, display message and refresh button.
                         echo "<p>There are currently no address requests submitted.</p>";
@@ -143,7 +144,29 @@
                       // If it finds the data requested, fetch that line and display the data.
                       if (mysqli_num_rows($db) == 1) {
                         $result = mysqli_fetch_array($db);
-                        echo '<p>Date of request: ' . $result['request_date'] . '</p>
+                        echo '<p>Date of request: <b>' . $result['request_date'] . '</b><br />
+                                 Requestor Name: <b>' . $result['requestor'] . '</b><br />
+                                 Requestor Phone #1: <b>' . $result['requestor_phone1'] . '</b><br />
+                                 Requestor Phone #2: <b>' . $result['requestor_phone2'] . '</b><br />
+                                 Is the requestor the resident?: <b>' . $result['residency'] . '</b><br />
+                                 <br />
+                                 Resident Name: <b>' . $result['resident'] . '</b><br />
+                                 Resident Phone #1: <b>' . $result['resident_phone1'] . '</b><br />
+                                 Resident Phone #2: <b>' . $result['resident_phone2'] . '</b><br />
+                                 <br />
+                                 Structure Type: <b>' . $result['structure_type'] . '</b><br />
+                                 Structure Details:</p>
+                                 <p style="text-indent: 20px"><b>' . $result['structure_details'] . '</b></p>
+                                 <p>North of Address #: <b>' . $result['north_add_num'] . '</b><br />
+                                 South of Address #: <b>' . $result['south_add_num'] . '</b><br />
+                                 East of Address #: <b>' . $result['east_add_num'] . '</b><br />
+                                 West of Address #: <b>' . $result['west_add_num'] . '</b><br />
+                                 Markers:</p>
+                                 <p style="text-indent: 20px"><b>' . $result['markers'] . '</b></p>
+                                 <p>Others:</p>
+                                 <p style="text-indent: 20px"><b>' . $result['others'] . '</b></p>
+                                 <p>Expiration Date: <b>' . $result['expiration_date'] . '</b><br />
+                                 Road Street Name: <b>' . $result['road_street'] . '</b></p>
                               <form method="post" action="address_forms.php">
                                 <input type="submit" name="submit" value="Ok" />
                               </form>';
