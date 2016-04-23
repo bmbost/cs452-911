@@ -52,20 +52,21 @@ if ($residency === NULL) {
 }
 
 // First set of validations, check to make sure all required fields are entered.
-if ($firstName === NULL) {
-  $message .= '<p>The first name of the requestor is required.</p>';
+if (($firstName === '') || ($firstName === NULL)) {
+  $message .= '<p style="color: red; font-weight: bold">The first name of the requestor is required.</p>';
 }
-if ($lastName === NULL) {
-  $message .- '<p>The last name of the requestor is required.</p>';
+
+if (($lastName === '') || ($lastName === NULL)) {
+  $message .- '<p style="color: red; font-weight: bold">The last name of the requestor is required.</p>';
 }
 if ($reqArea1 === NULL) {
-  $message .= '<p>The full telephone number of the requestor is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the requestor is required.</p>';
 }
 if ($reqFirstThree1 === NULL) {
-  $message .= '<p>The full telephone number of the requestor is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the requestor is required.</p>';
 }
 if ($reqLastFour1 === NULL) {
-  $message .= '<p>The full telephone number of the requestor is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the requestor is required.</p>';
 }
 if ((($reqArea2 != NULL) && ($reqFirstThree2 === NULL)) ||
           (($reqLastFour2 != NULL) && ($reqArea2 === NULL)) ||
@@ -73,22 +74,22 @@ if ((($reqArea2 != NULL) && ($reqFirstThree2 === NULL)) ||
           (($reqArea2 === NULL) && ($reqFirstThree2 != NULL)) ||
           (($reqLastFour2 === NULL) && ($reqArea2 != NULL)) ||
           (($reqFirstThree2 === NULL) && ($reqLastFour2 != NULL))) {
-  $message .= '<p>If entering a second telephone number for the requestor, please enter the FULL number.</p>';
+  $message .= '<p style="color: red; font-weight: bold">If entering a second telephone number for the requestor, please enter the FULL number.</p>';
 }
-if ($resFirstName === NULL) {
-  $message .= '<p>The first name of the resident is required if the residency checkbox is not selected.</p>';
+if (($resFirstName === '') || ($resFirstName === NULL)) {
+  $message .= '<p style="color: red; font-weight: bold">The first name of the resident is required if the residency checkbox is not selected.</p>';
 }
-if ($resLastName === NULL) {
-  $message .= '<p>The last name of the resident is required if the residency checkbox is not selected.</p>';
+if (($resLastName === '') || ($resLastName === NULL)) {
+  $message .= '<p style="color: red; font-weight: bold">The last name of the resident is required if the residency checkbox is not selected.</p>';
 }
 if ($resArea1 === NULL) {
-  $message .= '<p>The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
 }
 if ($resFirstThree1 === NULL) {
-  $message .= '<p>The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
 }
 if ($resLastFour1 === NULL) {
-  $message .= '<p>The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The full telephone number of the resident is required if the residency checkbox is not selected.</p>';
 }
 if ((($resArea2 != NULL) && ($resFirstThree2 === NULL)) ||
           (($resLastFour2 != NULL) && ($resArea2 === NULL)) ||
@@ -96,116 +97,116 @@ if ((($resArea2 != NULL) && ($resFirstThree2 === NULL)) ||
           (($resArea2 === NULL) && ($resFirstThree2 != NULL)) ||
           (($resLastFour2 === NULL) && ($resArea2 != NULL)) ||
           (($resFirstThree2 === NULL) && ($resLastFour2 != NULL))) {
-  $message .= '<p>If entering a second telephone number for the resident, please enter the FULL number.</p>';
+  $message .= '<p style="color: red; font-weight: bold">If entering a second telephone number for the resident, please enter the FULL number.</p>';
 }
 if ($details === NULL) {
-  $message .= '<p>The details for this property are required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The details for this property are required.</p>';
 }
 if ($northadd === NULL) {
-  $message .= '<p>The North of Address Number is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The North of Address Number is required.</p>';
 }
 if ($southadd === NULL) {
-  $message .= '<p>The South of Address Number is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The South of Address Number is required.</p>';
 }
 if ($eastadd === NULL) {
-  $message .= '<p>The East of Address Number is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The East of Address Number is required.</p>';
 }
 if ($westadd === NULL) {
-  $message .= '<p>The West of Address Number is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The West of Address Number is required.</p>';
 }
 if ($markers === NULL) {
-  $message .= '<p>The Markers section is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The Markers section is required.</p>';
 }
 if ($expMonth === NULL) {
-  $message .= '<p>The expiration month is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The expiration month is required.</p>';
 }
 if ($expDay === NULL) {
-  $message .= '<p>The expiration day is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The expiration day is required.</p>';
 }
 if ($expYear === NULL) {
-  $message .= '<p>The expiration year is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The expiration year is required.</p>';
 }
 if ($roadstreet === NULL) {
-  $message .= '<p>The road-street field is required.</p>';
+  $message .= '<p style="color: red; font-weight: bold">The road-street field is required.</p>';
 }
 if (strlen($reqArea1) != 3) { // Start checking number fields for correct amount of digits
-  $message .= '<p>You must have the correct number of digits in the requestor telephone field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor telephone field.</p>';
 }
 if (strlen($reqFirstThree1) != 3) {
-  $message .= '<p>You must have the correct number of digits in the requestor telephone field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor telephone field.</p>';
 }
 if (strlen($reqLastFour1) != 4) {
-  $message .= '<p>You must have the correct number of digits in the requestor telephone field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor telephone field.</p>';
 }
 if (strlen($resArea1) != 3) {
-  $message .= '<p>You must have the correct number of digits in the resident telephone field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident telephone field.</p>';
 }
 if (strlen($resFirstThree1) != 3) {
-  $message .= '<p>You must have the correct number of digits in the resident telephone field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident telephone field.</p>';
 }
 if (strlen($resLastFour1) != 4) {
-  $message .= '<p>You must have the correct number of digits in the resident telephone field.<p>';
+  $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident telephone field.<p>';
 }
 if ($reqArea2 != NULL) { // Makes sure a number has been entered in the second requestor field before checking digits
   if (strlen($reqArea2) != 3) {
-    $message .= '<p>You must have the correct number of digits in the requestor\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor\'s second telephone field.</p>';
   } else if (strlen($reqFirstThree2) != 3) {
-    $message .= '<p>You must have the correct number of digits in the requestor\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor\'s second telephone field.</p>';
   } else if (strlen($reqLastFour2) != 4) {
-    $message .= '<p>You must have the correct number of digits in the requestor\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the requestor\'s second telephone field.</p>';
   }
 }
 if ($resArea2 != NULL) { // Makes sure a number has been entered in the second resident field before checking digits
   if (strlen($resArea2) != 3) {
-    $message .= '<p>You must have the correct number of digits in the resident\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident\'s second telephone field.</p>';
   } else if (strlen($resFirstThree2) != 3) {
-    $message .= '<p>You must have the correct number of digits in the resident\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident\'s second telephone field.</p>';
   } else if (strlen($resLastFour2) != 4) {
-    $message .= '<p>You must have the correct number of digits in the resident\'s second telephone field.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must have the correct number of digits in the resident\'s second telephone field.</p>';
   }
 }
 if (strlen($expMonth) != 2) {
-  $message .= '<p>Two digits must be entered for the Expiration Month field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">Two digits must be entered for the Expiration Month field.</p>';
 }
 if (strlen($expDay) != 2) {
-  $message .= '<p>Two digits must be entered for the Expiration Day field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">Two digits must be entered for the Expiration Day field.</p>';
 }
 if (strlen($expYear) != 4) {
-  $message .= '<p>Four digits must be entered for the Expiration Year field.</p>';
+  $message .= '<p style="color: red; font-weight: bold">Four digits must be entered for the Expiration Year field.</p>';
 }
 if (($expMonth < 1) || ($expMonth > 12)) {
-  $message .= '<p>You must enter a number between 1 and 12 for the month.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must enter a number between 1 and 12 for the month.</p>';
 }
 if (($expMonth == 1) || ($expMonth == 3) || ($expMonth == 5) || ($expMonth == 7) || ($expMonth == 8) || ($expMonth == 10) || ($expMonth == 12)) {
   if (($expDay < 1) || ($expDay > 31)) {
-    $message .= '<p>You must enter a date between 1 and 31 for the month chosen.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must enter a date between 1 and 31 for the month chosen.</p>';
   }
 }
 if (($expMonth == 4) || ($expMonth == 6) || ($expMonth == 9) || ($expMonth == 11)) {
   if (($expDay < 1) || ($expDay > 30)) {
-    $message .= '<p>You must enter a date between 1 and 30 for the month chosen.</p>';
+    $message .= '<p style="color: red; font-weight: bold">You must enter a date between 1 and 30 for the month chosen.</p>';
   }
 }
 if ($expMonth < date('m')) {
-  $message .= '<p>You must enter a valid future date for the expiration date.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must enter a valid future date for the expiration date.</p>';
 }
 if ($expDay < date('d')) {
-  $message .= '<p>You must enter a valid future date for the expiration date.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must enter a valid future date for the expiration date.</p>';
 }
 if ($expYear < date('Y')) {
-  $message .= '<p>You must enter a valid future date for the expiration date.</p>';
+  $message .= '<p style="color: red; font-weight: bold">You must enter a valid future date for the expiration date.</p>';
 }
 if (($expYear % 4) == 0) {
   if ($expMonth == 2) {
     if (($expDay < 1) || ($expDay > 29)) {
-      $message .= '<p>You must enter a date between 1 and 29 for the month and year selected.</p>';
+      $message .= '<p style="color: red; font-weight: bold">You must enter a date between 1 and 29 for the month and year selected.</p>';
     }
   }
 }
 if (($expYear % 4) != 0) {
   if ($expMonth == 2) {
     if (($expDay < 1) || ($expDay > 28)) {
-      $message .= '<p>You must enter a date between 1 and 29 for the month and year selected.</p>';
+      $message .= '<p style="color: red; font-weight: bold">You must enter a date between 1 and 29 for the month and year selected.</p>';
     }
   }
 }

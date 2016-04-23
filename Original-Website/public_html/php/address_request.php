@@ -9,7 +9,7 @@
   if (!isset($reqArea2)) { $reqArea2 = ''; }
   if (!isset($reqFirstThree2)) { $reqFirstThree2 = ''; }
   if (!isset($reqLastFour2)) { $reqLastFour2 = ''; }
-	if ($residency == 'Y') { $residencyCheck = 'checked'; }
+	if ((isset($residency)) && ($residency == 'Y')) { $residencyCheck = 'checked'; }
 	if (!isset($resFirstName)) { $resFirstName = ''; }
 	if (!isset($resLastName)) { $resLastName = ''; }
   if (!isset($resArea1)) { $resArea1 = ''; }
@@ -37,41 +37,46 @@
 	if (!isset($markers)) { $markers = ''; }
 	if (!isset($others)) { $others = ''; }
 	if (!isset($expMonth)) { $expMonth = ''; }
-	if (!isset($expDate)) { $expDate = ''; }
+	if (!isset($expDay)) { $expDay = ''; }
 	if (!isset($expYear)) { $expYear = ''; }
 	if (!isset($roadstreet)) { $roadstreet = ''; }
 ?>
 
+
 <!DOCTYPE html>
 <html>
-
-
 
 	<head>
 
 		<title>Address Request Form</title>
 
-		<link href="../css/forms-style.css" type="text/css" rel="stylesheet"/>
+		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
+     	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="dist/jquery.validate.js"></script>
+
 
 	</head>
 
 
-
 	<body>
 
+		<div class="wrapsheetborder">
 
+		<!-- banner residing at top of form with ALC911 logo-->
+		<a target="_blank" href="http://www.alc911.org">
+				<div class="banner"><img class="top" src="media/banner2.png" alt="Athens-Limestone County 911" /></div>
+		</a>
 
 		<!-- Below is the Address Request Form -->
 
 		<form id="addreqform" class="elegant-aero" action="addressform.php" method="post">
 
 
+		<h1>Address Request Form</h1>
 
-			<h1>Address Request Form</h1>
+				<hr />
 
-				<p>Use this form to request an address...<p>
-
-
+				<p style="text-align:center"><i>Use this form to request an address...</i></p>
 
 				<!-- Line Break in page-->
 
@@ -79,76 +84,75 @@
 
         <?php
           if (!empty($message)) {
-            echo '<p style="color: red; font-weight: bold">' . $message . '</p>';
+            echo $message;
           }
         ?>
 
+		<h2>Request and Contact Information</h2> </br>
 
-				<h2> Request and Contact Information</h2>
+		<div class="formenclosure">
+			<span class="appinstructionsheaders">Requestor Details</span><br /><br />
 
+			<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
+			<br />
+			<br />
 
+			<table class="table2">
 
-				<fieldset>
+				<tr>
+						<!--Form Field 2: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-					<legend>Requestor Details</legend>
+						<td  width ="15%">
+							<label>Requestor First Name: <span style="color:red;" >*</span><br />
 
+								<input type="text" name="requestor_firstName" size="20" maxlength="60" required value="<?php echo htmlspecialchars($firstName); ?>"/>
 
-				<!--Form Field 2: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+							</label><br />
+						</td>
 
-					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+						<!--Form Field 3: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-					<label>Requestor First Name:<br />
+						<td width ="15%">
+							<label>Requestor Last Name: <span style="color:red;">*</span><br />
 
-						<input type="text" name="requestor_firstName" size="20" maxlength="60" value="<?php echo htmlspecialchars($firstName); ?>" />
+								<input type="text" name="requestor_lastName" size="20" maxlength="60" required value="<?php echo htmlspecialchars($lastName); ?>" />
 
-					</label><br />
+							</label><br />
+						</td>
 
+						<!--Form Field 4: Req Phone 1 - primary contact number for requestor
+						Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+						no text or special characters. Display in format (###) ###-##### -->
 
-					<!--Form Field 3: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+						<td width ="15%">
+							<label>Requestor Phone 1: <span style="color:red;">*</span><br />
+								(
+								<input type="text" name="reqArea1" size = "3" maxlength="3" required value="<?php echo htmlspecialchars($reqArea1); ?>" /> )
+								<input type="text" name="reqFirstThree1" size="3" maxlength="3" required value="<?php echo htmlspecialchars($reqFirstThree1); ?>" /> -
+								<input type="text" name="reqLastFour1" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour1); ?>" />
 
-					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+							</label><br />
+						</td>
 
-					<label>Requestor Last Name:<br />
+						<!--Form field 5: Req Phone 2 - secondary contact number for requestor
+						Field Validation: must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+						no text or special characters. Display in format (###) ###-#### -->
+						<td  width ="15%">
+							<label>Requestor Phone 2: <span style="color:red;">*</span><br />
 
-						<input type="text" name="requestor_lastName" size="20" maxlength="60" value="<?php echo htmlspecialchars($lastName); ?>" />
+								<!--input type="text" name="reqphon2" size = "20" maxlength="14" required/ -->
 
-					</label><br />
+															(
+								<input type="text" name="reqArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($reqArea2); ?>" /> )
+								<input type="text" name="reqFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($reqFirstThree2); ?>" /> -
+								<input type="text" name="reqLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour2); ?>" />
 
-
-
-				<!--Form Field 4: Req Phone 1 - primary contact number for requestor
-
-					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
-
-					no text or special characters. Display in format (###) ###-##### -->
-
-					<label>Requestor Phone 1: (
-
-						<input type="text" name="reqArea1" size = "3" maxlength="3" value="<?php echo htmlspecialchars($reqArea1); ?>" /> )
-            <input type="text" name="reqFirstThree1" size="3" maxlength="3" value="<?php echo htmlspecialchars($reqFirstThree1); ?>" /> -
-            <input type="text" name="reqLastFour1" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour1); ?>" />
-
-					</label><br />
-
-
-
-				<!--Form field 5: Req Phone 2 - secondary contact number for requestor
-
-					Field Validation: must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
-
-					no text or special characters. Display in format (###) ###-#### -->
-
-					<label>Requestor Phone 2: (
-
-            <input type="text" name="reqArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($reqArea2); ?>" /> )
-            <input type="text" name="reqFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($reqFirstThree2); ?>" /> -
-            <input type="text" name="reqLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($reqLastFour2); ?>" />
-
-					</label><br />
-
-				</fieldset><br />
-
-
+							</label><br />
+						</td>
+				</tr>
+			</table>
 
 				<!--*NOTE**********************************************************-->
 
@@ -167,217 +171,258 @@
 
 
 				<!--Checkbox field test (see above)-->
+				<br / >
 
-				<p>Check the box below if requestor is also the resident for the new address<br />
+					<p>Check the box if the requestor is also the resident for the new address:
 
-					<input type="checkbox" name="reqisresYN" value="Y" <?php echo htmlspecialchars($residencyCheck); ?> />
+						<input type="checkbox" name="reqisresYN" value="Y" <?php echo htmlspecialchars($residencyCheck); ?>/>
 
-				</p><br />
+					</p>
 
-
-
-
-
-				<fieldset>
-
-					<legend>Resident Details</legend>
-
-				<!--Form Field 6: Resident - person that will be residing in new address
-
-					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
-
-					<label>Resident First Name:<br />
-
-						<input type="text" name="resident_firstName" size="20" maxlength="60" value="<?php echo htmlspecialchars($resFirstName); ?>" />
-
-					</label><br />
-
-
-					<!--Form Field 7: Resident - person that will be residing in new address
-
-					Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
-
-					<label>Resident Last Name:<br />
-
-						<input type="text" name="resident_lastName" size="20" maxlength="60" value="<?php echo htmlspecialchars($resLastName); ?>" />
-
-					</label><br />
+				<br />
 
 
 
-					<!--Form Field 8: Res Phone 1 - primary contact number for resident
 
-					Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10
-					numerals present with
+			<span class="appinstructionsheaders">Resident Details</span><br /><br />
 
-					no text or special characters. Display in format (###) ###-##### -->
+			<table class="table2">
+				<tr>
+						<!--Form Field 6: Resident - person that will be residing in new address
 
-					<label >Resident Phone 1: (
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-            <input type="text" name="resArea1" size = "3" maxlength="3" value="<?php echo htmlspecialchars($resArea1); ?>" /> )
-            <input type="text" name="resFirstThree1" size="3" maxlength="3" value="<?php echo htmlspecialchars($resFirstThree1); ?>" /> -
-            <input type="text" name="resLastFour1" size="4" maxlength="4" value="<?php echo htmlspecialchars($resLastFour1); ?>" />
+					<td width ="15%">
+						<label>Resident First Name: <span style="color:red;">*</span><br />
 
-					</label><br />
+							<input type="text" name="resident_firstName" size="20" maxlength="60" required value="<?php echo htmlspecialchars($resFirstName); ?>"/>
 
+						</label><br />
+					</td>
 
+						<!--Form Field 7: Resident - person that will be residing in new address
 
-				<!--Form field 9: Res Phone 2 - secondary contact number for resident
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
 
-					Field Validation: Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+					<td width ="15%">
+						<label>Resident Last Name: <span style="color:red;">*</span><br />
 
-					no text or special characters. Display in format (###) ###-#### -->
+							<input type="text" name="resident_lastName" size="20" maxlength="60" required value="<?php echo htmlspecialchars($resLastName); ?>"/>
 
-					<label>Resident Phone 2: (
-
-            <input type="text" name="resArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($resArea2); ?>" /> )
-            <input type="text" name="resFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($resFirstThree2); ?>" /> -
-            <input type="text" name="resLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($resLastFour2); ?>" />
-
-					</label><br />
-
-				</fieldset><br />
+						</label><br />
+					</td>
 
 
+						<!--Form Field 8: Res Phone 1 - primary contact number for resident
+
+						Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10
+						numerals present with
+
+						no text or special characters. Display in format (###) ###-##### -->
+
+					<td width ="15%">
+						<label >Resident Phone 1: <span style="color:red;">*</span><br />
+
+							(
+							<input type="text" name="resArea1" size = "3" maxlength="3" required value="<?php echo htmlspecialchars($resArea1); ?>" /> )
+							<input type="text" name="resFirstThree1" size="3" maxlength="3" required value="<?php echo htmlspecialchars($resFirstThree1); ?>" /> -
+							<input type="text" name="resLastFour1" size="4" maxlength="4" required value="<?php echo htmlspecialchars($resLastFour1); ?>" />
+
+						</label><br />
+					</td>
+
+
+						<!--Form field 9: Res Phone 2 - secondary contact number for resident
+
+						Field Validation: Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+						no text or special characters. Display in format (###) ###-#### -->
+
+					<td width ="15%">
+						<label>Resident Phone 2: <span style="color:red;">*</span><br />
+
+							(
+							<input type="text" name="resArea2" size = "3" maxlength="3" value="<?php echo htmlspecialchars($resArea2); ?>" /> )
+							<input type="text" name="resFirstThree2" size="3" maxlength="3" value="<?php echo htmlspecialchars($resFirstThree2); ?>" /> -
+							<input type="text" name="resLastFour2" size="4" maxlength="4" value="<?php echo htmlspecialchars($resLastFour2); ?>" />
+
+						</label><br />
+					</td>
+
+				</tr>
+
+
+			</table>
 
 				<!-- Line Break in page-->
-
+				<br />
 				<hr />
+				<br />
 
 
+			<span class="appinstructionsheaders">Structure Details</span><br /><br />
 
-				<h2>Structure and Address Details</h2>
 
-				<!--Form Field 10: Structure Type - drop down for user to select the type of structure
+			<table class="table2">
+				<tr>
+						<!--Form Field 10: Structure Type - drop down for user to select the type of structure
+
+						Field Validation: *Required -->
+						<td width="80%">What type of structure will be associated with the new address? Please select from the following options. </td>
+				</tr>
+				<tr>
+						<td>
+							<select name="structype">
+
+								<option value="house" <?php echo $house; ?> >House</option>
+
+								<option value="manufhome" <?php echo $manufhome; ?> >Manufactured Home</option>
+
+								<option value="other" <?php echo $otherHome; ?> >Other Structure Type</option>
+
+							</select>
+						</td>
+				</tr>
+						<!--Form Field 11: Structure Details - user should enter any other details about the structure, such as color or structure type
+
+						if user selected Other Structure Type for Structure Type
+
+						Field Validation: *Required -->
+				<tr>
+					<td>
+						<p>Please explain what type of structure. Include any other details such as color or how the property is marked.</p>
+
+						<textarea name="strucdetails" cols="30" rows="7" value="<?php echo htmlspecialchars($details); ?>" > </textarea> <br /> <br />
+					</td>
+
+				</tr>
+			</table>
+
+			<br />
+			<br />
+
+
+			<span class="appinstructionsheaders">Address Details</span><br /><br />
+
+			<table class="table2">
+
+				<tr>
+					<!-- Form 12: Direction - User will enter will fill out which direction the address is located in
 
 					Field Validation: *Required -->
 
-					<p>What type of structure will be associated with the new address? Please select from the following options.</p>
+					<td width ="15%">
 
-					<select name="structype">
+						<label>North of Address # <span style="color:red;">*</span><br />
 
-						<option value="house" <?php echo $house; ?> >House</option>
+							<input type="text" name="northadd" size="20" maxlength="15" required value="<?php echo htmlspecialchars($northadd); ?>" />
 
-						<option value="manufhome" <?php echo $manufhome; ?> >Manufactured Home</option>
+						</label>
+					</td>
 
-						<option value="other" <?php echo $otherHome; ?> >Other Structure Type</option>
+					<td width ="15%">
 
-					</select>
+						<label>South of Address # <span style="color:red;">*</span><br />
 
+							<input type="text" name="southadd" size="20" maxlength="15" required value="<?php echo htmlspecialchars($southadd); ?>" />
 
+						</label>
+					</td>
 
-				<!--Form Field 11: Structure Details - user should enter any other details about the structure, such as color or structure type
+					<td width ="15%">
 
-					if user selected Other Structure Type for Structure Type
+						<label>East of Address # <span style="color:red;">*</span><br />
+
+							<input type="text" name="eastadd" size="20" maxlength="15" required value="<?php echo htmlspecialchars($eastadd); ?>" />
+
+						</label>
+					</td>
+
+					<td width ="15%">
+
+						<label>West of Address # <span style="color:red;">*</span><br />
+
+							<input type="text" name="westadd" size="20" maxlength="15" required value="<?php echo htmlspecialchars($westadd); ?>" />
+
+						</label>
+					</td>
+				</tr>
+			</table>
+
+			<br /><br />
+			<span class="appinstructionsheaders">Other Information</span><br /><br />
+
+			<table class="table2">
+				<tr>
+					<td>
+
+					<!-- Form 13: Markers - User will input what type of markers there are
 
 					Field Validation: *Required -->
 
-					<p>Please explain what type of structure. Include any other details such as color or how the property is marked.</p>
+						<p>Markers:</p>
 
-					<textarea name="strucdetails" cols="50" rows="10"> </textarea> <br />
-
-
-			<!-- Form 12: Direction - User will enter will fill out which direction the address is located in
-
-				Field Validation: *Required -->
-
-				<label>North of ADD#<br />
-
-						<input type="text" name="northadd" size="20" maxlength="15" />
-
-					</label><br />
-
-				</fieldset><br />
+						<textarea name="markers" cols="30" rows="5" value="<?php echo htmlspecialchars($markers); ?>" > </textarea> <br />
 
 
-				<label>South of ADD#<br />
+						<p>Other:</p>
 
-						<input type="text" name="southadd" size="20" maxlength="15" />
+						<textarea name="others" cols="30" rows="5" value="<?php echo htmlspecialchars($others); ?>" > </textarea> <br />
 
-					</label><br />
-
-				</fieldset><br />
+						<!-- Line Break in page-->
 
 
-				<label>East of ADD#<br />
+						<!-- Form 14: Eperation Date - User will enter experiation date
 
-						<input type="text" name="eastadd" size="20" maxlength="15" />
+						Field Validation: * Required -->
 
-					</label><br />
-
-				</fieldset><br />
+						<label>Expected Date:<br />
 
 
-				<label>West of ADD#<br />
+							<input type="text" name="expMonth" maxlength="2" size="2" value="<?php echo htmlspecialchars($expMonth); ?>" /> /
+							<input type="text" name="expDay" maxlength="2" size="2" value="<?php echo htmlspecialchars($expDay); ?>" /> /
+							<input type="text" name="expYear" maxlength="4" size="4" value="<?php echo htmlspecialchars($expYear); ?>" />
 
-						<input type="text" name="westadd" size="20" maxlength="15" />
-
-					</label><br />
-
-				</fieldset><br />
+						</label><br />
 
 
+						<hr />
 
-         <!-- Form 13: Markers - User will input what type of markers there are
+						<!-- Form 15: Road Street - User will enter street name
 
-				Field Validation: *Required -->
+						Field Validation: * Required -->
 
-			<p>Markers:</p>
+						<label>Road-Street: <span style="color:red;">*</span><br />
 
-					<textarea name="markers" cols="30" rows="5"> </textarea> <br />
+							<input type="text" name="roadstreet" size="50" maxlength="50" required value="<?php echo htmlspecialchars($roadstreet); ?>" />
 
+						</label><br />
+					</td>
+				</tr>
+			</table>
 
-			<p>Other:</p>
+			<br />
+			<br />
 
-					<textarea name="others" cols="30" rows="5"> </textarea> <br />
+			<input id="submitbutton"  type="submit" name="submit" value="Submit!">
 
-
-
-		<!-- Line Break in page-->
-
-
-		<!-- Form 14: Eperation Date - User will enter experiation date
-
-				Field Validation: * Required -->
-
-				<label>Exp Date (in MM / DD / YYYY format):
-
-						<input type="text" name="expMonth" maxlength="2" size="2" /> /
-						<input type="text" name="expDay" maxlength="2" size="2" /> /
-						<input type="text" name="expYear" maxlength="4" size="4" />
-
-					</label><br />
+			<br />
+			<br />
 
 
-				<hr />
-
-		<!-- Form 15: Road Street - User will enter street name
-
-				Field Validation: * Required -->
-
-				<label>Road-Street:<br />
-
-						<input type="text" name="roadstreet" size="20" maxlength="10" />
-
-					</label><br />
+		</div>
+			<!-- banner residing at bottom of form-->
+			<a target="_blank" href="http://www.athens.edu">
+				<div class="banner">
+					<img class="bottom" src="media/banner-bottom.png" alt="Athens State University" />
+				</div>
+			</a>
 
 
-				<hr />
-
-
-
-				<input type="submit" name="submit" value="Submit!">
-
-
-
-		</form>
-
-
-
-
+			</form>
+			<script>
+			$("#addreqform").validate();
+			</script>
 
 	</body>
-
-
-
 </html>
