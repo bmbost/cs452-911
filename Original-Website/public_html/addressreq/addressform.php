@@ -22,7 +22,7 @@ $responseKeys = json_decode($response, true);
 // If response is false, display error. Otherwise, complete code.
 if (intval($responseKeys["success"]) !== 1) {
   include("address_form_header.html");
-  echo "<h1>Your identify as a spammer could not be verified.</h1>";
+  echo "<h1>The CAPTCHA could not verify that you are not a spambot.</h1>";
   include("address_form_footer.html");
 } else {
 
@@ -204,14 +204,14 @@ $sql = "INSERT INTO address_form (request_date, requestor, requestor_phone1,
 
 if (mysqli_query($dbhandle, $sql)) {
   include("address_form_header.html");
-  echo "<p>Address request successfully submitted.</p>";
-  echo "<p>Thank you for your submission. A representative with the Athens-Limestone
-       County 911 Center will contact you soon.</p>";
+  echo '<p style="padding-left: 15px">Address request successfully submitted.</p>';
+  echo '<p style="padding-left: 15px">Thank you for your submission. A representative with the Athens-Limestone
+       County 911 Center will contact you soon.</p>';
   include("address_form_footer.html");
 }
 else {
   include("address_form_header.html");
-  echo "<p>Database entry failed.</p>" . mysqli_error($dbhandle);
+  echo '<p style="padding-left: 15px">Database entry failed.</p>' . mysqli_error($dbhandle);
   include("address_form_footer.html");
 }
 
