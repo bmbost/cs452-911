@@ -1,4 +1,7 @@
 <?php
+  // Created by Athens State University CS452 Senior Engineering Project
+  // Members: Mallory Patterson, Brandon Bost, Jordan Hopkins, Keith Robinson
+  
 	// initialize variables if first use
   $residencyCheck = '';
 	if (!isset($firstName)) { $firstName = ''; }
@@ -36,9 +39,6 @@
 	if (!isset($westadd)) { $westadd = ''; }
 	if (!isset($markers)) { $markers = ''; }
 	if (!isset($others)) { $others = ''; }
-	if (!isset($expMonth)) { $expMonth = ''; }
-	if (!isset($expDay)) { $expDay = ''; }
-	if (!isset($expYear)) { $expYear = ''; }
 	if (!isset($roadstreet)) { $roadstreet = ''; }
 ?>
 
@@ -53,6 +53,8 @@
 		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
      	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="dist/jquery.validate.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 
 
 	</head>
@@ -376,16 +378,6 @@
 
 						Field Validation: * Required -->
 
-						<label>Expected Date:<br />
-
-
-							<input type="text" name="expMonth" maxlength="2" size="2" value="<?php echo htmlspecialchars($expMonth); ?>" /> /
-							<input type="text" name="expDay" maxlength="2" size="2" value="<?php echo htmlspecialchars($expDay); ?>" /> /
-							<input type="text" name="expYear" maxlength="4" size="4" value="<?php echo htmlspecialchars($expYear); ?>" />
-
-						</label><br />
-
-
 						<hr />
 
 						<!-- Form 15: Road Street - User will enter street name
@@ -403,6 +395,9 @@
 
 			<br />
 			<br />
+
+      <div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
+      <br />
 
 			<input id="submitbutton"  type="submit" name="submit" value="Submit!">
 

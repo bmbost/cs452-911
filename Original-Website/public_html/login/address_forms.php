@@ -1,3 +1,5 @@
+<!-- Created by Athens State University CS452 Senior Project -->
+<!-- Members: Mallory Patterson, Brandon Bost, Jordan Hopkins, Keith Robinson -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,7 +110,7 @@
                     // or if the Refresh button is selected, display the initial set of database entries to choose from
                     if ((isset($_POST['submit']) == NULL) || ($_POST['submit'] == "Ok") || ($_POST['submit'] == 'Refresh')) {
                       // Query the database for any entries
-                      $query = "SELECT id, requestor, request_date, expiration_date
+                      $query = "SELECT id, requestor, request_date
                                 FROM address_form";
 
                       $db = mysqli_query($dbhandle, $query);
@@ -116,9 +118,10 @@
                       if (mysqli_num_rows($db) > 0) { // If there is at least one entry, display data
                         echo '<form method="post" action="address_forms.php">';
                         foreach($db as $line) {
-                          echo '<input type="radio" name="selection" value=\'' . $line['id'] . '\']> ' . $line['requestor'] . ' --- ' . $line['request_date'] . ' --- ' . $line['expiration_date'] . '</input><br>';
+                          echo '<input type="radio" name="selection" value=\'' . $line['id'] . '\']> ' . $line['requestor'] . ' --- ' . $line['request_date'] . '</input><br>';
                         }
-                        echo '<input type="submit" name="submit" value="Select" />
+                        echo '<br />
+                              <input type="submit" name="submit" value="Select" />
                               <input type="submit" name="submit" value="Delete" />
                               <input type="submit" name="submit" value="Refresh" />
                               <a href="index.html">Back</a>
@@ -165,8 +168,7 @@
                                  <p style="text-indent: 20px"><b>' . $result['markers'] . '</b></p>
                                  <p>Others:</p>
                                  <p style="text-indent: 20px"><b>' . $result['others'] . '</b></p>
-                                 <p>Expiration Date: <b>' . $result['expiration_date'] . '</b><br />
-                                 Road Street Name: <b>' . $result['road_street'] . '</b></p>
+                                 <p>Road Street Name: <b>' . $result['road_street'] . '</b></p>
                               <form method="post" action="address_forms.php">
                                 <input type="submit" name="submit" value="Ok" />
                               </form>';

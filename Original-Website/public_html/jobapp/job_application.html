@@ -13,9 +13,9 @@
 		
 		
 		<script type="text/javascript" src="javascript/jquery.js"></script><!--include jquery-->
-		<script type="text/javascript" src="javascript/jquery-maskedinput.js"></script><!--include jquery plugin to mask input for phone numbers, ssn# and zip code-->
-		<script type="text/javascript" src="javascript/jquery-ui-1.11.4.custom/jquery-ui.js"></script><!--include jquery ui for collapsible employers-->
-		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/jquery.validate.min.js"></script><!--include jquery validate for form validation-->
+		<script type="text/javascript" src="javascript/jquery-maskedinput.js"></script><!--include jquery plugin to mask input for phone numbers and zip code-->
+		<script type="text/javascript" src="javascript/jquery-ui-1.11.4.custom/jquery-ui.js"></script><!--include jquery ui for "accordion" function to facilitate collapsible employers as well as datepicker-->
+		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/jquery.validate.js"></script><!--include jquery validate for form validation-->
 		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/additional-methods.min.js"></script><!--include jquery validate additional methods for form validation-->
 		<script type="text/javascript" src="javascript/tooltipster-master/js/jquery.tooltipster.min.js"></script><!--include tooltipster plugin to show jquery validation errors in tooltips-->
 		<script type="text/javascript" src="javascript/job-app-form.js"></script><!--include custom javascript for form-->
@@ -148,41 +148,43 @@
 			<div id="formpage_2" style="visibility:hidden;display:none;">
 
 			<!-- PART 1 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform1" method="post">
+			<form id="jobappform1" class="myForms" method="post" action="jobappform-procesing.php">
 			
-				<!-- Part 1. of the form collects general information from the user such as the position he/she is applying for, name, SSN#, and contact information -->
+				<!-- Part 1. of the form collects general information from the user such as the position he/she is applying for, name, and contact information -->
 				<h2 id="geninfo">Part 1. General Information</h2>	
 				<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
 				<br />
-				
+						<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "application date" in db...-->
+						<input type="date" id="applicationdate" name="applicationdate" disabled style="display:none;">
+						
 						<span class="formfieldpair">
-							<label for="position" style="width:596px" title="Enter the job title for the desired position.">Position (Job Title)<span style="color:red;">*</span></label>
+							<label for="position" style="width:596px" title="Enter the job title for the desired position.">Position (Job Title) <span style="color:red;">*</span></label>
 							<input type="text" name="position" id="position" style="width:596px" maxlength="100"/>
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="recruitnum" style="width:180px">Recruitment Announcement #</label>	
-							<input type="text" name="recruitnum" style="width:180px" maxlength="25" />
+							<input type="text" class="IsNum" name="recruitnum" style="width:180px" maxlength="25"/>
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="firstname" style="width:264px">First Name <span style="color:red;">*</span></label>	
-							<input type="text" name="firstname" style="width:264px" maxlength="40" />
+							<input type="text" class="IsAlpha" name="firstname" style="width:264px" maxlength="40"/>
 						</span>
-						
+
 						<span class="formfieldpair">
 							<label for="middleinit" style="width:30px;">M.I.</label>	
-							<input type="text" name="middleinit" style="width:30px;text-align:center;" maxlength="1" />
+							<input type="text" class="IsAlpha" name="middleinit" style="width:30px;text-align:center;" maxlength="1" />
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="lastname" style="width:275px">Last Name <span style="color:red;">*</span></label>	
-							<input type="text" name="lastname" style="width:275px" maxlength="40"/>
+							<input type="text" class="IsAlpha" name="lastname" style="width:275px" maxlength="40"/>
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="ssn" style="width:180px">Social Security #</label>	
-							<input id="ssn" type="text" name="ssn" style="width:180px" maxlength="25" />
+							<label for="DOB" style="width:180px">Date of Birth <span style="color:red;">*</span></label>	
+							<input id="DOB" class="datepicker" type="text" name="DOB" style="width:180px" maxlength="25" />
 						</span>
 
 						<span class="formfieldpair">
@@ -202,17 +204,17 @@
 
 						<span class="formfieldpair">
 							<label for="city" style="width:231px">City <span style="color:red;">*</span></label>	
-							<input type="text" name="city" style="width:231px" maxlength="35" />
+							<input type="text" class="IsAlpha" name="city" style="width:231px" maxlength="35"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="county" style="width:180px">County <span style="color:red;">*</span></label>	
-							<input type="text" name="county" style="width:180px" maxlength="35" />
+							<input type="text" class="IsAlpha" name="county" style="width:180px" maxlength="35"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="state" style="width:55px">State <span style="color:red;">*</span></label>	
-							<input type="text" name="state" style="width:55px" maxlength="2" />
+							<input type="text" class="IsAlpha" name="state" style="width:55px" maxlength="2"/>
 						</span>
 
 						<span class="formfieldpair">
@@ -233,22 +235,22 @@
 						
 						<table class="table1">
 							<tr>
-								<td width="80%">Are you currently a permanent City, County or State of Alabama employee?</td>
-								<td width="10%"><input id="stemployY" type="radio" name="stemployYN" value="yes" onclick="$(this).closest('tr').next().show();">Yes</td> <!--If the 'yes' option is clicked, then show the Agency Name field -->
-								<td width="10%"><input id="stemployN" type="radio" name="stemployYN" value="no" onclick="$(this).closest('tr').next().hide();">No</td>	<!--If the 'no' option is clicked, then hide the Agency Name field -->						
+								<td width="80%">Are you currently a permanent City, County or State of Alabama employee? <span style="color:red;">*</span></td>
+								<td width="10%"><input id="stemployY" type="radio" name="stemployYN" value="yes">Yes</td> <!--If the 'yes' option is clicked, then show the Agency Name field -->
+								<td width="10%"><input id="stemployN" type="radio" name="stemployYN" value="no">No</td>	<!--If the 'no' option is clicked, then hide the Agency Name field -->						
 							</tr>
 							<!--optional Agency Name field that displays on form only when user responds "yes" to previous question"-->
 							<tr id="agencynamerow" style="display:none;">
-								<td style="text-align:right;font-size:.80em;"><b>List Current Agency's Name<span style="color:red;">*</span></b></td>
-								<td colspan="2"><textarea id="agencyname" name="agencyname" cols="15" rows="3"></textarea></td>
+								<td style="text-align:right;font-size:.80em;"><b>List Current Agency's Name <span style="color:red;">*</span></b></td>
+								<td colspan="2"><textarea id="agencyname" class="IsAlpha" name="agencyname" cols="15" rows="3"></textarea></td>
 								
 							<tr>
-								<td>Do you need testing assistance such as sign language interpreter, reader, etc?</td>
+								<td>Do you need testing assistance such as sign language interpreter, reader, etc? <span style="color:red;">*</span></td>
 								<td><input type="radio" name="testassistYN" value="yes">Yes</td>
 								<td><input type="radio" name="testassistYN" value="no">No</td>
 							</tr>
 							<tr>
-								<td width="80%">Are you willing to travel as part of this job?</td>
+								<td width="80%">Are you willing to travel as part of this job? <span style="color:red;">*</span></td>
 								<td width="10%"><input type="radio" name="willingtotravelYN" value="yes">Yes</td>
 								<td width="10%"><input type="radio" name="willingtotravelYN" value="no">No</td>
 							</tr>
@@ -304,7 +306,7 @@
 			<div id="formpage_3" style="visibility:hidden; display:none;">
 			
 			<!-- PART 2 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform2" method="post">
+			<form id="jobappform2" class="myForms" method="post" action="jobappform-procesing.php">
 			
 				<h2 id="backgroundinfo">Part 2. Background Information</h2>
 					
@@ -321,17 +323,17 @@
 						</tr>
 						<tr>
 							<th scope="row" class="table2">Driver's License</th>
-							<td class="table2"><input type="text" name="DLNumber" style="width:250px"></td>
+							<td class="table2"><input class="IsNum" type="text" id="DLNumber" name="DLNumber" style="width:250px" maxlength="15"></td>
 							<td class="table2"><input class="datepicker" id="DLExpDate" type="text" name="DLExpDate" style="width:175px"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="table2">CDL</th>
-							<td class="table2"><input type="text" name="CDLNumber" style="width:250px";></td>
+							<td class="table2"><input class="IsNum" type="text" id="CDLNumber" name="CDLNumber" style="width:250px";></td>
 							<td class="table2"><input class="datepicker" id="CDLExpDate" type="text" name="CDLExpDate" style="width:175px"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="table2">Other</th>
-							<td class="table2"><input type="text" name="OtherLNumber" style="width:250px"></td>
+							<td class="table2"><input class="IsNum" type="text" id="OtherLNumber" name="OtherLNumber" style="width:250px"></td>
 							<td class="table2"><input class="datepicker" id="OtherLExpDate" type="text" name="OtherLExpDate" style="width:175px"></td>
 						</tr>
 					
@@ -347,7 +349,7 @@
 								<td colspan="2" width="20%"><textarea name="otherlanguages" placeholder="Enter language(s)..." cols="18" rows="3"></textarea></td>
 							</tr>
 							<tr>
-								<td width="80%">Have you been convicted of a misdemeanor or felony within the past ten years?
+								<td width="80%">Have you been convicted of a misdemeanor or felony within the past ten years? <span style="color:red;">*</span>
 								<br /><span class="explanatoryformtext"><i>(Answering yes will not automatically bar you from employment)</i></span></td>
 								<td width="10%"><input type="radio" name="convictedYN" value="yes">Yes</td>
 								<td width="10%"><input type="radio" name="convictedYN" value="no">No</td>
@@ -375,14 +377,17 @@
 			
 			<!--Page 4 of the form-->
 			<div id="formpage_4" style="visibility:hidden; display:none;">
-				
+			
+			<!-- PART 3 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform3" class="myForms" method="post" action="jobappform-procesing.php">
+			
 				<h2 id="edandtrain">Part 3. Education and Training</h2>
 					
 					<div class="formtext">
 					
 						<table class="table1">
 							<tr>
-								<td width="80%">Have you graduated from high school or passed the GED?</td>
+								<td width="80%">Have you graduated from high school or passed the GED? <span style="color:red;">*</span></td>
 								<td width="10%"><input type="radio" name="highschoolGEDYN" value="yes">Yes</td>
 								<td width="10%"><input type="radio" name="highschoolGEDYN" value="no">No</td>
 							</tr>
@@ -406,13 +411,13 @@
 								<th class="table3" scope="column" colspan="1" rowspan="1" width="7%">Year Degree Received</th>
 							</tr>
 							<tr>
-								<td class="table3"><textarea name="schoonameandloc1" style="width:255px" rows="2" placeholder="Enter School Name and Location"></textarea></td>
-								<td class="table3"><textarea name="schoolstartMY1" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
-								<td class="table3"><textarea name="schoolendMY1" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
-								<td class="table3"><textarea name="credits1" style="width:35px" rows="2"></textarea></td>
-								<td class="table3"><textarea name="major1" style="width:185px" rows="2"></textarea></td>
-								<td class="table3"><textarea name="degreetype1" style="width:65px" rows="2"></textarea></td>
-								<td class="table3"><textarea name="degreeyear1" style="width:40px" rows="2"></textarea></td>
+								<td class="table3"><textarea name="schoonameandloc[]" style="width:255px" rows="2" placeholder="Enter School Name and Location"></textarea></td>
+								<td class="table3"><textarea name="schoolstartMY[]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea name="schoolendMY[]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="credits[]" style="width:35px" rows="2" maxlength="5"></textarea></td>
+								<td class="table3"><textarea name="major[]" style="width:185px" rows="2"></textarea></td>
+								<td class="table3"><textarea name="degreetype[]" style="width:65px" rows="2"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="degreeyear[]" style="width:40px" rows="2" maxlength="4"></textarea></td>
 							</tr>					
 						</table>
 						
@@ -434,13 +439,18 @@
 
 				<br />
 				<br />
-				
+			
+			</form><!--end Part 3 of job application form -->
+			
 			</div><!--end page 4 of form-->
 				
 
 			<!--Page 5 of the form-->
 			<div id="formpage_5" style="visibility:hidden; display:none;">
-				
+			
+			<!-- PART 4 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform4" class="myForms" method="post" action="jobappform-procesing.php">
+			
 				<h2 id="employhist">Part 4. Employment History</h2>
 				<div class="explanatoryformtext">This section must be completed in order to receive full credit. You may use this form for both volunteer and paid experience.
 												 <br /><i>*For volunteer work, 174.3 hours equals one month of experience.</i>
@@ -448,80 +458,81 @@
 
 				<br />
 				
+				<!--hidden field that contains the number of employers that are currently displayed on page (default is 1)-->
 				<input id="numEmployers" type="hidden" value="1">
-				<div id="employmenthistory" class="employmenthistory">
-					
+				
+				<div id="employmenthistory" class="employmenthistory">					
 					
 					<h3>Employer 1</h3>
 					<div id="employer1" class="employer">
 						<span class="formfieldpair">
-							<label for="employer1" style="width:265px">1. Present or Last Employer<span style="color:red;">*</span></label>
-							<input type="text" id="employer1" name="employer1" style="width:265px" maxlength="100" required=true />	
+							<label for="employer1" style="width:265px">1. Present or Last Employer <span style="color:red;">*</span></label>
+							<input type="text" id="employer1" name="employer[]" style="width:265px" maxlength="100"/>	
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="empaddr1" style="width:300px">Employer Address<span style="color:red;">*</span></label>
-							<input type="text" id="empaddr1" name="empaddr1" style="width:300px" maxlength="100" required=true />	
+							<label for="empaddr1" style="width:300px">Employer Address <span style="color:red;">*</span></label>
+							<input type="text" id="empaddr1" name="empaddr[]" style="width:300px" maxlength="100"/>	
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="empphone1" style="width:125px">Employer Telephone<span style="color:red;">*</span></label>
-							<input type="text" id="empphone1" name="empphone1" style="width:125px" maxlength="100" required=true />	
+							<label for="empphone1" style="width:125px">Employer Phone <span style="color:red;">*</span></label>
+							<input type="text" id="empphone1" name="empphone[]" style="width:125px" maxlength="100"/>	
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="emptitle1" style="width:265px">Your Title<span style="color:red;">*</span></label>
-							<input type="text" id="emptitle1" name="emptitle1" style="width:265px" maxlength="100" required=true />	
+							<label for="emptitle1" style="width:265px">Your Title <span style="color:red;">*</span></label>
+							<input type="text" id="emptitle1" name="emptitle[]" style="width:265px" maxlength="100"/>	
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="empstartMY1" style="width:90px">Start Month/Year<span style="color:red;">*</span></label>
-							<input type="text" id="empstartMY1" name="empstartMY1" style="width:90px" maxlength="100" required=true placeholder="Ex. Jan 2001" />	
+							<label for="empstartMY1" style="width:90px">Start Month/Year <span style="color:red;">*</span></label>
+							<input type="text" id="empstartMY1" name="empstartMY[]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />	
 						</span>
 						
 						<span class="formfieldpair">
-							<label for="empendMY1" style="width:90px">End Month/Year<span style="color:red;">*</span></label>
-							<input type="text" id="empendMY1" name="empendMY1" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />	
+							<label for="empendMY1" style="width:90px">End Month/Year</label>
+							<input type="text" id="empendMY1" name="empendMY[]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="emptotalmths1" style="width:40px">Total Months</label>
-							<input type="text" id="emptotalmths1" name="emptotalmths1" style="width:40px" maxlength="100" />	
+							<input type="text" class="IsNum" id="emptotalmths[]" name="emptotalmths1" style="width:40px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empavghrs1" style="width:40px">Average Hours</label>
-							<input type="text" id="empavghrs1" name="empavghrs1" style="width:40px" maxlength="100" /><span class="explanatoryformtext" style="font-size:.80em"><i>/week</i></span>	
+							<input type="text" class="IsNum" id="empavghrs1" name="empavghrs[]" style="width:40px" maxlength="100" /><span class="explanatoryformtext" style="font-size:.80em"><i>/week</i></span>	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="emplastsalary1" style="width:95px">Last Salary</label>
-							<input type="text" id="emplastsalary1"  id="emplastsalary1" style="width:95px" maxlength="100" />	
+							<input type="text" class="IsNum" id="emplastsalary1"  name="emplastsalary[]" style="width:95px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empsupervisor1" style="width:185px">Supervisor Name</label>
-							<input type="text" id="empsupervisor1" name="empsupervisor1" style="width:185px" maxlength="100" />	
+							<input type="text" class="IsAlpha" id="empsupervisor1" name="empsupervisor[]" style="width:185px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empreasonforleaving1" style="width:320px">Reason for Leaving</label>
-							<input type="text" id="empreasonforleaving1" name="empreasonforleaving1" style="width:320px" maxlength="100" />	
+							<input type="text" id="empreasonforleaving1" name="empreasonforleaving[]" style="width:320px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empvolunteerhrs1" style="width:50px">Volunteer Hours</label>
-							<input type="text" id="empvolunteerhrs1" name="empvolunteerhrs1" style="width:50px" maxlength="100" />	
+							<input type="text" class="IsNum" id="empvolunteerhrs1" name="empvolunteerhrs[]" style="width:50px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empsupervised1" style="width:125px"># of Employees Supervised</label>
-							<input type="text" id="empsupervised1" name="empsupervised1" style="width:125px" maxlength="100" />	
+							<input type="text" class="IsNum" id="empsupervised1" name="empsupervised[]" style="width:125px" maxlength="100" />	
 						</span>
 						
 						<span class="formfieldpair">
 							<label for="empduties1" style="width:720px">Specific Duties</label>
-							<textarea id="empduties1" name="empduties1" style="width:720px" rows="4" placeholder="Please elaborate on your responsibilities in this position..."></textarea>
+							<textarea id="empduties1" name="empduties[]" style="width:720px" rows="4" placeholder="Please elaborate on your responsibilities in this position..."></textarea>
 						</span>
 					</div><!--end employer div-->
 					
@@ -544,13 +555,17 @@
 
 				<br />
 				<br />
-				
+			
+			</form><!--end Part 4 of job application form -->
+			
 			</div><!--end page 5 of form-->
 			
 
 			<!--Page 6 of the form-->
 			<div id="formpage_6" style="visibility:hidden; display:none;">
 			
+			<!-- PART 5 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform5" class="myForms" method="post" action="jobappform-procesing.php">
 						
 				<h2 id="affirmact">Part 5. Affirmative Action</h2>	
 				<div class="explanatoryformtext">To ensure equal employment opportunity, we ask your voluntary cooperation in responding to the questions below.
@@ -583,7 +598,7 @@
 									<li><input type="checkbox" name="race[]" value="870">Black/African American (870)</li><!--black/african american-->
 									<li><input type="checkbox" name="race[]" value="800">White/Caucasian (800)</li><!--white/caucasian-->
 									<li><input type="checkbox" id="otherraceTF" name="otherraceTF" value="1">Other Race</li>
-									<li style="display:none;" id="otherracename"><textarea name="otherracename" maxlength="100" style="width:200px" rows="4" placeholder="Indicate races or cultures"></textarea></li>
+									<li style="display:none;" id="otherracename"><textarea id="otherracenamefield" name="otherracename" maxlength="100" style="width:200px" rows="4" placeholder="Indicate races or cultures"></textarea></li>
 								</ul>
 							</td>
 							<td width="50%" style="vertical-align:top">
@@ -593,9 +608,9 @@
 								<ul id="veteraninfo" style="list-style-type:none; display:none;">
 									<li>
 										<span class="explanatoryformtext" style="font-size:.80">Served from</span>
-											<input type="date" class="datepicker" id="actdutyfromdate" name="actdutyfromdate" style="width:75px">
+											<input type="text" class="datepicker" id="actdutyfromdate" name="actdutyfromdate" style="width:75px">
 										<span class="explanatoryformtext" style="font-size:.80">to</span>
-											<input type="date" class="datepicker" id="actdutytodate" name="actdutytodate" style="width:75px">
+											<input type="text" class="datepicker" id="actdutytodate" name="actdutytodate" style="width:75px">
 									</li>
 									<li><input type="checkbox" id="vietnamvetTF" name="vietnamvetTF" value="1">Vietnam Era Veteran</li>
 									<li id="repubofvietnam" style="display:none">
@@ -606,12 +621,12 @@
 									</li>
 									<li id="vietnamdates" style="display:none">
 										<span class="explanatoryformtext" style="font-size:.80em">Served from</span>
-											<input type="date" class="datepicker" id="vietnamfromdate" name="vietnamfromdate" style="width:75px">
+											<input type="text" class="datepicker" id="vietnamfromdate" name="vietnamfromdate" style="width:75px">
 										<span class="explanatoryformtext" style="font-size:.80em">to</span>
-											<input type="date" class="datepicker" id="vietnamtodate" name="vietnamtodate" style="width:75px">
+											<input type="text" class="datepicker" id="vietnamtodate" name="vietnamtodate" style="width:75px">
 									</li>
 									<li><input type="checkbox" id="disabledvetTF" name="disabledvetTF" value="1">Disabled Veteran</li>
-									<li id="pdisabled" style="display:none"><input type="input" id="pdisablednum" name="pdisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">% of disability</span></li>
+									<li id="pdisabled" style="display:none"><input class="IsNum" type="text" id="pdisablednum" name="pdisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">% of disability</span></li>
 								</ul>
 								<span style="font-size:.80em;display:none;color:red;" id="vetinstructions" ><i>Please complete the Veterans Information on the next page and attach a copy of your DD214.</i></span>
 							</td>
@@ -628,7 +643,8 @@
 				</table>
 
 				
-				<div class="formtext"><h3 onclick="$('#affirmactdef').toggle('slide');">Affirmative Action Definitions</h3></div>
+				<div class="formtext"><input class="formbutton2" type="button" value="Affirmative Action Definitions" onclick="$('#affirmactdef').toggle('slide');"></div>
+				<br />
 				<div id="affirmactdef" style="display:none">
 					
 					<table class="appinstructions">
@@ -713,7 +729,9 @@
 				<br />
 				<br />
 				
-				
+			
+			</form><!--end Part 5 of job application form -->
+			
 			</div><!--end page 6 of form-->	
 				
 				
@@ -721,7 +739,10 @@
 				
 				
 			<!--Page 7 of the form-->
-			<div id="formpage_7" style="visibility:hidden; display:none;">	
+			<div id="formpage_7" style="visibility:hidden; display:none;">
+
+			<!-- PART 6 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform6" class="myForms" method="post" action="jobappform-procesing.php">			
 
 						
 				<h2 id="veteran">Part 6. Veteran's Information</h2>	
@@ -732,12 +753,11 @@
 				<br />	
 
 				<table class="table1">
-
 						<tr>
 							<td width="50%" style="vertical-align:top;"><span style="font-weight:bold;font-size:1.2em;">For Competitive Employment</span><br />
 																		<span class="explanatoryformtext">Depending upon service you may receive veteran's preference.</span><br />
-								<ol >
-									<li>Have you served honorably in the Armed Forced of the United States on active duty for reasons other than Active Duty Training(ADT)?<br />
+								<ol>
+									<li>Have you served honorably in the Armed Forced of the United States on active duty for reasons other than Active Duty Training (ADT)?<br />
 										<input type="radio" id="honoractdutyY" name="honoractdutyYN" value="yes">Yes
 										<input type="radio" id="honoractdutyN" name="honoractdutyYN" value="no">No
 										<br/><br />
@@ -745,12 +765,13 @@
 											<li><span class="explanatoryformtext" style="font-size:.80">If yes, list dates of active military service:</span></li>
 											<li>
 												<span class="explanatoryformtext" style="font-size:.80">Served from</span>
-													<input type="date" class="datepicker" id="honoractdutyfromdate" name="honoractdutyfromdate" style="width:75px">
+													<input type="text" class="datepicker" id="honoractdutyfromdate" name="honoractdutyfromdate" style="width:75px">
 												<span class="explanatoryformtext" style="font-size:.80">to</span>
-													<input type="date" class="datepicker" id="honoractdutytodate" name="honoractdutytodate" style="width:75px">
+													<input type="text" class="datepicker" id="honoractdutytodate" name="honoractdutytodate" style="width:75px">
 											</li>
 											<li><span class="explanatoryformtext" style="font-size:.80">Type of Discharge:</span>
-												<select>
+												<select id="typeofdischarge">
+													<option name="dischargetype" value="none">Select One</option>
 													<option name="dischargetype" value="honorable">Honorable</option>
 													<option name="dischargetype" value="general">General</option>
 													<option name="dischargetype" value="otherthanhonor">Other Than Honorable</option>
@@ -762,7 +783,7 @@
 											</li>
 											<br />
 											<li><span class="explanatoryformtext" style="font-size:.80">List campaign, expeditionary, or service medals received:</span><br />
-												<textarea name="medals" rows="4" columns="8"></textarea>
+												<textarea id="medals" name="medals" rows="4" columns="12"></textarea>
 											</li>
 										</ul>
 									</li>
@@ -782,7 +803,7 @@
 										<ul id="disabledspouseinfo" style="list-style-type:none;display:none;">
 											<li><span class="explanatoryformtext" style="font-size:.80">If yes, list percentage of spouse's disability:</span></li>
 											<li>
-												<input type="input" id="pspousedisablednum" name="pspousedisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">%</span>
+												<input class="IsNum" type="text" id="pspousedisablednum" name="pspousedisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">%</span>
 											</li>
 											<span style="font-size:.80em;color:red;" id="vetinstructions2" ><i>Must provide copy of US Department of Veteran's Affairs Disability Awards letter.</i></span>
 										</ul>
@@ -794,7 +815,7 @@
 										<ul id="deceasedspouseinfo" style="list-style-type:none;display:none;">
 											<li><span class="explanatoryformtext" style="font-size:.80">List campaign, expeditionary, or service medals spouse received:</span></li>
 											<li>
-												<textarea name="spousemedals" rows="4" columns="8"></textarea>
+												<textarea id="spousemedals" name="spousemedals" rows="4" columns="8"></textarea>
 											</li>
 											<span style="font-size:.80em;color:red;" id="vetinstructions2" ><i>Must provide copy of US Department of Veteran's Affairs Disability Awards letter.</i></span>
 										</ul>
@@ -808,7 +829,7 @@
 				<div class="formtext">
 				
 					<!--Input field for veterans or veteran spouses to upload a copy of DD214-->
-					<p style="font-weight:bold">Please upload a copy of your DD214:<br />
+					<p style="font-weight:bold">Please upload a copy of your DD214 or NGB Form 22:<br />
 					<input type="file" name="DD214" accept=".doc,.docx,.pdf"></p>
 					
 					<br />
@@ -829,11 +850,14 @@
 				</div><!--end formtext div-->
 				
 				
+			</form><!--end Part 6 of job application form -->
+			
 			</div><!--end page 7 of form-->	
 			
-				
+			
+			
 			<!--Page 8 of the form-->
-			<div id="formpage_8" style="visibility:hidden; display:none;">
+			<div id="formpage_8" style="visibility:hidden; display:none;">	
 			
 			<h2 id="affirmact">Part 7. Submit Application</h2>	
 				<div class="explanatoryformtext">Thank you for completing this employment application! You can expect to be notified of your application results about 3 weeks after the closing date.
@@ -860,7 +884,7 @@
 				<br />
 				
 				<!-- Submit Button -->
-				<input id="submitbutton"  type="submit" name="submit" disabled value="Submit Application">
+				<input id="submitbutton" type="button" name="submit" value="Submit Application" onclick="submitForms()" disabled >
 				
 				<br />
 				<br />
@@ -875,10 +899,10 @@
 
 				<br />
 				<br />
-		
+			
 			
 			</div><!--end page 8 of form-->		
-					
+								
 			
 			</div><!--end formenclosure div-->
 			
@@ -891,6 +915,17 @@
 			</a>
 			
 		</div><!--end wrapsheetborder div-->
+		
+		
+		<!--If the user does not have scripting enabled on their browser, display a warning and provide a link to download the job form instead...-->
+		<noscript>
+		
+			<p>Your browser does not support Javascript. To use the web form, please enable scripting on your browser. <br /> 
+			Otherwise, you may download and print the job form as a PDF document using the link below.</p>
+			
+			<a href="media/Application Form.pdf">Download job form</a>
+			
+		</noscript>
 	
 	</body>
 		
