@@ -1,7 +1,12 @@
 // Function that executes when the HTML document is ready
 jQuery(document).ready(function($) {
 
-	document.getElementById('applicationdate').value = Date();
+	// This allows you to bypass Javascript validation when testing the form
+	// Set testmode to false to enable Javascript validation.
+	var testmode = true;
+
+	//call getDate() when loading the page
+	getDate();
 
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function: 	Call CheckIsNum
@@ -14,7 +19,6 @@ jQuery(document).ready(function($) {
 	//---------------------------------------------------------------------------------------------------------------------
 	$(document).on('keydown','.IsNum', function(event){ // when the user presses a key in attempt to enter a value in a field
 														// with the IsNum class
-
 		return checkIsNum(event);
 
 	}); // end Call CheckIsNum Function
@@ -595,6 +599,7 @@ jQuery(document).ready(function($) {
 	//				and works alongside the Tooltipster plugin.
 	//---------------------------------------------------------------------------------------------------------------------
 	// 1. Validate on on keyup and 'Next' or 'Back' for jobappform1 - Part 1. General Information
+if(!testmode){
 	$("#jobappform1").validate({ // call the validate function on document ready for jobappform1...
 		// configuration of the validation rules for form fields
 		rules: {
@@ -1000,12 +1005,62 @@ jQuery(document).ready(function($) {
 			$(element).tooltipster('hide');
 		}
 	}); // end jQuery Validation Config for jobappform6 - Part 6. Veteran's Information
-
+}
 	// end jQuery Validation Plugin Config Functions
 	//---------------------------------------------------------------------------------------------------------------------
 
 
+	//---------------------------------------------------------------------------------------------------------------------
+	// Function:	Ajax Form Submission Using jQuery
+	//---------------------------------------------------------------------------------------------------------------------
+	// Description: Submits all 6 forms
+	//---------------------------------------------------------------------------------------------------------------------
+	// Purpose: 	There are 6 seperate forms. When the final submit button is clicked, it "posts" all jobappforms to the
+	//				action defined on jobappform1, which is "jobappform-processing.php." It also uses the jQuery serialize
+	//				function to combine the data from all 6 forms prior to submission.
+	//---------------------------------------------------------------------------------------------------------------------
+	$("#submitbutton").click(function() {
+
+	  // Hide the div that makes up the current page
+	  var page=document.getElementById('formpage_8');
+	  page.style.visibility='hidden';
+	  page.style.display='none';
+
+	  // Hide the div that makes up the current page
+	  var page=document.getElementById('directions');
+	  page.style.visibility='hidden';
+	  page.style.display='none';
+
+	  // Display the success div
+	  page=document.getElementById('submitSuccess');
+	  page.style.display='block';
+	  page.style.visibility='visible';
+
+		$.ajax({
+			type : 'POST',
+			url  : 'jobappform-processing.php',
+			data : $('#jobappform1, #jobappform2, #jobappform3, #jobappform4, #jobappform5, #jobappform6, #jobappform7').serialize(),
+			success: function(data){
+				// Act upon the data returned, setting it to #submitSuccess <div>
+				$("#submitSuccess").html ( data );
+			}
+		});
+	}); // Ajax Form Submission Using jQuery
+
 }); // end Document Ready Function
+
+
+function getDate()
+{
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+    today = yyyy+""+mm+""+dd;
+
+    document.getElementById("applicationdate").value = today;
+}
 
 
 //Function that masks the input of various fields such as phone numbers & zipcodes-->
@@ -1106,7 +1161,10 @@ function addRow(tableID) {
 
 	var rowCount = table.rows.length;
 
-	if(rowCount<=5) {
+	// define the maximum number of employers a user is allowed to add to the page-->
+	const MAX_EDUCATION = 5;
+
+	if(rowCount<=MAX_EDUCATION) {
 	var row = table.insertRow(rowCount);
 
 		// Add the School Name and Location textarea field-->
@@ -1114,7 +1172,7 @@ function addRow(tableID) {
 		var element1 = document.createElement("textarea");
 		cell1.className="table3";
 		element1.id="schoonameandloc" + rowCount;
-		element1.name="schoonameandloc[]";
+		element1.name="edu[" + rowCount + "][schoonameandloc]";
 		element1.placeholder="Enter School " + rowCount + " Name and Location";
 		element1.className="table3";
 		element1.rows="2";
@@ -1126,7 +1184,7 @@ function addRow(tableID) {
 		var element2 = document.createElement("textarea");
 		cell2.className="table3";
 		element2.id="schoolstartMY" + rowCount;
-		element2.name="schoolstartMY[]";
+		element2.name="edu[" + rowCount + "][schoolstartMY]";
 		element2.placeholder="Ex. Jan 2001";
 		element2.className="table3";
 		element2.rows="2";
@@ -1138,7 +1196,7 @@ function addRow(tableID) {
 		var element3 = document.createElement("textarea");
 		cell3.className="table3";
 		element3.id="schoolendMY" + rowCount;
-		element3.name="schoolendMY[]";
+		element3.name="edu[" + rowCount + "][schoolendMY]";
 		element3.placeholder="Ex. Jan 2001";
 		element3.className="table3";
 		element3.rows="2";
@@ -1150,7 +1208,7 @@ function addRow(tableID) {
 		var element4 = document.createElement("textarea");
 		cell4.className="table3";
 		element4.id="credits" + rowCount;
-		element4.name="credits[]";
+		element4.name="edu[" + rowCount + "][credits]";
 		element4.className="table3";
 		element4.rows="2";
 		element4.style.width="35px";
@@ -1163,7 +1221,7 @@ function addRow(tableID) {
 		var element5 = document.createElement("textarea");
 		cell5.className="table3";
 		element5.id="major" + rowCount;
-		element5.name="major[]";
+		element5.name="edu[" + rowCount + "][major]";
 		element5.className="table3";
 		element5.rows="2";
 		element5.style.width="185px";
@@ -1174,7 +1232,7 @@ function addRow(tableID) {
 		var element6 = document.createElement("textarea");
 		cell6.className="table3";
 		element6.id="degreetype" + rowCount;
-		element6.name="degreetype[]";
+		element6.name="edu[" + rowCount + "][degreetype]";
 		element6.className="table3";
 		element6.rows="2";
 		element6.style.width="65px";
@@ -1185,7 +1243,7 @@ function addRow(tableID) {
 		var element7 = document.createElement("textarea");
 		cell7.className="table3";
 		element7.id="degreeyear" + rowCount;
-		element7.name="degreeyear[]";
+		element7.name="edu[" + rowCount + "][degreeyear]";
 		element7.className="table3";
 		element7.rows="2";
 		element7.style.width="40px";
@@ -1193,12 +1251,25 @@ function addRow(tableID) {
 		cell7.appendChild(element7);
 		document.getElementById("degreeyear" + rowCount).maxLength = "4";
 
-		if(rowCount==5) {
+		// determine how many education rows are displayed on the page
+		var eduNum = $("#numEducation").val();
+
+		// increment the number of education rows and store for later use-->
+		var neweduNum = Number(eduNum)+ 1;
+		var newVal = neweduNum.toString();
+
+		// update the number of employers stored in the hidden input field
+		$("#numEducation").val(newVal);
+
+		if(rowCount==MAX_EDUCATION) {
 			document.getElementById("shownextrow").disabled = true;
 		}
+
 	}
 
-}
+}  // end AddRow function to add education rows to page
+
+
 	// Add another employer to the employer history page up to MAX_EMPLOYERS (current defined as 10)
 	function addEmployer() {
 
@@ -1267,7 +1338,7 @@ function addRow(tableID) {
 				var employerInput = document.createElement("input");
 				employerInput.type="text";
 				employerInput.id="employer" + newVal;
-				employerInput.name="employer[]";
+				employerInput.name="emp[" + newVal + "][empname]";
 				employerInput.style.width="265px";
 				employerInput.style.marginLeft="2px";
 				employerInput.maxlength="100";
@@ -1303,7 +1374,7 @@ function addRow(tableID) {
 				var empaddrInput = document.createElement("input");
 				empaddrInput.type="text";
 				empaddrInput.id="empaddr" + newVal;
-				empaddrInput.name="empaddr[]";
+				empaddrInput.name="emp[" + newVal + "][empaddr]";
 				empaddrInput.style.width="300px";
 				empaddrInput.style.marginLeft="6px";
 				empaddrInput.maxlength="100";
@@ -1339,7 +1410,7 @@ function addRow(tableID) {
 				var empphoneInput = document.createElement("input");
 				empphoneInput.type="text";
 				empphoneInput.id="empphone" + newVal;
-				empphoneInput.name="empphone[]";
+				empphoneInput.name="emp[" + newVal + "][empphone]";
 				empphoneInput.style.width="125px";
 				empphoneInput.style.marginLeft="6px";
 				empphoneInput.maxlength="100";
@@ -1376,7 +1447,7 @@ function addRow(tableID) {
 				var emptitleInput = document.createElement("input");
 				emptitleInput.type="text";
 				emptitleInput.id="emptitle" + newVal;
-				emptitleInput.name="emptitle[]";
+				emptitleInput.name="emp[" + newVal + "][emptitle]";
 				emptitleInput.style.width="265px";
 				emptitleInput.style.marginLeft="2px";
 				emptitleInput.maxlength="100";
@@ -1413,7 +1484,7 @@ function addRow(tableID) {
 				var empstartMYInput = document.createElement("input");
 				empstartMYInput.type="text";
 				empstartMYInput.id="empstartMY" + newVal;
-				empstartMYInput.name="empstartMY[]";
+				empstartMYInput.name="emp[" + newVal + "][empstartMY]";
 				empstartMYInput.style.width="90px";
 				empstartMYInput.style.marginLeft="6px";
 				empstartMYInput.maxlength="100";
@@ -1451,7 +1522,7 @@ function addRow(tableID) {
 			var empendMYInput = document.createElement("input");
 			empendMYInput.type="text";
 			empendMYInput.id="empendMY" + newVal;
-			empendMYInput.name="empendMY[]";
+			empendMYInput.name="emp[" + newVal + "][empendMY]";
 			empendMYInput.style.width="90px";
 			empendMYInput.style.marginLeft="6px";
 			empendMYInput.maxlength="100";
@@ -1490,7 +1561,7 @@ function addRow(tableID) {
 			emptotalmthsInput.type="text";
 			emptotalmthsInput.className="IsNum";
 			emptotalmthsInput.id="emptotalmths" + newVal;
-			emptotalmthsInput.name="emptotalmths[]";
+			emptotalmthsInput.name="emp[" + newVal + "][emptotalmths]";
 			emptotalmthsInput.style.width="40px";
 			emptotalmthsInput.style.marginLeft="6px";
 			emptotalmthsInput.maxlength="100";
@@ -1528,7 +1599,7 @@ function addRow(tableID) {
 			empavghrsInput.type="text";
 			empavghrsInput.className="IsNum";
 			empavghrsInput.id="empavghrs" + newVal;
-			empavghrsInput.name="empavghrs[]";
+			empavghrsInput.name="emp[" + newVal + "][empavghrs]";
 			empavghrsInput.style.width="40px";
 			empavghrsInput.style.marginLeft="6px";
 			empavghrsInput.maxlength="100";
@@ -1577,7 +1648,7 @@ function addRow(tableID) {
 			emplastsalaryInput.type="text";
 			emplastsalaryInput.className="IsNum";
 			emplastsalaryInput.id="emplastsalary" + newVal;
-			emplastsalaryInput.name="emplastsalary[]";
+			emplastsalaryInput.name="emp[" + newVal + "][emplastsalary]";
 			emplastsalaryInput.style.width="95px";
 			emplastsalaryInput.style.marginLeft="6px";
 			emplastsalaryInput.maxlength="100";
@@ -1615,7 +1686,7 @@ function addRow(tableID) {
 			empsupervisorInput.type="text";
 			empsupervisorInput.className="IsAlpha";
 			empsupervisorInput.id="empsupervisor" + newVal;
-			empsupervisorInput.name="empsupervisor[]";
+			empsupervisorInput.name="emp[" + newVal + "][empsupervisor]";
 			empsupervisorInput.style.width="185px";
 			empsupervisorInput.style.marginLeft="2px";
 			empsupervisorInput.maxlength="100";
@@ -1652,7 +1723,7 @@ function addRow(tableID) {
 			var empreasonforleavingInput = document.createElement("input");
 			empreasonforleavingInput.type="text";
 			empreasonforleavingInput.id="empreasonforleaving" + newVal;
-			empreasonforleavingInput.name="empreasonforleaving[]";
+			empreasonforleavingInput.name="emp[" + newVal + "][empreasonforleaving]";
 			empreasonforleavingInput.style.width="320px";
 			empreasonforleavingInput.style.marginLeft="6px";
 			empreasonforleavingInput.maxlength="100";
@@ -1690,7 +1761,7 @@ function addRow(tableID) {
 			empvolunteerhrsInput.type="text";
 			empvolunteerhrsInput.className="IsNum";
 			empvolunteerhrsInput.id="empvolunteerhrs" + newVal;
-			empvolunteerhrsInput.name="empvolunteerhrs[]";
+			empvolunteerhrsInput.name="emp[" + newVal + "][empvolunteerhrs]";
 			empvolunteerhrsInput.style.width="50px";
 			empvolunteerhrsInput.style.marginLeft="6px";
 			empvolunteerhrsInput.maxlength="100";
@@ -1728,7 +1799,7 @@ function addRow(tableID) {
 			empsupervisedInput.type="text";
 			empsupervisedInput.className="IsNum";
 			empsupervisedInput.id="empsupervised" + newVal;
-			empsupervisedInput.name="empsupervised[]";
+			empsupervisedInput.name="emp[" + newVal + "][empsupervised]";
 			empsupervisedInput.style.width="125px";
 			empsupervisedInput.style.marginLeft="6px";
 			empsupervisedInput.maxlength="100";
@@ -1764,7 +1835,7 @@ function addRow(tableID) {
 			// create an input field element and insert after the label-->
 			var empdutiesInput = document.createElement("textarea");
 			empdutiesInput.id="empduties" + newVal;
-			empdutiesInput.name="empduties[]";
+			empdutiesInput.name="emp[" + newVal + "][empduties]";
 			empdutiesInput.rows="4";
 			empdutiesInput.style.width="720px";
 			empdutiesInput.style.marginLeft="2px";
@@ -1839,6 +1910,7 @@ window.onbeforeunload = function(event)
 	$('#jobappform4')[0].reset();
 	$('#jobappform5')[0].reset();
 	$('#jobappform6')[0].reset();
+  $('#jobappform7')[0].reset();
 
 	// reset number of employers stored in the hidden input field to 1
 	$("#numEmployers").val("1");
@@ -1857,14 +1929,4 @@ EnableSubmit = function(val)
 	{
 		sbmt.disabled = true;
 	}
-}
-
-submitForms = function(){
-	document.getElementById("jobappform1").submit();
-    document.getElementById("jobappform2").submit();
-	document.getElementById("jobappform3").submit();
-	document.getElementById("jobappform4").submit();
-	document.getElementById("jobappform5").submit();
-	document.getElementById("jobappform6").submit();
-	document.getElementById("jobappform7").submit();
 }

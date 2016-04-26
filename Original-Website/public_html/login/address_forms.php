@@ -73,20 +73,20 @@
             <div class="collapse navbar-collapse" id="Div1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="../index.html">Home</a>
                     </li>
                     <li>
-                        <a href="GIS.html">GIS</a>
+                        <a href="../GIS.html" target="_blank">GIS</a>
                     </li>
                     <li>
-                        <a href="addressing.html">Addressing</a>
+                        <a href="../addressing.html">Addressing</a>
                     </li>
-                    <li><a href="smart911.html">Smart 911</a></li>
+                    <li><a href="../smart911.html">Smart 911</a></li>
                     <li>
-                        <a href="links.html">Links</a>
+                        <a href="../links.html">Links</a>
                     </li>
                     <li>
-                        <a href="contact.html">Contact</a>
+                        <a href="../contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +104,7 @@
                 <div class="col-lg-12"> <!--text for welcome-->
                   <h2>Address Forms:</h2>
                     <?php
-                    require('../php/connect_db.php'); // Connect to the database
+                    require('connect_db.php'); // Connect to the database
 
                     // If page is first loaded, or OK button from Delete / Display page is selected,
                     // or if the Refresh button is selected, display the initial set of database entries to choose from
@@ -169,6 +169,8 @@
                                  <p>Others:</p>
                                  <p style="text-indent: 20px"><b>' . $result['others'] . '</b></p>
                                  <p>Road Street Name: <b>' . $result['road_street'] . '</b></p>
+                                 <p>Lot Number: <b>' . $result['lotNumber'] . '</b></p>
+                                 <p>GPS Coordinates: <b>' . $result['gps'] . '</b></p>
                               <form method="post" action="address_forms.php">
                                 <input type="submit" name="submit" value="Ok" />
                               </form>';

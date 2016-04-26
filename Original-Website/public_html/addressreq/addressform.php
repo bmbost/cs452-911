@@ -1,4 +1,6 @@
 <?php
+ini_set("include_path", '/home/athens911/php:' . ini_get("include_path") );
+
 // Created by Athens State University CS452 Senior Engineering Project
 // Members: Mallory Patterson, Brandon Bost, Jordan Hopkins, Keith Robinson
 
@@ -26,36 +28,41 @@ if (intval($responseKeys["success"]) !== 1) {
   include("address_form_footer.html");
 } else {
 
+// Call to database connection. NOT IMPLEMENTED due to client change of SOW.
+/*
 require('connect_db.php');
-
+*/
 // Creates variables and filters input from user
 $date = date('Y-m-d');
-$firstName = filter_input(INPUT_POST, 'requestor_firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$lastName = filter_input(INPUT_POST, 'requestor_lastName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$reqArea1 = filter_input(INPUT_POST, 'reqArea1', FILTER_VALIDATE_INT);
-$reqFirstThree1 = filter_input(INPUT_POST, 'reqFirstThree1', FILTER_VALIDATE_INT);
-$reqLastFour1 = filter_input(INPUT_POST, 'reqLastFour1', FILTER_VALIDATE_INT);
-$reqArea2 = filter_input(INPUT_POST, 'reqArea2', FILTER_VALIDATE_INT);
-$reqFirstThree2 = filter_input(INPUT_POST, 'reqFirstThree2', FILTER_VALIDATE_INT);
-$reqLastFour2 = filter_input(INPUT_POST, 'reqLastFour2', FILTER_VALIDATE_INT);
+$firstName = filter_input(INPUT_POST, 'reqFirst', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$lastName = filter_input(INPUT_POST, 'reqLast', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$reqArea1 = filter_input(INPUT_POST, 'requArea1', FILTER_VALIDATE_INT);
+$reqFirstThree1 = filter_input(INPUT_POST, 'requFirstThree1', FILTER_VALIDATE_INT);
+$reqLastFour1 = filter_input(INPUT_POST, 'requLastFour1', FILTER_VALIDATE_INT);
+$reqArea2 = filter_input(INPUT_POST, 'requArea2', FILTER_VALIDATE_INT);
+$reqFirstThree2 = filter_input(INPUT_POST, 'requFirstThree2', FILTER_VALIDATE_INT);
+$reqLastFour2 = filter_input(INPUT_POST, 'requLastFour2', FILTER_VALIDATE_INT);
 $residency = filter_input(INPUT_POST, 'reqisresYN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$resFirstName = filter_input(INPUT_POST, 'resident_firstName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$resLastName = filter_input(INPUT_POST, 'resident_lastName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$resArea1 = filter_input(INPUT_POST, 'resArea1', FILTER_VALIDATE_INT);
-$resFirstThree1 = filter_input(INPUT_POST, 'resFirstThree1', FILTER_VALIDATE_INT);
-$resLastFour1 = filter_input(INPUT_POST, 'resLastFour1', FILTER_VALIDATE_INT);
-$resArea2 = filter_input(INPUT_POST, 'resArea2', FILTER_VALIDATE_INT);
-$resFirstThree2 = filter_input(INPUT_POST, 'resFirstThree2', FILTER_VALIDATE_INT);
-$resLastFour2 = filter_input(INPUT_POST, 'resLastFour2', FILTER_VALIDATE_INT);
+$resFirstName = filter_input(INPUT_POST, 'resFirst', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$resLastName = filter_input(INPUT_POST, 'resLast', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$resArea1 = filter_input(INPUT_POST, 'resiArea1', FILTER_VALIDATE_INT);
+$resFirstThree1 = filter_input(INPUT_POST, 'resiFirstThree1', FILTER_VALIDATE_INT);
+$resLastFour1 = filter_input(INPUT_POST, 'resiLastFour1', FILTER_VALIDATE_INT);
+$resArea2 = filter_input(INPUT_POST, 'resiArea2', FILTER_VALIDATE_INT);
+$resFirstThree2 = filter_input(INPUT_POST, 'resiFirstThree2', FILTER_VALIDATE_INT);
+$resLastFour2 = filter_input(INPUT_POST, 'resiLastFour2', FILTER_VALIDATE_INT);
 $structure = filter_input(INPUT_POST, 'structype', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $details = filter_input(INPUT_POST, 'strucdetails', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$northadd = filter_input(INPUT_POST, 'northadd', FILTER_VALIDATE_INT);
-$southadd = filter_input(INPUT_POST, 'southadd', FILTER_VALIDATE_INT);
-$eastadd = filter_input(INPUT_POST, 'eastadd', FILTER_VALIDATE_INT);
-$westadd = filter_input(INPUT_POST, 'westadd', FILTER_VALIDATE_INT);
-$markers = filter_input(INPUT_POST, 'markers', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$others = filter_input(INPUT_POST, 'others', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$roadstreet = filter_input(INPUT_POST, 'roadstreet', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$northadd = filter_input(INPUT_POST, 'northADDR', FILTER_VALIDATE_INT);
+$southadd = filter_input(INPUT_POST, 'southADDR', FILTER_VALIDATE_INT);
+$eastadd = filter_input(INPUT_POST, 'eastADDR', FILTER_VALIDATE_INT);
+$westadd = filter_input(INPUT_POST, 'westADDR', FILTER_VALIDATE_INT);
+$markers = filter_input(INPUT_POST, 'markersINFO', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$others = filter_input(INPUT_POST, 'othersINFO', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$roadstreet = filter_input(INPUT_POST, 'roadname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$gps = filter_input(INPUT_POST, 'GPScoordinates', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$lotNumber = filter_input(INPUT_POST, 'lotNumber', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
 $message = '';
 
 // Check and see if residency checkbox was marked 'Y', and if so add previously entered fields
@@ -183,7 +190,10 @@ if ($resArea2 != NULL) { // Makes sure a number has been entered in the second r
 
 
 if ($message != '') {
-  include('address_request.php');
+  include("address_form_header.html");
+  echo $message;
+  echo "<p>Please press the Back button and correct these issues in your submission.</p>";
+  include("address_form_footer.html");
   exit();
 }
 
@@ -194,13 +204,16 @@ $phone2 = '(' . $reqArea2 . ') ' . $reqFirstThree2 . '-' . $reqLastFour2;
 $resphone1 = '(' . $resArea1 . ') ' . $resFirstThree1 . '-' . $resLastFour1;
 $resphone2 = '(' . $reqArea2 . ') ' . $reqFirstThree2 . '-' . $reqLastFour2;
 
+// Database insertion
+
+/*
 $sql = "INSERT INTO address_form (request_date, requestor, requestor_phone1,
         requestor_phone2, residency, resident, resident_phone1, resident_phone2,
         structure_type, structure_details, north_add_num, south_add_num,
-        east_add_num, west_add_num, markers, others, road_street)
+        east_add_num, west_add_num, markers, others, road_street, lotNumber, gps)
         VALUES ('$date', '$name', '$phone1', '$phone2', '$residency', '$resident',
         '$resphone1', '$resphone2', '$structure', '$details', '$northadd', '$southadd',
-        '$eastadd', '$westadd', '$markers', '$others', '$roadstreet')";
+        '$eastadd', '$westadd', '$markers', '$others', '$roadstreet', '$lotNumber', '$gps')";
 
 if (mysqli_query($dbhandle, $sql)) {
   include("address_form_header.html");
@@ -216,30 +229,30 @@ else {
 }
 
 mysqli_close($dbhandle); // Close the database.
-
+*/
 require('Mail.php'); // Include the PEAR Mail header
 
 // Create all of the options to use to set up the mailer object
 $options = array();
-$options['host'] = 'smtp-mail.outlook.com';
-$options['port'] = 587;
+$options['host'] = 'ssl://p3plcpnl0095.prod.phx3.secureserver.net';
+$options['port'] = 465;
 $options['auth'] = true;
-$options['username'] = 'alc911@outlook.com';
-$options['password'] = 'Limestone911';
+$options['username'] = 'donotrespond@alc911.org';
+$options['password'] = 'Athens911';
 
 $mailer = Mail::factory('smtp', $options); // Create mailer object
 
 // Set up headers
 $headers = array();
-$headers['From'] = 'alc911@outlook.com';
-$headers['To'] = 'bmbost1983@gmail.com';
+$headers['From'] = 'ACL911 Automated Mailer <donotrespond@alc911.org>';
+$headers['To'] = 'jackson@alc911.org, brandon@alc911.org';
 $headers['Subject'] = $name . ' Address Request Form Submission';
 $headers['Content-type'] = 'text/html';
 
-$recipients = 'bmbost1983@gmail.com';
+$recipients = 'jackson@alc911.org, brandon@alc911.org';
 //the message body of the email that contains all the table html info
 $body = '<html><body>';
-$body .= '<h1><img src="//css-tricks.com/examples/WebsiteChangeRequestForm/images/wcrf-header.png" alt="Address Request Form" /></h1><br><br>';
+$body .= '<h1>Address Request Form for '. $name . '</h1><br><br>';
 $body .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
 $body .= "<tr style='background: #eee;'><td><strong>Date of Request:</strong> </td><td>". $date . "</tr>";
 $body .= "<tr><td><strong>Requestor First Name:</strong> </td><td>" . strip_tags($firstName) . "</td></tr>";
@@ -262,7 +275,9 @@ $body .= "<tr><td><strong>East of Address #:</strong> </td><td>" . strip_tags($e
 $body .= "<tr><td><strong>West of Address #:</strong> </td><td>" . strip_tags($westadd) . "</td></tr>";
 $body .= "<tr><td><strong>Markers Information:</strong> </td><td>" . strip_tags($markers) . "</td></tr>";
 $body .= "<tr><td><strong>Other Information:</strong> </td><td>" . strip_tags($others) . "</td></tr>";
-$body .= "<tr><td><strong>Road-Street:</strong> </td><td>" . strip_tags($roadstreet) . "</td></tr>";
+$body .= "<tr><td><strong>Road Name:</strong> </td><td>" . strip_tags($roadstreet) . "</td></tr>";
+$body .= "<tr><td><strong>Lot Number:</strong> </td><td>" . strip_tags($lotNumber) . "</td></tr>";
+$body .= "<tr><td><strong>GPS Coordinates:</strong> </td><td>" . strip_tags($gps) . "</td></tr>";
 $body .= "</table>";
 $body .= "</body></html>";
 
@@ -273,6 +288,12 @@ if (PEAR::isError($result)) {
   $error = 'Error sending email: ' . $result->getMessage();
   echo htmlspecialchars($error);
 }
+
+include("address_form_header.html");
+echo '<p style="padding-left: 15px">Address request successfully submitted.</p>';
+echo '<p style="padding-left: 15px">Thank you for your submission. A representative with the Athens-Limestone
+     County 911 Center will contact you soon.</p>';
+include("address_form_footer.html");
 
 } // end reCAPTCHA else
 ?>

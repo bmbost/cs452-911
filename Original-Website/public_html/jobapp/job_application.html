@@ -7,7 +7,9 @@
 
 		<meta charset="UTF-8" name="viewport" content="width=device-width,minimum-scale=1"/>
 
-		<link href="css/jobappform-style.css" type="text/css" rel="stylesheet"/>
+		<link rel="shortcut icon" href="media/favicon.ico">
+
+		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
 		<link href="javascript/jquery-ui-1.11.4.custom/jquery-ui.css" type="text/css" rel="stylesheet"/>
 		<link href="javascript/tooltipster-master/css/tooltipster.css" type="text/css" rel="stylesheet"/>
 
@@ -19,7 +21,7 @@
 		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/additional-methods.min.js"></script><!--include jquery validate additional methods for form validation-->
 		<script type="text/javascript" src="javascript/tooltipster-master/js/jquery.tooltipster.min.js"></script><!--include tooltipster plugin to show jquery validation errors in tooltips-->
 		<script type="text/javascript" src="javascript/job-app-form.js"></script><!--include custom javascript for form-->
-    <script src='https://www.google.com/recaptcha/api.js'></script><!-- include reCAPTCHA widget -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
 	</head>
 
@@ -31,18 +33,31 @@
 
 			<!-- banner residing at top of form with ALC911 logo-->
 			<a target="_blank" href="http://www.alc911.org">
-				<div class="banner"><img class="top" src="media/banner2.png" alt="Athens-Limestone County 911" /></div>
+				<div class="banner"><img class="top" src="media/Banner2.png" alt="Athens-Limestone County 911" /></div>
 			</a>
+
+			<!--If the user does not have scripting enabled on their browser, display a warning and provide a link to download the job form instead...-->
+			<noscript>
+
+				<div class="warningtextbox">Warning! Your browser does not permit the use of Javascript. <br /> To use the web form, please <a target="_blank" href="http://enable-javascript.com/">enable scripting on your browser</a>. <br /><br />
+				Or download and print the application as a PDF document using the link below. <br />
+				<a href="media/jobappformpdf.pdf">Download and print application</a></div>
+
+			</noscript>
+
 
 			<!-- Job Application Form Title -->
 			<h1>Application for Employment<br />with the Athens-Limestone County 911 District</h1>
-			<p style="text-align:center"><i>Please review all questions carefully before submitting your application.</i></p>
+			<p id="directions" style="text-align:center"><i>Please review all questions carefully before submitting your application.</i></p>
 
 			<!--div that encompasses form and headings (sizes contents to 800px width-->
 			<div class="formenclosure">
 
 			<!-- Line Break in page signifying new form section-->
 			<hr />
+
+			<div id="submitSuccess" style="visibility:hidden;display:none;">
+			</div>
 
 			<!--Page 1 of the form-->
 			<div id="formpage_1" style="visibility:visible;display:block;">
@@ -149,14 +164,14 @@
 			<div id="formpage_2" style="visibility:hidden;display:none;">
 
 			<!-- PART 1 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform1" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform1" class="myForms" method="post" action="jobappform-processingNew.php">
 
 				<!-- Part 1. of the form collects general information from the user such as the position he/she is applying for, name, and contact information -->
 				<h2 id="geninfo">Part 1. General Information</h2>
 				<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
 				<br />
 						<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "application date" in db...-->
-						<input type="date" id="applicationdate" name="applicationdate" disabled style="display:none;">
+						<input type="text" id="applicationdate" name="applicationdate" style="display:none;">
 
 						<span class="formfieldpair">
 							<label for="position" style="width:596px" title="Enter the job title for the desired position.">Position (Job Title) <span style="color:red;">*</span></label>
@@ -266,19 +281,19 @@
 						<table class="table1">
 							<tr>
 								<td width="10%"><i>Shift:</i></td>
-								<td width="18%"><input type="checkbox" name="shift[]" value="day">Day</td>
-								<td width="18%"><input type="checkbox" name="shift[]" value="swing">Swing</td>
-								<td width="18%"><input type="checkbox" name="shift[]" value="graveyard">Graveyard</td>
-								<td width="18%"><input type="checkbox" name="shift[]" value="rotating">Rotating</td>
+								<td width="18%"><input type="checkbox" name="shift1">Day</td>
+								<td width="18%"><input type="checkbox" name="shift2">Swing</td>
+								<td width="18%"><input type="checkbox" name="shift3">Graveyard</td>
+								<td width="18%"><input type="checkbox" name="shift4">Rotating</td>
 								<td width="18%"></td>
 							</tr>
 							<tr>
 								<td><i>Schedule:</i></td>
-								<td><input type="checkbox" name="schedule[]" value="fulltime">Full-Time</td>
-								<td><input type="checkbox" name="schedule[]" value="parttime">Part-Time</td>
-								<td><input type="checkbox" name="schedule[]" value="nonperm">Non-Permanent</td>
-								<td><input type="checkbox" name="schedule[]" value="seasonal">Seasonal</td>
-								<td><input type="checkbox" name="schedule[]" value="oncall">On-Call</td>
+								<td><input type="checkbox" name="schedule1">Full-Time</td>
+								<td><input type="checkbox" name="schedule2">Part-Time</td>
+								<td><input type="checkbox" name="schedule3">Non-Permanent</td>
+								<td><input type="checkbox" name="schedule4">Seasonal</td>
+								<td><input type="checkbox" name="schedule5">On-Call</td>
 							</tr>
 						</table>
 
@@ -307,7 +322,7 @@
 			<div id="formpage_3" style="visibility:hidden; display:none;">
 
 			<!-- PART 2 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform2" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform2" class="myForms" method="post" action="jobappform-processingNew.php">
 
 				<h2 id="backgroundinfo">Part 2. Background Information</h2>
 
@@ -380,7 +395,7 @@
 			<div id="formpage_4" style="visibility:hidden; display:none;">
 
 			<!-- PART 3 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform3" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform3" class="myForms" method="post" action="jobappform-processingNew.php">
 
 				<h2 id="edandtrain">Part 3. Education and Training</h2>
 
@@ -401,6 +416,9 @@
 
 						<br />
 
+						<!--hidden field that contains the number of employers that are currently displayed on page (default is 1)-->
+						<input id="numEducation" name="numEducation" type="hidden" value="1">
+
 						<table class="table3" id="educationtable">
 							<tr>
 								<th class="table3" scope="column" colspan="1" rowspan="1" width="34%">School Name and Location</th>
@@ -412,13 +430,13 @@
 								<th class="table3" scope="column" colspan="1" rowspan="1" width="7%">Year Degree Received</th>
 							</tr>
 							<tr>
-								<td class="table3"><textarea name="schoonameandloc[]" style="width:255px" rows="2" placeholder="Enter School Name and Location"></textarea></td>
-								<td class="table3"><textarea name="schoolstartMY[]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
-								<td class="table3"><textarea name="schoolendMY[]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
-								<td class="table3"><textarea class="IsNum" name="credits[]" style="width:35px" rows="2" maxlength="5"></textarea></td>
-								<td class="table3"><textarea name="major[]" style="width:185px" rows="2"></textarea></td>
-								<td class="table3"><textarea name="degreetype[]" style="width:65px" rows="2"></textarea></td>
-								<td class="table3"><textarea class="IsNum" name="degreeyear[]" style="width:40px" rows="2" maxlength="4"></textarea></td>
+								<td class="table3"><textarea name="edu[1][schoonameandloc]" style="width:255px" rows="2" placeholder="Enter School Name and Location"></textarea></td>
+								<td class="table3"><textarea name="edu[1][schoolstartMY]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea name="edu[1][schoolendMY]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="edu[1][credits]" style="width:35px" rows="2" maxlength="5"></textarea></td>
+								<td class="table3"><textarea name="edu[1][major]" style="width:185px" rows="2"></textarea></td>
+								<td class="table3"><textarea name="edu[1][degreetype]" style="width:65px" rows="2"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="edu[1][degreeyear]" style="width:40px" rows="2" maxlength="4"></textarea></td>
 							</tr>
 						</table>
 
@@ -450,7 +468,7 @@
 			<div id="formpage_5" style="visibility:hidden; display:none;">
 
 			<!-- PART 4 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform4" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform4" class="myForms" method="post" action="jobappform-processingNew.php">
 
 				<h2 id="employhist">Part 4. Employment History</h2>
 				<div class="explanatoryformtext">This section must be completed in order to receive full credit. You may use this form for both volunteer and paid experience.
@@ -460,7 +478,7 @@
 				<br />
 
 				<!--hidden field that contains the number of employers that are currently displayed on page (default is 1)-->
-				<input id="numEmployers" type="hidden" value="1">
+				<input id="numEmployers" name="numEmployers" type="hidden" value="1">
 
 				<div id="employmenthistory" class="employmenthistory">
 
@@ -468,72 +486,72 @@
 					<div id="employer1" class="employer">
 						<span class="formfieldpair">
 							<label for="employer1" style="width:265px">1. Present or Last Employer <span style="color:red;">*</span></label>
-							<input type="text" id="employer1" name="employer[]" style="width:265px" maxlength="100"/>
+							<input type="text" id="employer1" name="emp[1][empname]" style="width:265px" maxlength="100"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empaddr1" style="width:300px">Employer Address <span style="color:red;">*</span></label>
-							<input type="text" id="empaddr1" name="empaddr[]" style="width:300px" maxlength="100"/>
+							<input type="text" id="empaddr1" name="emp[1][empaddr]" style="width:300px" maxlength="100"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empphone1" style="width:125px">Employer Phone <span style="color:red;">*</span></label>
-							<input type="text" id="empphone1" name="empphone[]" style="width:125px" maxlength="100"/>
+							<input type="text" id="empphone1" name="emp[1][empphone]" style="width:125px" maxlength="100"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="emptitle1" style="width:265px">Your Title <span style="color:red;">*</span></label>
-							<input type="text" id="emptitle1" name="emptitle[]" style="width:265px" maxlength="100"/>
+							<input type="text" id="emptitle1" name="emp[1][emptitle]" style="width:265px" maxlength="100"/>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empstartMY1" style="width:90px">Start Month/Year <span style="color:red;">*</span></label>
-							<input type="text" id="empstartMY1" name="empstartMY[]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
+							<input type="text" id="empstartMY1" name="emp[1][empstartMY]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empendMY1" style="width:90px">End Month/Year</label>
-							<input type="text" id="empendMY1" name="empendMY[]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
+							<input type="text" id="empendMY1" name="emp[1][empendMY]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="emptotalmths1" style="width:40px">Total Months</label>
-							<input type="text" class="IsNum" id="emptotalmths[]" name="emptotalmths1" style="width:40px" maxlength="100" />
+							<input type="text" class="IsNum" id="emptotalmths1" name="emp[1][emptotalmths]" style="width:40px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empavghrs1" style="width:40px">Average Hours</label>
-							<input type="text" class="IsNum" id="empavghrs1" name="empavghrs[]" style="width:40px" maxlength="100" /><span class="explanatoryformtext" style="font-size:.80em"><i>/week</i></span>
+							<input type="text" class="IsNum" id="empavghrs1" name="emp[1][empavghrs]" style="width:40px" maxlength="100" /><span class="explanatoryformtext" style="font-size:.80em"><i>/week</i></span>
 						</span>
 
 						<span class="formfieldpair">
 							<label for="emplastsalary1" style="width:95px">Last Salary</label>
-							<input type="text" class="IsNum" id="emplastsalary1"  name="emplastsalary[]" style="width:95px" maxlength="100" />
+							<input type="text" class="IsNum" id="emplastsalary1"  name="emp[1][emplastsalary]" style="width:95px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empsupervisor1" style="width:185px">Supervisor Name</label>
-							<input type="text" class="IsAlpha" id="empsupervisor1" name="empsupervisor[]" style="width:185px" maxlength="100" />
+							<input type="text" class="IsAlpha" id="empsupervisor1" name="emp[1][empsupervisor]" style="width:185px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empreasonforleaving1" style="width:320px">Reason for Leaving</label>
-							<input type="text" id="empreasonforleaving1" name="empreasonforleaving[]" style="width:320px" maxlength="100" />
+							<input type="text" id="empreasonforleaving1" name="emp[1][empreasonforleaving]" style="width:320px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empvolunteerhrs1" style="width:50px">Volunteer Hours</label>
-							<input type="text" class="IsNum" id="empvolunteerhrs1" name="empvolunteerhrs[]" style="width:50px" maxlength="100" />
+							<input type="text" class="IsNum" id="empvolunteerhrs1" name="emp[1][empvolunteerhrs]" style="width:50px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empsupervised1" style="width:125px"># of Employees Supervised</label>
-							<input type="text" class="IsNum" id="empsupervised1" name="empsupervised[]" style="width:125px" maxlength="100" />
+							<input type="text" class="IsNum" id="empsupervised1" name="emp[1][empsupervised]" style="width:125px" maxlength="100" />
 						</span>
 
 						<span class="formfieldpair">
 							<label for="empduties1" style="width:720px">Specific Duties</label>
-							<textarea id="empduties1" name="empduties[]" style="width:720px" rows="4" placeholder="Please elaborate on your responsibilities in this position..."></textarea>
+							<textarea id="empduties1" name="emp[1][empduties]" style="width:720px" rows="4" placeholder="Please elaborate on your responsibilities in this position..."></textarea>
 						</span>
 					</div><!--end employer div-->
 
@@ -566,7 +584,7 @@
 			<div id="formpage_6" style="visibility:hidden; display:none;">
 
 			<!-- PART 5 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform5" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform5" class="myForms" method="post" action="jobappform-processingNew.php">
 
 				<h2 id="affirmact">Part 5. Affirmative Action</h2>
 				<div class="explanatoryformtext">To ensure equal employment opportunity, we ask your voluntary cooperation in responding to the questions below.
@@ -592,13 +610,13 @@
 							<td width="50%" style="vertical-align:top">3. What race or culture do you consider yourself?<br />
 							                                           <span class="explanatoryformtext"><i>Select one or more races as needed</i></span><br />
 								<ul style="list-style-type:none">
-									<li><input type="checkbox" name="race[]" value="597">American Indian (597)</li><!--american indian-->
-									<li><input type="checkbox" name="race[]" value="015">Alaskan Native (015)</li><!--alaskan native-->
-									<li><input type="checkbox" name="race[]" value="653">Native Hawaiian or Other Pacific Islander (653)</li><!--native hawaiian or other pacific islander-->
-									<li><input type="checkbox" name="race[]" value="621">Asian (621)</li><!--asian-->
-									<li><input type="checkbox" name="race[]" value="870">Black/African American (870)</li><!--black/african american-->
-									<li><input type="checkbox" name="race[]" value="800">White/Caucasian (800)</li><!--white/caucasian-->
-									<li><input type="checkbox" id="otherraceTF" name="otherraceTF" value="1">Other Race</li>
+									<li><input type="checkbox" name="race1">American Indian (597)</li><!--american indian-->
+									<li><input type="checkbox" name="race2">Alaskan Native (015)</li><!--alaskan native-->
+									<li><input type="checkbox" name="race3">Native Hawaiian or Other Pacific Islander (653)</li><!--native hawaiian or other pacific islander-->
+									<li><input type="checkbox" name="race4">Asian (621)</li><!--asian-->
+									<li><input type="checkbox" name="race5">Black/African American (870)</li><!--black/african american-->
+									<li><input type="checkbox" name="race6">White/Caucasian (800)</li><!--white/caucasian-->
+									<li><input type="checkbox" id="otherraceTF" name="race7">Other Race</li>
 									<li style="display:none;" id="otherracename"><textarea id="otherracenamefield" name="otherracename" maxlength="100" style="width:200px" rows="4" placeholder="Indicate races or cultures"></textarea></li>
 								</ul>
 							</td>
@@ -743,7 +761,7 @@
 			<div id="formpage_7" style="visibility:hidden; display:none;">
 
 			<!-- PART 6 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
-			<form id="jobappform6" class="myForms" method="post" action="jobappform-processing.php">
+			<form id="jobappform6" class="myForms" method="post" action="jobappform-processingNew.php">
 
 
 				<h2 id="veteran">Part 6. Veteran's Information</h2>
@@ -771,15 +789,17 @@
 													<input type="text" class="datepicker" id="honoractdutytodate" name="honoractdutytodate" style="width:75px">
 											</li>
 											<li><span class="explanatoryformtext" style="font-size:.80">Type of Discharge:</span>
-												<select id="typeofdischarge">
-													<option name="dischargetype" value="none">Select One</option>
-													<option name="dischargetype" value="honorable">Honorable</option>
-													<option name="dischargetype" value="general">General</option>
-													<option name="dischargetype" value="otherthanhonor">Other Than Honorable</option>
-													<option name="dischargetype" value="badconduct">Bad Conduct</option>
-													<option name="dischargetype" value="dishonorable">Dishonorable</option>
-													<option name="dischargetype" value="officer">Officer</option>
-													<option name="dischargetype" value="entrylevelsep">Entry Level Separation</option>
+												<select name="typeofdischarge">
+
+													<option value="Select One">Select One</option>
+													<option value="Honorable">Honorable</option>
+													<option value="General">General</option>
+													<option value="Other than Honorable">Other than Honorable</option>
+													<option value="Bad Conduct">Bad Conduct</option>
+													<option value="Dishonorable">Dishonorable</option>
+													<option value="Officer">Officer</option>
+													<option value="Entry Level Separation">Entry Level Separation</option>
+
 												</select>
 											</li>
 											<br />
@@ -830,14 +850,14 @@
 				<div class="formtext">
 
 					<!--Input field for veterans or veteran spouses to upload a copy of DD214-->
-					<p style="font-weight:bold">Please upload a copy of your DD214 or NGB Form 22:<br />
-					<input type="file" name="DD214" accept=".doc,.docx,.pdf"></p>
+					<p style="font-weight:bold">Please remember to bring a copy of your DD214 or NGB Form 22, and your US Department of Veteran's Affairs Disability Awards letter to your interview should you have them.</p><br />
+			<!--		<input type="file" name="DD214" accept=".doc,.docx,.pdf"></p> -->
 
-					<br />
+			<!--		<br /> -->
 
 					<!--Input field for veterans or veteran spouses to upload a copy of DD214-->
-					<p style="font-weight:bold">Please upload a copy of US Department of Veteran's Affairs Disability Awards letter:<br />
-					<input type="file" name="VAdisabledletter" accept=".doc,.docx,.pdf"></p>
+			<!--		<p style="font-weight:bold">Please upload a copy of US Department of Veteran's Affairs Disability Awards letter:<br /> -->
+			<!--		<input type="file" name="VAdisabledletter" accept=".doc,.docx,.pdf"></p> -->
 
 					<br />
 					<br />
@@ -856,82 +876,71 @@
 			</div><!--end page 7 of form-->
 
 
-
+			<form id="jobappform7" class="myForms" method="post" action="jobappform-processingNew.php">
 			<!--Page 8 of the form-->
 			<div id="formpage_8" style="visibility:hidden; display:none;">
-				<form id="jobappform7" class="myForms" method="post" action="jobappform-processing.php">
-					<h2 id="affirmact">Part 7. Submit Application</h2>
-					<div class="explanatoryformtext">Thank you for completing this employment application! You can expect to be notified of your application results about 3 weeks after the closing date.
-					</div>
 
-					<br />
+			<h2 id="affirmact">Part 7. Submit Application</h2>
+				<!--<div class="explanatoryformtext">Thank you for completing this employment application! You can expect to be notified of your application results about 3 weeks after the closing date.
+				</div>-->
 
-					<table class="table1">
-						<tr>
-							<td class="table1" width="5%">
-								<input type="checkbox" name="appsignature" onclick="EnableSubmit(this)" value="1">
-							</td>
-							<td class="table1" width="95%">
-								<span class="explanatoryformtext">All answers are true and complete to the best of my knowledge.
-									I understand that the 911 District may verify information, and that untruthful or misleading
-									answers are cause for rejection of this application, removal of my name from a register, or
-									dismissal if employed.</span>
-							</td>
-						</tr>
-					</table>
+				<br />
 
-
-					<br />
-					<br />
-
-        	<!-- reCAPTCHA widget -->
-        	<div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
-
-        	<br />
-
-					<!-- Submit Button -->
-					<input id="submitbutton" type="submit" name="submit" value="Submit Application" onclick="submitForms()" disabled >
-
-					<br />
-					<br />
-					<br />
-					<br />
+				<table class="table1">
+					<tr>
+						<td class="table1" width="5%">
+							<input type="checkbox" name="appsignature" onclick="EnableSubmit(this)" value="1">
+						</td>
+						<td class="table1" width="95%">
+							<span class="explanatoryformtext">All answers are true and complete to the best of my knowledge.
+							I understand that the 911 District may verify information, and that untruthful or misleading
+							answers are cause for rejection of this application, removal of my name from a register, or
+							dismissal if employed.</span>
+						</td>
+					</tr>
+				</table>
 
 
-					<!-- Previous Page Button -->
-					<input class="formbutton" type="button" name="backtopg7" value="< Back" onclick="pagechange(8,7)">
+				<br />
+				<br />
+
+        <div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
+
+        <br />
+
+				<!-- Submit Button -->
+				<input class="formsubmit" id="submitbutton" type="button" name="submit" value="Submit Application" disabled >
+
+				<br />
+				<br />
+				<br />
+				<br />
+
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg7" value="< Back" onclick="pagechange(8,7)">
 
 
 
-					<br />
-					<br />
+				<br />
+				<br />
 
-				</form>
+
 			</div><!--end page 8 of form-->
-
+    </form>
 
 			</div><!--end formenclosure div-->
 
 			<br />
 			<br />
 
-		<!-- banner residing at bottom of form-->
+			<!-- banner residing at bottom of form-->
 			<a target="_blank" href="http://www.athens.edu">
-				<div class="banner"><img class="bottom" src="media/banner-bottom.png" alt="Athens State University" /></div>
+				<div class="banner"><img class="bottom" src="media/Banner-bottom.png" alt="Athens State University" /></div>
 			</a>
 
 		</div><!--end wrapsheetborder div-->
 
-
-		<!--If the user does not have scripting enabled on their browser, display a warning and provide a link to download the job form instead...-->
-		<noscript>
-
-			<p>Your browser does not support Javascript. To use the web form, please enable scripting on your browser. <br />
-			Otherwise, you may download and print the job form as a PDF document using the link below.</p>
-
-			<a href="media/Application Form.pdf">Download job form</a>
-
-		</noscript>
 
 	</body>
 
