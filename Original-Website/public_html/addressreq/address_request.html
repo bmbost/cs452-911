@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<title>Address Request Form</title>
+
+		<meta charset="UTF-8" name="viewport" content="width=device-width,minimum-scale=1"/>
+
+		<link rel="shortcut icon" href="media/favicon.ico">
+
+		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
+		<link href="javascript/tooltipster-master/css/tooltipster.css" type="text/css" rel="stylesheet"/>
+
+     	<script type="text/javascript" src="javascript/jquery.js"></script><!--include jquery-->
+		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/jquery.validate.js"></script><!--include jquery validate for form validation-->
+		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/additional-methods.min.js"></script><!--include jquery validate additional methods for form validation-->
+		<script type="text/javascript" src="javascript/tooltipster-master/js/jquery.tooltipster.min.js"></script><!--include tooltipster plugin to show jquery validation errors in tooltips-->
+        <script type="text/javascript" src="javascript/address-request-form.js"></script><!--include custom javascript for form-->
+        <script src='https://www.google.com/recaptcha/api.js'></script><!-- include Google reCAPTCHA widget javascript -->
+
+	</head>
+
+
+	<body>
+
+		<!-- div that encompasses entire form and forces a rounded border with white background-->
+		<div class="wrapsheetborder">
+
+			<!-- banner residing at top of form with ALC911 logo-->
+			<a target="_blank" href="http://www.alc911.org">
+					<div class="banner"><img class="top" src="media/Banner2.png" alt="Athens-Limestone County 911" /></div>
+			</a>
+
+			<!--If the user does not have scripting enabled on their browser, display a warning-->
+			<noscript>
+
+				<div class="warningtextbox">Warning! Your browser does not permit the use of Javascript. <br />
+											As a result, some form functionality will be limited or disabled.<br />To correct this issue, <a target="_blank" href="http://enable-javascript.com/">enable scripting on your browser</a>.</div>
+			</noscript>
+
+			<!-- The Address Request Form begins here -->
+			<form id="addreqform" method="post" action="addressform.php">
+
+			<!-- Address Request Form Title-->
+			<h1>Athens-Limestone County 911 Address Request From</h1>
+			<p style="text-align:center"><i>This form is to be used for new address requests only - not to update your current house description.</i></p>
+
+			<!--div that encompasses form and headings (sizes contents to 800px width-->
+			<div class="formenclosure">
+
+			<!-- Line Break in page-->
+			<hr />
+
+				<h2>Contact Information</h2>
+				<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
+
+				<br />
+				<br />
+
+				<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "request date"  DISABLED! Implemented in PHP
+				<input type="date" id="requestdate" name="requestdate" disabled style="display:none;"> -->
+
+				<table class="table2">
+					<tr>
+						<td colspan="4">
+							<span class="appinstructionsheaders">Requested By</span><br />
+							<span class="explanatoryformtext">Please enter your information so that we may contact you regarding this request.</span>
+						</td>
+					</tr>
+					<tr>
+						<!--Form Field 2: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+						<td  width ="20%">
+							<span class="formfieldpair">
+								<label for="reqFirst" title="Enter your first name">First Name <span style="color:red;">*</span></label>
+								<input type="text" class="IsAlpha" id="reqFirst" name="reqFirst" style="width:175px" maxlength="60" />
+							</span>
+						</td>
+
+						<!--Form Field 3: Requestor - person submitting address request (either resident or someone submitting on behalf of resident)
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+						<td width ="20%">
+							<span class="formfieldpair">
+								<label>Last Name <span style="color:red;">*</span></label>
+								<input type="text" class="IsAlpha" id="reqLast" name="reqLast" style="width:175px" maxlength="60" title="Enter your last name"/>
+							</span>
+						</td>
+
+						<!--Form Field 4: Req Phone 1 - primary contact number for requestor
+						Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+						no text or special characters. Display in format (###) ###-##### -->
+
+						<td width ="30%">
+							<span class="formfieldpair">
+								<label>Primary Phone <span style="color:red;">*</span></label>
+								(<input type="text" class="IsNum" id="requArea1" name="requArea1" style="width:30px" maxlength="3" title="Enter the area code of your primary phone number"/>)
+								<input type="text" class="IsNum" id="requFirstThree1" name="requFirstThree1" style="width:30px" maxlength="3" title="Enter the first 3 digits of your primary phone number"/> -
+								<input type="text" class="IsNum" id="requLastFour1" name="requLastFour1" style="width:40px" maxlength="4" title="Enter the last 4 digits of your primary phone number"/>
+							</span>
+						</td>
+
+						<!--Form field 5: Req Phone 2 - secondary contact number for requestor
+						Field Validation: must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+						no text or special characters. Display in format (###) ###-#### -->
+						<td width ="30%">
+							<span class="formfieldpair">
+								<label>Secondary Phone</label>
+								(<input type="text" class="IsNum" id="requArea2" name="requArea2" style="width:30px" maxlength="3"/>)
+								<input type="text" class="IsNum" id="requFirstThree2" name="requFirstThree2" style="width:30px" maxlength="3"/> -
+								<input type="text" class="IsNum" id="requLastFour2" name="requLastFour2" style="width:40px" maxlength="4"/>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+				</table>
+
+				<br />
+				<br />
+				<span class="formtext2"><b>Please check the box if you will also be the resident of the property:</b></span>
+				<input type="checkbox" id="reqisresYN" name="reqisresYN" value="Y" title="Please enter valid requestor info to copy to resident"/></label><br />
+				<span class="explanatoryformtext">Note: Your information will be copied to Resident Details. Please make sure you have completed all required fields.</span>
+				<br />
+				<br />
+				<br />
+
+				<table class="table2">
+					<tr>
+						<td colspan="4">
+							<span class="appinstructionsheaders">Resident Details</span><br />
+							<span class="explanatoryformtext">Please enter information regarding the person that will be residing at the new address.<br/><i>*If same as requestor, check box above to transfer information.</i></span>
+						</td>
+					</tr>
+
+					<tr>
+						<!--Form Field 6: Resident - person that will be residing in new address
+
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+						<td width ="20%">
+							<span class="formfieldpair">
+								<label>First Name <span style="color:red;">*</span></label>
+								<input type="text" class="IsAlpha" id="resFirst" name="resFirst" style="width:175px" maxlength="60"/>
+							</span>
+						</td>
+
+						<!--Form Field 7: Resident - person that will be residing in new address
+
+						Field Validation: *Required, Should be text and spaces only - no numbers or other special characters -->
+
+						<td width ="20%">
+							<span class="formfieldpair">
+								<label>Last Name <span style="color:red;">*</span></label>
+								<input type="text" class="IsAlpha" id="resLast" name="resLast" style="width:175px" maxlength="60"/>
+							</span>
+						</td>
+
+
+							<!--Form Field 8: Res Phone 1 - primary contact number for resident
+
+							Field Validation: *Required, Must contain 10 numerals only (must include area code), set up validation to ensure 10
+							numerals present with
+
+							no text or special characters. Display in format (###) ###-##### -->
+
+						<td width ="30%">
+							<span class="formfieldpair">
+								<label >Primary Phone <span style="color:red;">*</span></label>
+								(<input type="text" class="IsNum" id="resiArea1" name="resiArea1" style="width:30px" maxlength="3"  />)
+								<input type="text" class="IsNum" id="resiFirstThree1" name="resiFirstThree1" style="width:30px" maxlength="3"/> -
+								<input type="text" class="IsNum" id="resiLastFour1" name="resiLastFour1" style="width:40px" maxlength="4"/>
+							</span>
+						</td>
+
+
+							<!--Form field 9: Res Phone 2 - secondary contact number for resident
+
+							Field Validation: Must contain 10 numerals only (must include area code), set up validation to ensure 10 numerals present with
+
+							no text or special characters. Display in format (###) ###-#### -->
+
+						<td width ="30%">
+								<label>Secondary Phone</label>
+								(<input type="text" class="IsNum" id="resiArea2" name="resiArea2" style="width:30px" maxlength="3"/>)
+								<input type="text" class="IsNum" id="resiFirstThree2" name="resiFirstThree2" style="width:30px" maxlength="3"/> -
+								<input type="text" class="IsNum" id="resiLastFour2" name="resiLastFour2" style="width:40px" maxlength="4"/>
+
+
+						</td>
+
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+				</table>
+
+				<!-- Line Break in page-->
+				<br />
+				<br />
+				<hr />
+				<br />
+
+
+				<h2>Structure Details</h2>
+
+				<table class="table2">
+					<tr>
+						<td>
+							<span class="formtext2"><b>What type of structure will be associated with the new address? Please select from the following options:</b></span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<select id="structtype" name="structype" style="width:200px">
+
+								<option value="none">Select One</option>
+
+								<option value="House">House</option>
+
+								<option value="Manufactured Home">Manufactured Home</option>
+
+								<option value="Other Type">Other Structure Type</option>
+
+							</select>
+						</td>
+					</tr>
+							<!--Form Field 11: Structure Details - user should enter any other details about the structure, such as color or structure type
+
+							if user selected Other Structure Type for Structure Type
+
+							Field Validation: *Required -->
+					<tr>
+						<td>
+							<span class="formtext2"><b>Please elaborate on the structure type. Include any other relevant details such as color.</b> <span style="color:red;">*</span></span><br />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<textarea id="strucdetails" name="strucdetails" cols="100" rows="5" placeholder="Provide additional details for the property structure type..." style="width:765px"></textarea> <br /><br />
+						</td>
+					</tr>
+				</table>
+
+				<!-- Line Break in page-->
+				<br />
+				<br />
+				<hr />
+				<br />
+
+
+				<h2>Address Details</h2>
+
+				<table class="table2">
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>What is the name of the road on which your property is located?</b> <span style="color:red;">*</span></span><br />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="text" id="roadname" name="roadname" style="width:300px" maxlength="50"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>Please input the address numbers of the neighboring properties to the North, South, East and West of the new address.</b></span><br />
+						</td>
+					</tr>
+					<tr>
+						<!-- Form 12: Direction - User will enter will fill out which direction the address is located in
+
+						Field Validation: *Required -->
+
+						<td width ="15%">
+							<span class="formfieldpair">
+								<label>North of Address #</label>
+								<input type="text" class="IsNum" id="northADDR" name="northADDR" style="width:150px" maxlength="15"/>
+							</span>
+						</td>
+
+						<td width ="15%">
+							<span class="formfieldpair">
+								<label>South of Address #</label>
+								<input type="text" class="IsNum" id="southADDR" name="southADDR" style="width:150px" maxlength="15"/>
+							</span>
+						</td>
+
+						<td width ="15%">
+							<span class="formfieldpair">
+								<label>East of Address #</label>
+								<input type="text" class="IsNum" id="eastADDR" name="eastADDR" style="width:150px" maxlength="15"/>
+							</span>
+						</td>
+
+						<td width ="15%">
+							<span class="formfieldpair">
+								<label>West of Address #</label>
+								<input type="text" class="IsNum" id="westADDR" name="westADDR" style="width:150px" maxlength="15"/>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>Please input any lot numbers associated with the property you wish to have addressed.</b></span><br />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="text" id="lotNumber" name="lotNumber" style="width:300px" maxlength="50"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>If available, please enter valid GPS coordinates for the property.</b></span><br />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="text" id="GPScoordinates" name="GPScoordinates" style="width:300px" maxlength="100"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>How is the property marked?</b> <span style="color:red;">*</span></span><br />
+							<span class="explanatoryformtext">The property must be marked with a sign containing the last name of whom the property is for prior to us coming out to address your property. The sign MUST be highly visible from the roadway. If we travel to your property and we are unable to locate your sign we will not issue an address. A proper size sign is the approximate size of a 2'x2' "political sign" with the last name of whom the property is for.</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<textarea id="markersINFO" name="markersINFO" cols="100" rows="5" placeholder="Indicate how the property is marked..." style="width:765px"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<span class="formtext2"><b>Are there any special instructions we might need to know concerning the property?</b></span><br />
+							<span class="explanatoryformtext">An example of this would be making a note regarding a dog that resides on the property.</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<textarea id="othersINFO" name="othersINFO" cols="100" rows="5" placeholder="Provide special instructions or additional comments..." style="width:765px"></textarea> <br /><br />
+						</td>
+					</tr>
+				</table>
+
+				<br /><br />
+
+			<br />
+			<br />
+
+      <div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
+
+      <br />
+
+			<input class="formsubmit" id="submitbutton"  type="submit" name="submit" value="Submit Address Request">
+
+			<br />
+			<br />
+
+			</div> <!-- end formenclosure div-->
+
+			</form> <!-- end Address Request Form-->
+
+		<!-- banner residing at bottom of form-->
+		<a target="_blank" href="http://www.athens.edu">
+			<div class="banner">
+				<img class="bottom" src="media/Banner-bottom.png" alt="Athens State University" />
+			</div>
+		</a>
+
+		</div> <!-- end wrapsheet border div-->
+
+
+
+
+
+
+
+
+
+	</body>
+</html>

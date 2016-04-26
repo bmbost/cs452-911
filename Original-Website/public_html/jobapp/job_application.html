@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<title>Application for Employment</title>
+
+		<meta charset="UTF-8" name="viewport" content="width=device-width,minimum-scale=1"/>
+
+		<link rel="shortcut icon" href="media/favicon.ico">
+
+		<link href="css/forms-style.css" type="text/css" rel="stylesheet"/>
+		<link href="javascript/jquery-ui-1.11.4.custom/jquery-ui.css" type="text/css" rel="stylesheet"/>
+		<link href="javascript/tooltipster-master/css/tooltipster.css" type="text/css" rel="stylesheet"/>
+
+
+		<script type="text/javascript" src="javascript/jquery.js"></script><!--include jquery-->
+		<script type="text/javascript" src="javascript/jquery-maskedinput.js"></script><!--include jquery plugin to mask input for phone numbers and zip code-->
+		<script type="text/javascript" src="javascript/jquery-ui-1.11.4.custom/jquery-ui.js"></script><!--include jquery ui for "accordion" function to facilitate collapsible employers as well as datepicker-->
+		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/jquery.validate.js"></script><!--include jquery validate for form validation-->
+		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/additional-methods.min.js"></script><!--include jquery validate additional methods for form validation-->
+		<script type="text/javascript" src="javascript/tooltipster-master/js/jquery.tooltipster.min.js"></script><!--include tooltipster plugin to show jquery validation errors in tooltips-->
+		<script type="text/javascript" src="javascript/job-app-form.js"></script><!--include custom javascript for form-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+	</head>
+
+
+	<body>
+
+		<!-- div that encompasses entire form and forces a rounded border with white background-->
+		<div class="wrapsheetborder">
+
+			<!-- banner residing at top of form with ALC911 logo-->
+			<a target="_blank" href="http://www.alc911.org">
+				<div class="banner"><img class="top" src="media/Banner2.png" alt="Athens-Limestone County 911" /></div>
+			</a>
+
+			<!--If the user does not have scripting enabled on their browser, display a warning and provide a link to download the job form instead...-->
+			<noscript>
+
+				<div class="warningtextbox">Warning! Your browser does not permit the use of Javascript. <br /> To use the web form, please <a target="_blank" href="http://enable-javascript.com/">enable scripting on your browser</a>. <br /><br />
+				Or download and print the application as a PDF document using the link below. <br />
+				<a href="media/jobappformpdf.pdf">Download and print application</a></div>
+
+			</noscript>
+
+
+			<!-- Job Application Form Title -->
+			<h1>Application for Employment<br />with the Athens-Limestone County 911 District</h1>
+			<p id="directions" style="text-align:center"><i>Please review all questions carefully before submitting your application.</i></p>
+
+			<!--div that encompasses form and headings (sizes contents to 800px width-->
+			<div class="formenclosure">
+
+			<!-- Line Break in page signifying new form section-->
+			<hr />
+
+			<div id="submitSuccess" style="visibility:hidden;display:none;">
+			</div>
+
+			<!--Page 1 of the form-->
+			<div id="formpage_1" style="visibility:visible;display:block;">
+
+				<br />
+
+				<div class="textbox">Completing This Application Is Your First Step Toward Joining a Dynamic Workforce Dedicated To Public Service.</div>
+
+				<br />
+				<br />
+
+				<span class="appinstructionsheaders">Instructions for Completing Application:</span><br /><br />
+				<table class="appinstructions">
+					<tr>
+						<td class="appinstructions" width="33.33%">
+							<b>1) BEFORE APPLYING</b>
+							<ul>
+								<li>Obtain a copy of the Job announcement for the job you are interested in applying for.</li>
+								<li>Compare your education and experience with the requirements listed on the announcement. If you meet the
+								requirements, proceed with the application process. The recruitment announcement will also contain relevant
+								information about the job such as duties, special conditions, where jobs are available, the type of exam that
+								may be required, and the closing date</li>
+								<li><b>Affirmative Action and Veteran's Preference</b><br />
+								The Athens-Limestone County 911 District is an equal opportunity employer. Information about our Affirmative
+								Action Program and Veteran's Preference appears in Parts 5 & 6 of the application.
+								</li>
+							</ul>
+						</td>
+						<td class="appinstructions" width="33.33%">
+							<b>2) APPLICATION TIPS</b>
+							<ul>
+								<li>Provide all requested information.</li>
+								<li>Emphasize your experience/education that relates directly to the requirements on the job announcement.
+								Summarize other experience.</li>
+								<li>Start with your most recent experience and work backward.</li>
+								<li>Submit application (with all requested information) by 5:00 p.m. on the closing date.</li>
+								<li>Submit a separate application for each job announcement unless otherwise instructed.</li>
+								<li>Make sure that you submit your application as instructed.</li>
+							</ul>
+						</td>
+						<td  class="appinstructions" width="33.34%">
+							<b>3) NOW WHAT?</b><br /><br />
+							You can expect to be notified of your application results about 3 weeks after the closing date.
+							<ul>
+								<li><b>Testing</b><br />
+									If you've met the requirements and a written exam is required, you will receive an exam
+									schedule notice with further instructions.
+								</li>
+								<li><b>Exam Assistance</b><br />
+									Assistance will be provided to persons of disability whose conditions would interfere with
+									taking an exam. For example, you may require a reader, sign language interpreter, more time, etc.
+								</li>
+								<li><b>Employment Register</b><br />
+									Once your application is accepted and you've passed an exam (if required), your name will be placed
+									on an employment registere for one year. Near the end of that year, you may ask to remain on the register
+									for another year by calling 256-230-0911.
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+
+				<br />
+				<br />
+
+				<span class="appinstructionsheaders">TERMS & DEFINITIONS</span><br /><br />
+				<table class="appinstructions">
+					<tr>
+						<td class="appinstructions">
+							<ul>
+								<li>
+									<b>Employment Preferences-</b>
+									If you do not specify preferences, we will assume you will accept employment on any shift schedule as required.
+								</li>
+								<li>
+									<b>Lay Off-</b>
+									Permanent employee who has been laid-off (use as instructed by your human resources office).
+								</li>
+								<li>
+									<b>Shift & Schedule-</b>
+									If all boxes are left blank, we will assume only full-time, permanent employment will be accepted.
+								</li>
+								<li>
+									<b>Misdemeanor or Felony-</b>
+									Conviction of a misdemeanor or felony does not necessarily bar you from employment.
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+
+				<br />
+				<br />
+				<br />
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg2" value="Next >" onclick="pagechange(1,2)">
+
+
+			</div><!--end page 1 of form-->
+
+
+			<!--Page 2 of the form-->
+			<div id="formpage_2" style="visibility:hidden;display:none;">
+
+			<!-- PART 1 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform1" class="myForms" method="post" action="jobappform-processingNew.php">
+
+				<!-- Part 1. of the form collects general information from the user such as the position he/she is applying for, name, and contact information -->
+				<h2 id="geninfo">Part 1. General Information</h2>
+				<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
+				<br />
+						<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "application date" in db...-->
+						<input type="text" id="applicationdate" name="applicationdate" style="display:none;">
+
+						<span class="formfieldpair">
+							<label for="position" style="width:596px" title="Enter the job title for the desired position.">Position (Job Title) <span style="color:red;">*</span></label>
+							<input type="text" name="position" id="position" style="width:596px" maxlength="100"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="recruitnum" style="width:180px">Recruitment Announcement #</label>
+							<input type="text" class="IsNum" name="recruitnum" style="width:180px" maxlength="25"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="firstname" style="width:264px">First Name <span style="color:red;">*</span></label>
+							<input type="text" class="IsAlpha" name="firstname" style="width:264px" maxlength="40"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="middleinit" style="width:30px;">M.I.</label>
+							<input type="text" class="IsAlpha" name="middleinit" style="width:30px;text-align:center;" maxlength="1" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="lastname" style="width:275px">Last Name <span style="color:red;">*</span></label>
+							<input type="text" class="IsAlpha" name="lastname" style="width:275px" maxlength="40"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="DOB" style="width:180px">Date of Birth <span style="color:red;">*</span></label>
+							<input id="DOB" class="datepicker" type="text" name="DOB" style="width:180px" maxlength="25" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="mailingaddr" style="width:344px">Mailing Address (include apartment #) <span style="color:red;">*</span></label>
+							<input type="text" name="mailingaddr" style="width:344px" maxlength="45" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="emailaddr" style="width:239px">E-mail Address</label>
+							<input type="text" name="emailaddr" style="width:239px" maxlength="45"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="homephone" style="width:180px">Home Telephone <span style="color:red;">*</span></label>
+							<input id="homephone" type="text" name="homephone" style="width:180px" maxlength="20" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="city" style="width:231px">City <span style="color:red;">*</span></label>
+							<input type="text" class="IsAlpha" name="city" style="width:231px" maxlength="35"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="county" style="width:180px">County <span style="color:red;">*</span></label>
+							<input type="text" class="IsAlpha" name="county" style="width:180px" maxlength="35"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="state" style="width:55px">State <span style="color:red;">*</span></label>
+							<input type="text" class="IsAlpha" name="state" style="width:55px" maxlength="2"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="zipcd" style="width:90px">Zip Code <span style="color:red;">*</span></label>
+							<input id="zipcd" type="text" name="zipcd" style="width:90px" maxlength="10" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="workphone" style="width:180px">Work Telephone</label>
+							<input id="workphone" type="text" name="workphone" style="width:180px" maxlength="21" />
+						</span>
+
+						<!-- Line Break in page-->
+						<br />
+						<br />
+
+						<div class="formtext">
+
+						<table class="table1">
+							<tr>
+								<td width="80%">Are you currently a permanent City, County or State of Alabama employee? <span style="color:red;">*</span></td>
+								<td width="10%"><input id="stemployY" type="radio" name="stemployYN" value="yes">Yes</td> <!--If the 'yes' option is clicked, then show the Agency Name field -->
+								<td width="10%"><input id="stemployN" type="radio" name="stemployYN" value="no">No</td>	<!--If the 'no' option is clicked, then hide the Agency Name field -->
+							</tr>
+							<!--optional Agency Name field that displays on form only when user responds "yes" to previous question"-->
+							<tr id="agencynamerow" style="display:none;">
+								<td style="text-align:right;font-size:.80em;"><b>List Current Agency's Name <span style="color:red;">*</span></b></td>
+								<td colspan="2"><textarea id="agencyname" class="IsAlpha" name="agencyname" cols="15" rows="3"></textarea></td>
+
+							<tr>
+								<td>Do you need testing assistance such as sign language interpreter, reader, etc? <span style="color:red;">*</span></td>
+								<td><input type="radio" name="testassistYN" value="yes">Yes</td>
+								<td><input type="radio" name="testassistYN" value="no">No</td>
+							</tr>
+							<tr>
+								<td width="80%">Are you willing to travel as part of this job? <span style="color:red;">*</span></td>
+								<td width="10%"><input type="radio" name="willingtotravelYN" value="yes">Yes</td>
+								<td width="10%"><input type="radio" name="willingtotravelYN" value="no">No</td>
+							</tr>
+						</table>
+
+						</div>
+
+
+						<div class="formtext">
+						<h3>Employment Preferences</h3>
+						<span class="explanatoryformtext"><b>Check one or more types of employment you will accept:</b><br /></span>
+						<table class="table1">
+							<tr>
+								<td width="10%"><i>Shift:</i></td>
+								<td width="18%"><input type="checkbox" name="shift1">Day</td>
+								<td width="18%"><input type="checkbox" name="shift2">Swing</td>
+								<td width="18%"><input type="checkbox" name="shift3">Graveyard</td>
+								<td width="18%"><input type="checkbox" name="shift4">Rotating</td>
+								<td width="18%"></td>
+							</tr>
+							<tr>
+								<td><i>Schedule:</i></td>
+								<td><input type="checkbox" name="schedule1">Full-Time</td>
+								<td><input type="checkbox" name="schedule2">Part-Time</td>
+								<td><input type="checkbox" name="schedule3">Non-Permanent</td>
+								<td><input type="checkbox" name="schedule4">Seasonal</td>
+								<td><input type="checkbox" name="schedule5">On-Call</td>
+							</tr>
+						</table>
+
+
+						</div><!--end formtext div-->
+
+				<br />
+				<br />
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg1" value="< Back" onclick="pagechange(2,1)">
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg3" value="Next >" onclick="pagechange(2,3)">
+
+				<br />
+				<br />
+
+			</form><!--end Part 1 of job application form -->
+
+			</div><!--end page 2 of form-->
+
+
+
+			<!--Page 3 of the form-->
+			<div id="formpage_3" style="visibility:hidden; display:none;">
+
+			<!-- PART 2 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform2" class="myForms" method="post" action="jobappform-processingNew.php">
+
+				<h2 id="backgroundinfo">Part 2. Background Information</h2>
+
+					<div class="explanatoryformtext"><b>If a license, certificate, or registration is required for this position, please complete the following:</b></div>
+
+					<div class="formtext">
+
+					<table class="table2">
+
+						<tr>
+							<th scope="column" width="40%" class="table2">License, Certificate, or Registration</th>
+							<th scope="column" width="35%" class="table2">State/License Number</th>
+							<th scope="column" width="25%" class="table2">Expiration Date</th>
+						</tr>
+						<tr>
+							<th scope="row" class="table2">Driver's License</th>
+							<td class="table2"><input class="IsNum" type="text" id="DLNumber" name="DLNumber" style="width:250px" maxlength="15"></td>
+							<td class="table2"><input class="datepicker" id="DLExpDate" type="text" name="DLExpDate" style="width:175px"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="table2">CDL</th>
+							<td class="table2"><input class="IsNum" type="text" id="CDLNumber" name="CDLNumber" style="width:250px";></td>
+							<td class="table2"><input class="datepicker" id="CDLExpDate" type="text" name="CDLExpDate" style="width:175px"></td>
+						</tr>
+						<tr>
+							<th scope="row" class="table2">Other</th>
+							<td class="table2"><input class="IsNum" type="text" id="OtherLNumber" name="OtherLNumber" style="width:250px"></td>
+							<td class="table2"><input class="datepicker" id="OtherLExpDate" type="text" name="OtherLExpDate" style="width:175px"></td>
+						</tr>
+
+
+					</table>
+
+					<br />
+					<br />
+
+					<table class="table1">
+							<tr>
+								<td width="80%" valign="top">Other than English, what languages do you speak, read, or write fluently?</td>
+								<td colspan="2" width="20%"><textarea name="otherlanguages" placeholder="Enter language(s)..." cols="18" rows="3"></textarea></td>
+							</tr>
+							<tr>
+								<td width="80%">Have you been convicted of a misdemeanor or felony within the past ten years? <span style="color:red;">*</span>
+								<br /><span class="explanatoryformtext"><i>(Answering yes will not automatically bar you from employment)</i></span></td>
+								<td width="10%"><input type="radio" name="convictedYN" value="yes">Yes</td>
+								<td width="10%"><input type="radio" name="convictedYN" value="no">No</td>
+							</tr>
+					</table>
+
+					</div><!--end formtext div-->
+
+				<br />
+				<br />
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg2" value="< Back" onclick="pagechange(3,2)">
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg4" value="Next >" onclick="pagechange(3,4)">
+
+				<br />
+				<br />
+
+			</form><!--end Part 2 of job application form -->
+
+			</div><!--end page 3 of form-->
+
+
+			<!--Page 4 of the form-->
+			<div id="formpage_4" style="visibility:hidden; display:none;">
+
+			<!-- PART 3 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform3" class="myForms" method="post" action="jobappform-processingNew.php">
+
+				<h2 id="edandtrain">Part 3. Education and Training</h2>
+
+					<div class="formtext">
+
+						<table class="table1">
+							<tr>
+								<td width="80%">Have you graduated from high school or passed the GED? <span style="color:red;">*</span></td>
+								<td width="10%"><input type="radio" name="highschoolGEDYN" value="yes">Yes</td>
+								<td width="10%"><input type="radio" name="highschoolGEDYN" value="no">No</td>
+							</tr>
+						</table>
+
+						<br />
+						<br />
+
+						<div class="explanatoryformtext"><b>List college, business school, military training, and other relevant education:</b></div>
+
+						<br />
+
+						<!--hidden field that contains the number of employers that are currently displayed on page (default is 1)-->
+						<input id="numEducation" name="numEducation" type="hidden" value="1">
+
+						<table class="table3" id="educationtable">
+							<tr>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="34%">School Name and Location</th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="9%">Month/Year Started</span></th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="9%">Month/Year Finished</th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="6%">Credits Earned</th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="25%">Major</th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="10%">Type of Degree Awarded</th>
+								<th class="table3" scope="column" colspan="1" rowspan="1" width="7%">Year Degree Received</th>
+							</tr>
+							<tr>
+								<td class="table3"><textarea name="edu[1][schoonameandloc]" style="width:255px" rows="2" placeholder="Enter School Name and Location"></textarea></td>
+								<td class="table3"><textarea name="edu[1][schoolstartMY]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea name="edu[1][schoolendMY]" style="width:60px" rows="2" placeholder="Ex. Jan 2001"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="edu[1][credits]" style="width:35px" rows="2" maxlength="5"></textarea></td>
+								<td class="table3"><textarea name="edu[1][major]" style="width:185px" rows="2"></textarea></td>
+								<td class="table3"><textarea name="edu[1][degreetype]" style="width:65px" rows="2"></textarea></td>
+								<td class="table3"><textarea class="IsNum" name="edu[1][degreeyear]" style="width:40px" rows="2" maxlength="4"></textarea></td>
+							</tr>
+						</table>
+
+						<br />
+						<input type="button" id="shownextrow" onclick="addRow('educationtable')" value="Add Another School...">
+
+					</div><!--end formtext div-->
+
+				<br />
+				<br />
+				<br />
+				<br />
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg3" value="< Back" onclick="pagechange(4,3)">
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg5" value="Next >" onclick="pagechange(4,5)">
+
+				<br />
+				<br />
+
+			</form><!--end Part 3 of job application form -->
+
+			</div><!--end page 4 of form-->
+
+
+			<!--Page 5 of the form-->
+			<div id="formpage_5" style="visibility:hidden; display:none;">
+
+			<!-- PART 4 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform4" class="myForms" method="post" action="jobappform-processingNew.php">
+
+				<h2 id="employhist">Part 4. Employment History</h2>
+				<div class="explanatoryformtext">This section must be completed in order to receive full credit. You may use this form for both volunteer and paid experience.
+												 <br /><i>*For volunteer work, 174.3 hours equals one month of experience.</i>
+				</div>
+
+				<br />
+
+				<!--hidden field that contains the number of employers that are currently displayed on page (default is 1)-->
+				<input id="numEmployers" name="numEmployers" type="hidden" value="1">
+
+				<div id="employmenthistory" class="employmenthistory">
+
+					<h3>Employer 1</h3>
+					<div id="employer1" class="employer">
+						<span class="formfieldpair">
+							<label for="employer1" style="width:265px">1. Present or Last Employer <span style="color:red;">*</span></label>
+							<input type="text" id="employer1" name="emp[1][empname]" style="width:265px" maxlength="100"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empaddr1" style="width:300px">Employer Address <span style="color:red;">*</span></label>
+							<input type="text" id="empaddr1" name="emp[1][empaddr]" style="width:300px" maxlength="100"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empphone1" style="width:125px">Employer Phone <span style="color:red;">*</span></label>
+							<input type="text" id="empphone1" name="emp[1][empphone]" style="width:125px" maxlength="100"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="emptitle1" style="width:265px">Your Title <span style="color:red;">*</span></label>
+							<input type="text" id="emptitle1" name="emp[1][emptitle]" style="width:265px" maxlength="100"/>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empstartMY1" style="width:90px">Start Month/Year <span style="color:red;">*</span></label>
+							<input type="text" id="empstartMY1" name="emp[1][empstartMY]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empendMY1" style="width:90px">End Month/Year</label>
+							<input type="text" id="empendMY1" name="emp[1][empendMY]" style="width:90px" maxlength="100" placeholder="Ex. Jan 2001" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="emptotalmths1" style="width:40px">Total Months</label>
+							<input type="text" class="IsNum" id="emptotalmths1" name="emp[1][emptotalmths]" style="width:40px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empavghrs1" style="width:40px">Average Hours</label>
+							<input type="text" class="IsNum" id="empavghrs1" name="emp[1][empavghrs]" style="width:40px" maxlength="100" /><span class="explanatoryformtext" style="font-size:.80em"><i>/week</i></span>
+						</span>
+
+						<span class="formfieldpair">
+							<label for="emplastsalary1" style="width:95px">Last Salary</label>
+							<input type="text" class="IsNum" id="emplastsalary1"  name="emp[1][emplastsalary]" style="width:95px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empsupervisor1" style="width:185px">Supervisor Name</label>
+							<input type="text" class="IsAlpha" id="empsupervisor1" name="emp[1][empsupervisor]" style="width:185px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empreasonforleaving1" style="width:320px">Reason for Leaving</label>
+							<input type="text" id="empreasonforleaving1" name="emp[1][empreasonforleaving]" style="width:320px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empvolunteerhrs1" style="width:50px">Volunteer Hours</label>
+							<input type="text" class="IsNum" id="empvolunteerhrs1" name="emp[1][empvolunteerhrs]" style="width:50px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empsupervised1" style="width:125px"># of Employees Supervised</label>
+							<input type="text" class="IsNum" id="empsupervised1" name="emp[1][empsupervised]" style="width:125px" maxlength="100" />
+						</span>
+
+						<span class="formfieldpair">
+							<label for="empduties1" style="width:720px">Specific Duties</label>
+							<textarea id="empduties1" name="emp[1][empduties]" style="width:720px" rows="4" placeholder="Please elaborate on your responsibilities in this position..."></textarea>
+						</span>
+					</div><!--end employer div-->
+
+				</div><!--end employmenthistory div-->
+
+
+				<br />
+				<input type="button" id="addemployer" onclick="addEmployer()" value="Add Another Employer...">
+
+				<br />
+				<br />
+				<br />
+				<br />
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg4" value="< Back" onclick="pagechange(5,4)">
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg5" value="Next >" onclick="pagechange(5,6)">
+
+				<br />
+				<br />
+
+			</form><!--end Part 4 of job application form -->
+
+			</div><!--end page 5 of form-->
+
+
+			<!--Page 6 of the form-->
+			<div id="formpage_6" style="visibility:hidden; display:none;">
+
+			<!-- PART 5 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform5" class="myForms" method="post" action="jobappform-processingNew.php">
+
+				<h2 id="affirmact">Part 5. Affirmative Action</h2>
+				<div class="explanatoryformtext">To ensure equal employment opportunity, we ask your voluntary cooperation in responding to the questions below.
+												    This information will be treated as confidential and will be available only to authorized personnel.
+				</div>
+
+				<br />
+				<table class="table1">
+						<tr>
+							<td width="76%">1. Are you Hispanic?</td>
+							<td width="12%"><input type="radio" name="hispanicYN" value="yes">Yes</td>
+							<td width="12%"><input type="radio" name="hispanicYN" value="no">No</td>
+						</tr>
+						<tr>
+							<td>2. Please indicate your gender.</td>
+							<td><input type="radio" name="gender" value="male">Male</td>
+							<td><input type="radio" name="gender" value="female">Female</td>
+						</tr>
+				</table>
+				<table class="table1">
+
+						<tr>
+							<td width="50%" style="vertical-align:top">3. What race or culture do you consider yourself?<br />
+							                                           <span class="explanatoryformtext"><i>Select one or more races as needed</i></span><br />
+								<ul style="list-style-type:none">
+									<li><input type="checkbox" name="race1">American Indian (597)</li><!--american indian-->
+									<li><input type="checkbox" name="race2">Alaskan Native (015)</li><!--alaskan native-->
+									<li><input type="checkbox" name="race3">Native Hawaiian or Other Pacific Islander (653)</li><!--native hawaiian or other pacific islander-->
+									<li><input type="checkbox" name="race4">Asian (621)</li><!--asian-->
+									<li><input type="checkbox" name="race5">Black/African American (870)</li><!--black/african american-->
+									<li><input type="checkbox" name="race6">White/Caucasian (800)</li><!--white/caucasian-->
+									<li><input type="checkbox" id="otherraceTF" name="race7">Other Race</li>
+									<li style="display:none;" id="otherracename"><textarea id="otherracenamefield" name="otherracename" maxlength="100" style="width:200px" rows="4" placeholder="Indicate races or cultures"></textarea></li>
+								</ul>
+							</td>
+							<td width="50%" style="vertical-align:top">
+								4. Have you ever been on active duty in the US Armed Forces?
+									<input id="activedutyY" type="radio" name="activedutyYN" value="yes">Yes
+									<input id="activedutyN" type="radio" name="activedutyYN" value="no">No<br />
+								<ul id="veteraninfo" style="list-style-type:none; display:none;">
+									<li>
+										<span class="explanatoryformtext" style="font-size:.80">Served from</span>
+											<input type="text" class="datepicker" id="actdutyfromdate" name="actdutyfromdate" style="width:75px">
+										<span class="explanatoryformtext" style="font-size:.80">to</span>
+											<input type="text" class="datepicker" id="actdutytodate" name="actdutytodate" style="width:75px">
+									</li>
+									<li><input type="checkbox" id="vietnamvetTF" name="vietnamvetTF" value="1">Vietnam Era Veteran</li>
+									<li id="repubofvietnam" style="display:none">
+											<span class="explanatoryformtext" style="font-size:.80"><b>Did you serve in the Republic of Vietnam?</b></span><br />
+											<input type="radio" id="repubofvietnamY" name="repubofvietnamYN" value="yes"><span class="explanatoryformtext">Yes</span>
+											<input type="radio" id="repubofvietnamN" name="repubofvietnamYN" value="no"><span class="explanatoryformtext">No</span>
+									</li>
+									</li>
+									<li id="vietnamdates" style="display:none">
+										<span class="explanatoryformtext" style="font-size:.80em">Served from</span>
+											<input type="text" class="datepicker" id="vietnamfromdate" name="vietnamfromdate" style="width:75px">
+										<span class="explanatoryformtext" style="font-size:.80em">to</span>
+											<input type="text" class="datepicker" id="vietnamtodate" name="vietnamtodate" style="width:75px">
+									</li>
+									<li><input type="checkbox" id="disabledvetTF" name="disabledvetTF" value="1">Disabled Veteran</li>
+									<li id="pdisabled" style="display:none"><input class="IsNum" type="text" id="pdisablednum" name="pdisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">% of disability</span></li>
+								</ul>
+								<span style="font-size:.80em;display:none;color:red;" id="vetinstructions" ><i>Please complete the Veterans Information on the next page and attach a copy of your DD214.</i></span>
+							</td>
+						</tr>
+				</table>
+				<table class="table1">
+					<tr>
+						<td width="80%">
+							5. Do you have a long-term condition such as blindness, deafness, severe vision or hearing impairment, a substantial limitation on one or more basic physical activities (e.g. walking, climbing stairs, reaching, lifting or carrying), or a physical, mental or emotional condition which impacts learning, remembering or concentrating?
+						</td>
+						<td width="10%"><input id="ltconditionY" type="radio" name="ltconditionYN" value="yes">Yes</td>
+						<td width="10%"><input id="ltconditionN" type="radio" name="ltconditionYN" value="no">No</td>
+					</tr>
+				</table>
+
+
+				<div class="formtext"><input class="formbutton2" type="button" value="Affirmative Action Definitions" onclick="$('#affirmactdef').toggle('slide');"></div>
+				<br />
+				<div id="affirmactdef" style="display:none">
+
+					<table class="appinstructions">
+						<tr>
+							<td class="appinstructions" width="45%">
+								<ul>
+									<li>
+										<b>Hispanic-</b>A person of Mexican, Puerto Rican, Cuban, Central or South American, or other
+										Spanish culture or origin regardless of race. For example, persons from Brazil, Guyana, or
+										Surinam would be classified according to their race and would not necessarily be included in
+										the Hispanic category. This category does not include persons from Portugal, who should be
+										classified according to race.
+									</li>
+									<li>
+										<b>American Indian or Alaskan Native-</b>A person with origins in any of the original peoples
+										of North American and who maintains cultural identification through documented tribal affiliation
+										or community recognition.
+									</li>
+									<li>
+										<b>Native Hawaiian or Other Pacific Islander-</b>A person with origins in any of the original
+										peoples of Hawaii, Guam, Samoa, or other Pacific Islands.
+									</li>
+									<li>
+										<b>Asian-</b>A person having origins in any of the original peoples of the Far East, Southeast
+										Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea,
+										Malaysia, Pakistan, the Phillippine Islands, Thailand and Vietnam.
+									</li>
+									<li>
+										<b>Black/African-American-</b>A person with origins in any of the Black racial groups of Africa.
+									</li>
+									<li>
+										<b>White/Caucasian-</b>A person with origins in any of the original peoples of Europe, North Africa,
+										or the Middle East.
+									</li>
+								</ul>
+							</td>
+							<td class="appinstructions" width="55%">
+								<ul>
+									<li>
+										<b>Disabilities-</b>For Affirmative Action purposes, people with disabilities are persons with a
+										permanent physical, mental, or sensory impairment, which substantially limits one or more major
+										life activities. Physical, mental, or sensory impairment means: (a)any physiological or neurological
+										disorder or condition, cosmetic disfigurement, or anatomical loss affecting one or more body systems
+										or functions, or (b)any mental or psychological disorders such as mental retardation, organic brain
+										syndrome, emotional or mental illness, or any specific learning disability. The impairment must be
+										material rather than slight, and permanent in that it is seldom fully corrected by medical replacement,
+									    therapy or surgical means.
+									</li>
+									<li>
+										<b>Disabled Veteran-</b>A person who is entitled to compensation under laws administered by the U.S.
+										Department of Veteran Affairs for disability (A)rated at 30 percent or more, or (B) rated at 10 or 20
+										percent in the case of a veteran who has been determined by the Department of Veteran's Affairs to have
+										serious employment handicap or (C) a person whose discharge or release from active duty was for a
+										disability incurred or aggravated in the line of duty. Applicant must provide letter from the Department
+										of Veteran's Affairs Secretary confirming employment handicap as it relates to item (B).
+									</li>
+									<li>
+										<b>Vietnam-era Veteran-</b>A person who served on active duty for a period of more than 180 days, any
+										part of which occurred between February 28, 1961*, and May 7, 1975, and was discharged or released from
+										active duty with other than a dishonorable discharge; or who was discharged or released from active duty
+										for a service connected disability if any part of the active duty was performed between August 5, 1964
+										and May 7, 1975.<br />
+										*Service between February 28, 1961 and August 14, 1964 must have been performed <u>within</u> the Republic
+										of Vietnam.
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</table>
+
+				</div>
+
+				<br />
+				<br />
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg5" value="< Back" onclick="pagechange(6,5)">
+
+				<!-- Next Page Button -->
+				<input class="formbutton" type="button" name="nexttopg7" value="Next >" onclick="pagechange(6,7)">
+
+				<br />
+				<br />
+
+
+			</form><!--end Part 5 of job application form -->
+
+			</div><!--end page 6 of form-->
+
+
+
+
+
+			<!--Page 7 of the form-->
+			<div id="formpage_7" style="visibility:hidden; display:none;">
+
+			<!-- PART 6 of Application for Employment Form with Athens-Limestone County 911 District begins here-->
+			<form id="jobappform6" class="myForms" method="post" action="jobappform-processingNew.php">
+
+
+				<h2 id="veteran">Part 6. Veteran's Information</h2>
+				<div class="explanatoryformtext">Additional points or employment preferences is given to veterans who meet state qualifications.<br />
+												<b>Note: To qualify and receive veteran's preference, you must attach a copy of the discharge, DD214 or NGB Form 22 with your application</b>
+				</div>
+
+				<br />
+
+				<table class="table1">
+						<tr>
+							<td width="50%" style="vertical-align:top;"><span style="font-weight:bold;font-size:1.2em;">For Competitive Employment</span><br />
+																		<span class="explanatoryformtext">Depending upon service you may receive veteran's preference.</span><br />
+								<ol>
+									<li>Have you served honorably in the Armed Forced of the United States on active duty for reasons other than Active Duty Training (ADT)?<br />
+										<input type="radio" id="honoractdutyY" name="honoractdutyYN" value="yes">Yes
+										<input type="radio" id="honoractdutyN" name="honoractdutyYN" value="no">No
+										<br/><br />
+										<ul id="veteranaddlinfo" style="list-style-type:none;display:none;">
+											<li><span class="explanatoryformtext" style="font-size:.80">If yes, list dates of active military service:</span></li>
+											<li>
+												<span class="explanatoryformtext" style="font-size:.80">Served from</span>
+													<input type="text" class="datepicker" id="honoractdutyfromdate" name="honoractdutyfromdate" style="width:75px">
+												<span class="explanatoryformtext" style="font-size:.80">to</span>
+													<input type="text" class="datepicker" id="honoractdutytodate" name="honoractdutytodate" style="width:75px">
+											</li>
+											<li><span class="explanatoryformtext" style="font-size:.80">Type of Discharge:</span>
+												<select name="typeofdischarge">
+
+													<option value="Select One">Select One</option>
+													<option value="Honorable">Honorable</option>
+													<option value="General">General</option>
+													<option value="Other than Honorable">Other than Honorable</option>
+													<option value="Bad Conduct">Bad Conduct</option>
+													<option value="Dishonorable">Dishonorable</option>
+													<option value="Officer">Officer</option>
+													<option value="Entry Level Separation">Entry Level Separation</option>
+
+												</select>
+											</li>
+											<br />
+											<li><span class="explanatoryformtext" style="font-size:.80">List campaign, expeditionary, or service medals received:</span><br />
+												<textarea id="medals" name="medals" rows="4" columns="12"></textarea>
+											</li>
+										</ul>
+									</li>
+									<li>Are you receiving a monthly military retirement benefit?<br />
+										<input type="radio" id="militarybenefitY" name="militarybenefitYN" value="yes">Yes
+										<input type="radio" id="militarybenefitN" name="militarybenefitYN" value="no">No
+									</li>
+								</ol>
+							</td>
+							<td width="50%" style="vertical-align:top;"><span style="font-weight:bold;font-size:1.2em;">For Non Competitive Employment</span><br />
+																		<span class="explanatoryformtext">Although points are not added under this category, employment preference is given to qualified veterans, surviving spouses of deceased veterans, or spouses of a permanently disabled veteran.</span><br />
+								<ol >
+									<li>Are you the spouse of an honorably discharged veteran who has a service connected permanent or total disability?<br />
+										<input type="radio" id="disabledspouseY" name="actdutyspouseYN" value="yes">Yes
+										<input type="radio" id="disabledspouseN" name="actdutyspouseYN" value="no">No
+										<br/><br />
+										<ul id="disabledspouseinfo" style="list-style-type:none;display:none;">
+											<li><span class="explanatoryformtext" style="font-size:.80">If yes, list percentage of spouse's disability:</span></li>
+											<li>
+												<input class="IsNum" type="text" id="pspousedisablednum" name="pspousedisablednum" maxlength="3" style="width:30px"><span class="explanatoryformtext" style="font-size:.80">%</span>
+											</li>
+											<span style="font-size:.80em;color:red;" id="vetinstructions2" ><i>Must provide copy of US Department of Veteran's Affairs Disability Awards letter.</i></span>
+										</ul>
+									</li>
+									<li>Are you the surviving spouse of a veteran who died from service related activities?<br />
+										<input type="radio" id="survivingspouseY" name="survivingspouseYN" value="yes">Yes
+										<input type="radio" id="survivingspouseN" name="survivingspouseYN" value="no">No
+										<br /><br />
+										<ul id="deceasedspouseinfo" style="list-style-type:none;display:none;">
+											<li><span class="explanatoryformtext" style="font-size:.80">List campaign, expeditionary, or service medals spouse received:</span></li>
+											<li>
+												<textarea id="spousemedals" name="spousemedals" rows="4" columns="8"></textarea>
+											</li>
+											<span style="font-size:.80em;color:red;" id="vetinstructions2" ><i>Must provide copy of US Department of Veteran's Affairs Disability Awards letter.</i></span>
+										</ul>
+									</li>
+								</ol>
+							</td>
+						</tr>
+				</table>
+
+				<br />
+				<div class="formtext">
+
+					<!--Input field for veterans or veteran spouses to upload a copy of DD214-->
+					<p style="font-weight:bold">Please remember to bring a copy of your DD214 or NGB Form 22, and your US Department of Veteran's Affairs Disability Awards letter to your interview should you have them.</p><br />
+			<!--		<input type="file" name="DD214" accept=".doc,.docx,.pdf"></p> -->
+
+			<!--		<br /> -->
+
+					<!--Input field for veterans or veteran spouses to upload a copy of DD214-->
+			<!--		<p style="font-weight:bold">Please upload a copy of US Department of Veteran's Affairs Disability Awards letter:<br /> -->
+			<!--		<input type="file" name="VAdisabledletter" accept=".doc,.docx,.pdf"></p> -->
+
+					<br />
+					<br />
+
+					<!-- Previous Page Button -->
+					<input class="formbutton" type="button" name="backtopg6" value="< Back" onclick="pagechange(7,6)">
+
+					<!-- Next Page Button -->
+					<input class="formbutton" type="button" name="nexttopg8" value="Next >" onclick="pagechange(7,8)">
+
+				</div><!--end formtext div-->
+
+
+			</form><!--end Part 6 of job application form -->
+
+			</div><!--end page 7 of form-->
+
+
+			<form id="jobappform7" class="myForms" method="post" action="jobappform-processingNew.php">
+			<!--Page 8 of the form-->
+			<div id="formpage_8" style="visibility:hidden; display:none;">
+
+			<h2 id="affirmact">Part 7. Submit Application</h2>
+				<!--<div class="explanatoryformtext">Thank you for completing this employment application! You can expect to be notified of your application results about 3 weeks after the closing date.
+				</div>-->
+
+				<br />
+
+				<table class="table1">
+					<tr>
+						<td class="table1" width="5%">
+							<input type="checkbox" name="appsignature" onclick="EnableSubmit(this)" value="1">
+						</td>
+						<td class="table1" width="95%">
+							<span class="explanatoryformtext">All answers are true and complete to the best of my knowledge.
+							I understand that the 911 District may verify information, and that untruthful or misleading
+							answers are cause for rejection of this application, removal of my name from a register, or
+							dismissal if employed.</span>
+						</td>
+					</tr>
+				</table>
+
+
+				<br />
+				<br />
+
+        <div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
+
+        <br />
+
+				<!-- Submit Button -->
+				<input class="formsubmit" id="submitbutton" type="button" name="submit" value="Submit Application" disabled >
+
+				<br />
+				<br />
+				<br />
+				<br />
+
+
+				<!-- Previous Page Button -->
+				<input class="formbutton" type="button" name="backtopg7" value="< Back" onclick="pagechange(8,7)">
+
+
+
+				<br />
+				<br />
+
+
+			</div><!--end page 8 of form-->
+    </form>
+
+			</div><!--end formenclosure div-->
+
+			<br />
+			<br />
+
+			<!-- banner residing at bottom of form-->
+			<a target="_blank" href="http://www.athens.edu">
+				<div class="banner"><img class="bottom" src="media/Banner-bottom.png" alt="Athens State University" /></div>
+			</a>
+
+		</div><!--end wrapsheetborder div-->
+
+
+	</body>
+
+
+</html>
