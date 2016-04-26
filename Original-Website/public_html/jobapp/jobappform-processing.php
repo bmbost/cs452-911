@@ -4,9 +4,9 @@
 if (isset($_POST['g-recaptcha-response'])) { $captcha = $_POST['g-recaptcha-response']; }
 
 if (!$captcha) {
-  include("address_form_header.html");
+  include("jobapp_header.html");
   echo '<p style="padding-left: 15px">You must verify your identity with the reCAPTCHA. Press the Back button to continue.</p>';
-  include("address_form_footer.html");
+  include("jobapp_footer.html");
   exit();
 }
 
@@ -18,9 +18,9 @@ $responseKeys = json_decode($response, true);
 
 // If response is false, display error. Otherwise, complete code.
 if (intval($responseKeys["success"]) !== 1) {
-  include("address_form_header.html");
+  include("jobapp_header.html");
   echo "<h1>The CAPTCHA could not verify that you are not a spambot.</h1>";
-  include("address_form_footer.html");
+  include("jobapp_footer.html");
 } else {
 
 //Initializing part 1 of form
