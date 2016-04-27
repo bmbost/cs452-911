@@ -1,5 +1,5 @@
 AuthName "Restricted Area"
 AuthType Basic
-AuthUserFile /home/athens911/.htpasswd
+AuthUserFile C:\xampp\htdocs\cs452-911\Original-Website\public_html\login\.htpasswd
 AuthGroupFile /dev/null
 require valid-user
