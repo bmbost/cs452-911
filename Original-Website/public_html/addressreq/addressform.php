@@ -27,9 +27,8 @@ if (intval($responseKeys["success"]) !== 1) {
 } else {
 
 // Call to database connection. NOT IMPLEMENTED due to client change of SOW.
-/*
 require('connect_db.php');
-*/
+
 // Creates variables and filters input from user
 $date = date('Y-m-d');
 $firstName = filter_input(INPUT_POST, 'reqFirst', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -202,7 +201,7 @@ $resphone2 = '(' . $reqArea2 . ') ' . $reqFirstThree2 . '-' . $reqLastFour2;
 
 // Database insertion
 
-/*
+
 $sql = "INSERT INTO address_form (request_date, requestor, requestor_phone1,
         requestor_phone2, residency, resident, resident_phone1, resident_phone2,
         structure_type, structure_details, north_add_num, south_add_num,
@@ -212,20 +211,15 @@ $sql = "INSERT INTO address_form (request_date, requestor, requestor_phone1,
         '$eastadd', '$westadd', '$markers', '$others', '$roadstreet', '$lotNumber', '$gps')";
 
 if (mysqli_query($dbhandle, $sql)) {
-  include("address_form_header.html");
-  echo '<p style="padding-left: 15px">Address request successfully submitted.</p>';
-  echo '<p style="padding-left: 15px">Thank you for your submission. A representative with the Athens-Limestone
-       County 911 Center will contact you soon.</p>';
-  include("address_form_footer.html");
+  echo "<br /><br /><div class=\"textbox\">Thank you! We have received your address request.<br /><br />";
+  echo "<a href=\"http://www.alc911.org\">Click here</a> to return to the Athens-Limestone County 911 home page.</div><br /><br />";
 }
 else {
-  include("address_form_header.html");
-  echo '<p style="padding-left: 15px">Database entry failed.</p>' . mysqli_error($dbhandle);
-  include("address_form_footer.html");
+  echo '<br /><br /><br /><div class=\"textbox\">Database entry failed. ' . mysqli_error($dbhandle) . '</div><br />';
 }
 
 mysqli_close($dbhandle); // Close the database.
-*/
+/* Commenting out email section for presentation.
 require('Mail.php'); // Include the PEAR Mail header
 
 // Create all of the options to use to set up the mailer object
@@ -284,10 +278,6 @@ if (PEAR::isError($result)) {
   $error = 'Error sending email: ' . $result->getMessage();
   echo htmlspecialchars($error);
 }
-
-echo "<br /><br /><div class=\"textbox\">Thank you! We have received your address request.<br /><br />";
-echo "<a href=\"http://www.alc911.org\">Click here</a> to return to the Athens-Limestone County 911 home page.</div><br /><br />";
-
-
+*/
 } // end reCAPTCHA else
 ?>
