@@ -6,7 +6,8 @@ ini_set("include_path", '/home/athens911/php:' . ini_get("include_path") );
 if (isset($_POST['g-recaptcha-response'])) { $captcha = $_POST['g-recaptcha-response']; }
 
 if (!$captcha) {
-  echo "<p>You must verify your identity with the reCAPTCHA. Press the Back button to continue.</p>";
+  echo "<br /><br /><br /><div class=\"textbox\">You must verify your identity with the Google reCAPTCHA! Please press the Back button to re-enter the form.</div><br />";
+
   exit();
 }
 
@@ -18,7 +19,8 @@ $responseKeys = json_decode($response, true);
 
 // If response is false, display error. Otherwise, complete code.
 if (intval($responseKeys["success"]) !== 1) {
-  echo "<h1>The CAPTCHA could not verify that you are not a spambot.</h1>";
+  echo "<br /><br /><br /><div class=\"textbox\">Your identity could not be verified by the Google reCAPTCHA.</div><br />";
+
 
 } else {
 
@@ -290,12 +292,12 @@ if (intval($responseKeys["success"]) !== 1) {
 
     // Set up headers
     $headers = array();
-    $headers['From'] = 'ACL911 Automated Mailer <donotrespond@alc911.org>';
-    $headers['To'] = 'brandon@alc911.org';
+    $headers['From'] = 'ALC911 Automated Mailer <donotrespond@alc911.org>';
+    $headers['To'] = 'brandon@alc911.org, 911.alc@gmail.com';
     $headers['Subject'] = $firstN . ' ' . $lastN . ' Job Application Submission';
     $headers['Content-type'] = 'text/html';
 
-    $recipients = 'brandon@alc911.org';
+    $recipients = 'brandon@alc911.org, 911.alc@gmail.com';
 
 		//the message body of the email that contains all the table html info
 		//page 1 email data
