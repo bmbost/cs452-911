@@ -1,29 +1,30 @@
 // Function that executes when the HTML document is ready
 jQuery(document).ready(function($) {
-	
-	document.getElementById('requestdate').value = Date();
-	
+
+	//call getDate() when loading the page to populate the hidden requestdate
+	getDate();
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function: 	Call CheckIsNum
 	//---------------------------------------------------------------------------------------------------------------------
 	// Description: Function that calls the checkIsNum function on a keydown event for any element in the IsNum class.
-	//---------------------------------------------------------------------------------------------------------------------		
+	//---------------------------------------------------------------------------------------------------------------------
 	// Purpose: 	The purpose of this is to prevent user from using keystrokes to enter alpha or
 	// 				special characters in a numeric field. This will also pertain to new dynamically
 	// 				added fields of the IsNum class.
 	//---------------------------------------------------------------------------------------------------------------------
 	$(document).on('keydown','.IsNum', function(event){ // when the user presses a key in attempt to enter a value in a field
 														// with the IsNum class
-		
+
 		return checkIsNum(event);
-		
+
 	}); // end Call CheckIsNum Function
-	
-	
+
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	Call CheckIsAlpha
 	//---------------------------------------------------------------------------------------------------------------------
-	// Description: Function that calls the checkIsAlpha function on a keydown event for any element in the IsAlpha class. 
+	// Description: Function that calls the checkIsAlpha function on a keydown event for any element in the IsAlpha class.
 	//---------------------------------------------------------------------------------------------------------------------
 	// Purpose: 	The purpose of this is to prevent user from using keystrokes to enter numeric or
 	// 				special characters in field where only letters are valid. This will also pertain to
@@ -31,11 +32,11 @@ jQuery(document).ready(function($) {
 	//---------------------------------------------------------------------------------------------------------------------
 	$(document).on('keydown','.IsAlpha', function(event){ // when the user presses a key in attempt to enter a value in a field
 														  // with the IsAlpha class
-		
+
 		return checkIsAlpha(event);
-		
+
 	}); // end Call CheckIsAlpha Function
-  	
+
 
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	#reqisresYN Check Box Change
@@ -47,36 +48,36 @@ jQuery(document).ready(function($) {
 	//				Both resident and requestor information is required; however, if the user checks the box - the function
 	//				will copy the requestor information to the resident fields and disable them. If the box is unchecked,
 	//				then the function will simply enable the fields so the user may edit them.
-	//---------------------------------------------------------------------------------------------------------------------	
+	//---------------------------------------------------------------------------------------------------------------------
 	$("#reqisresYN").change(function(){ // if the #reqisresYN check box is changed (either checked or unchecked)...
-				
+
 		// If the #reqisresYN check box is NOT checked....
 		if($("#reqisresYN").is(':checked')) {
-			
+
 			var validator = $( "#addreqform" ).validate();
-			
+
 			if(validator.element( "#reqFirst" ) && validator.element( "#reqLast" ) && validator.element( "#requArea1" ) && validator.element( "#requFirstThree1" ) && validator.element( "#requLastFour1" ) && validator.element( "#requArea2" ) && validator.element( "#requFirstThree2" ) && validator.element( "#requLastFour2" ))
 			{
 				$("#resFirst").val($("#reqFirst").val());			// copy the first name
 				$("#resFirst").prop('disabled', true);				// disable the first name
 				$("#resFirst").tooltipster('hide');					// hide the tooltip, if error is present
 				$("#resFirst").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-				
+
 				$("#resLast").val($("#reqLast").val());				// copy the last name
 				$("#resLast").prop('disabled', true);				// disable the last name
 				$("#resLast").tooltipster('hide');					// hide the tooltip, if error is present
 				$("#resLast").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-				
+
 				$("#resiArea1").val($("#requArea1").val());			// copy the area code of primary phone number
 				$("#resiArea1").prop('disabled', true);				// disable the area code of primary phone number
 				$("#resiArea1").tooltipster('hide');				// hide the tooltip, if error is present
 				$("#resiArea1").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-				
+
 				$("#resiFirstThree1").val($("#requFirstThree1").val());		// copy the first 3 digits of primary phone number
 				$("#resiFirstThree1").prop('disabled', true);				// disable the first 3 digits of primary phone number
 				$("#resiFirstThree1").tooltipster('hide');					// hide the tooltip, if error is present
 				$("#resiFirstThree1").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-				
+
 				$("#resiLastFour1").val($("#requLastFour1").val());			// copy the last 4 digits of primary phone number
 				$("#resiLastFour1").prop('disabled', true);					// disable the last 4 digits of primary phone number
 				$("#resiLastFour1").tooltipster('hide');					// hide the tooltip, if error is present
@@ -86,26 +87,26 @@ jQuery(document).ready(function($) {
 				$("#resiArea2").prop('disabled', true);						// disable the area code of secondary phone number
 				$("#resiArea2").tooltipster('hide');						// hide the tooltip, if error is present
 				$("#resiArea2").removeClass( "error" );						// remove the error class so formatting reverts back to normal
-				
+
 				$("#resiFirstThree2").val($("#requFirstThree2").val());		// copy the first 3 digits of secondary phone number
 				$("#resiFirstThree2").prop('disabled', true);				// disable the first 3 digits of secondary phone number
 				$("#resiFirstThree2").tooltipster('hide');					// hide the tooltip, if error is present
 				$("#resiFirstThree2").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-				
+
 				$("#resiLastFour2").val($("#requLastFour2").val());			// copy the last 4 digits of secondary phone number
 				$("#resiLastFour2").prop('disabled', true);					// disable the last 4 digits of secondary phone number
 				$("#resiLastFour2").tooltipster('hide');					// hide the tooltip, if error is present
 				$("#resiLastFour2").removeClass( "error" );				// remove the error class so formatting reverts back to normal
-			
+
 			}
 			else{
-				
+
 				$("#reqisresYN").prop('checked', false);
-				
+
 			}
 		}
 		else {
-			
+
 			$("#resFirst").prop('disabled', false);				// enable the first name
 			$("#resLast").prop('disabled', false);				// enable the last name
 			$("#resiArea1").prop('disabled', false);			// enable the area code of primary phone number
@@ -114,126 +115,126 @@ jQuery(document).ready(function($) {
 			$("#resiArea2").prop('disabled', false);					// enable the area code of secondary phone number
 			$("#resiFirstThree2").prop('disabled', false);				// enable the first 3 digits of secondary phone number
 			$("#resiLastFour2").prop('disabled', false);				// enable the last 4 digits of secondary phone number
-			
+
 		}
-		
-	});	// end #reqisresYN Check Box Change Function	
-	
-	
+
+	});	// end #reqisresYN Check Box Change Function
+
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	Requestor Input Change
 	//---------------------------------------------------------------------------------------------------------------------
 	// Description: Copies requestor information to resident information
 	//---------------------------------------------------------------------------------------------------------------------
-	// Purpose: 	If valid, function updates resident information if requestor information is changed 
-	//---------------------------------------------------------------------------------------------------------------------	
+	// Purpose: 	If valid, function updates resident information if requestor information is changed
+	//---------------------------------------------------------------------------------------------------------------------
 	$("#reqFirst").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#reqFirst" ) && $("#reqisresYN").is(':checked') ){
-			
+
 			$("#resFirst").val($("#reqFirst").val());			// update the first name
-			
+
 		}
-	
+
 	});
 	$("#reqLast").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#reqLast" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resLast").val($("#reqLast").val());				// update the last name
-			
+
 		}
-	
+
 	});
 	$("#requArea1").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requArea1" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiArea1").val($("#requArea1").val());				// update primary area code
-			
+
 		}
-	
+
 	});
 	$("#requFirstThree1").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requFirstThree1" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiFirstThree1").val($("#requFirstThree1").val());			// update first 3 digits of primary phone
-			
+
 		}
-	
+
 	});
 	$("#requLastFour1").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requLastFour1" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiLastFour1").val($("#requLastFour1").val());			// update last 4 digits of primary phone
-			
+
 		}
-	
+
 	});
 	$("#requArea2").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requArea2" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiArea2").val($("#requArea2").val());				// update secondary area code
-			
+
 		}
-	
+
 	});
 	$("#requFirstThree2").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requFirstThree2" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiFirstThree2").val($("#requFirstThree2").val());			// update first 3 digits of secondary phone
-			
+
 		}
-	
+
 	});
 	$("#requLastFour2").change(function(){ // if the input is changed (either checked or unchecked)...
-		
+
 		var validator = $( "#addreqform" ).validate();
-		
+
 		// if the new input is valid and the check box signifying requestor = resident is checked....
 		if(validator.element( "#requLastFour2" ) && $("#reqisresYN").is(':checked')){
-			
+
 			$("#resiLastFour2").val($("#requLastFour2").val());			// update last 4 digits of secondary phone
-			
+
 		}
-	
-	});
-	
-	
+
+	}); // end Requestor Input Change Function
+
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	Tooltipster Plugin Config
 	//---------------------------------------------------------------------------------------------------------------------
-	// Description: The following 6 functions initializes the Tooltipster Plugin for the addreqform.
+	// Description: The following function initializes the Tooltipster Plugin for the addreqform.
 	//---------------------------------------------------------------------------------------------------------------------
-	// Purpose: 	The purpose of the tooltipster plugin is to work alongside the jQuery Validation plugin. Instead of 
+	// Purpose: 	The purpose of the tooltipster plugin is to work alongside the jQuery Validation plugin. Instead of
 	//				writing jQuery Validate error messages beside or beneath a given field, the error messages display in a
 	//				configurable tooltip beneath the field.
-	//---------------------------------------------------------------------------------------------------------------------	
+	//---------------------------------------------------------------------------------------------------------------------
 	// 1. Initialize tooltipsters for addreqform
 	$('#addreqform input[type="text"], #addreqform input[type="radio"], #addreqform textarea').tooltipster({
 		trigger: 'custom',
@@ -241,35 +242,35 @@ jQuery(document).ready(function($) {
 		position: 'bottom'
 	});
 	// end Tooltipster Plugin Config Function
-	//---------------------------------------------------------------------------------------------------------------------	
+	//---------------------------------------------------------------------------------------------------------------------
 
-	
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	jQuery Validation Plugin - Custom Methods Config
 	//---------------------------------------------------------------------------------------------------------------------
 	// Description: The following function adds a custom validation method to the jQuery Validation plugin.
 	//---------------------------------------------------------------------------------------------------------------------
 	// Purpose: 	While jQuery Validate has many useful validation methods, they do not provide some specific methods
-	//				necessary to ensure that the jobappform is valid. The following methods will ensure that letters are 
+	//				necessary to ensure that the addreqform is valid. The following methods will ensure that letters are
 	//				entered into a field where only letters are appropriate.
-	//---------------------------------------------------------------------------------------------------------------------	
-	// 1. Add custom validation method to make sure only letters are entered into a field 
+	//---------------------------------------------------------------------------------------------------------------------
+	// 1. Add custom validation method to make sure only letters are entered into a field
 	jQuery.validator.addMethod("lettersonly",function(value,element) {
 		return this.optional(element) || /^[a-zA-Z]+$/i.test(value);}, "Please enter letters only.");
 	// end jQuery Validation Plugin - Custom Methods Config Function
-	//---------------------------------------------------------------------------------------------------------------------	
-	
-	
+	//---------------------------------------------------------------------------------------------------------------------
+
+
 	//---------------------------------------------------------------------------------------------------------------------
 	// Function:	jQuery Validation Plugin Config
 	//---------------------------------------------------------------------------------------------------------------------
-	// Description: The following function add jQuery validation to the fields in the addreqform. 
+	// Description: The following function add jQuery validation to the fields in the addreqform.
 	//---------------------------------------------------------------------------------------------------------------------
 	// Purpose: 	The jQuery validation plugin is fully configurable. Each field has been given a validation method that
 	//				is appropriate to ensure that all data submitted in the ALC911 Address Request form is valid. Custom
 	//				messages have been configured for each error. Error messages have been configured to display in tooltips
-	//				and works alongside the Tooltipster plugin.
-	//---------------------------------------------------------------------------------------------------------------------			
+	//				and works alongside the Tooltipster plugin (configured above).
+	//---------------------------------------------------------------------------------------------------------------------
 	// Validate on on keyup and 'Next' or 'Back' for addreqform
 	$("#addreqform").validate({ // call the validate function on document ready for addreqform...
 		// configuration of the validation rules for form fields
@@ -439,17 +440,105 @@ jQuery(document).ready(function($) {
 	// end jQuery Validation Plugin Config Functions
 	//---------------------------------------------------------------------------------------------------------------------
 
-	
+
+	//---------------------------------------------------------------------------------------------------------------------
+	// Function:	Submit Button Click
+	//---------------------------------------------------------------------------------------------------------------------
+	// Description: Function that enables the resident fields and submits the address request form if it passes validation.
+	//---------------------------------------------------------------------------------------------------------------------
+	// Purpose: 	Disabled input fields causes issues on the PHP side, so when the submit button is clicked - the following
+	//				function is called. The function enables all resident fields and submits the address request form.
+	//				Otherwise, it alerts the user that fields need to corrected. When the address request form is submitted,
+	//				the Ajax Form Submission Using jQuery function is called (see below).
+	//---------------------------------------------------------------------------------------------------------------------
+	$("#submitbutton").click(function() {
+        if ($('#addreqform').valid()) {                   // checks form for validity
+
+			// enable the disabled resident fields so that they will post successfully in receiving php file
+			$("#resFirst").prop('disabled', false);						// enable the first name
+			$("#resLast").prop('disabled', false);						// enable the last name
+			$("#resiArea1").prop('disabled', false);					// enable the area code of primary phone number
+			$("#resiFirstThree1").prop('disabled', false);				// enable the first 3 digits of primary phone number
+			$("#resiLastFour1").prop('disabled', false);				// enable the last 4 digits of primary phone number
+			$("#resiArea2").prop('disabled', false);					// enable the area code of secondary phone number
+			$("#resiFirstThree2").prop('disabled', false);				// enable the first 3 digits of secondary phone number
+			$("#resiLastFour2").prop('disabled', false);				// enable the last 4 digits of secondary phone number
+
+            $('#addreqform').submit();					  // submit the address request form
+
+        } else {
+
+            alert("Please correct invalid fields.");
+			return false;
+        }
+    }); // end Submit Button Click Function
+
+
+	//---------------------------------------------------------------------------------------------------------------------
+	// Function:	Ajax Form Submission Using jQuery
+	//---------------------------------------------------------------------------------------------------------------------
+	// Description: Submits the address request form using jQuery ajax function
+	//---------------------------------------------------------------------------------------------------------------------
+	// Purpose: 	When the submit button is clicked, it "posts" the address request form to the action defined on
+	//				addreqform, which is "addreqform-processing.php." It also uses the jQuery serialize
+	//				function to combine the data prior to submission.
+	//---------------------------------------------------------------------------------------------------------------------
+	$("#addreqform").submit(function(event) {
+
+		/* stop form from submitting normally */
+		event.preventDefault();
+
+	    // Hide the div that makes up the current page
+	    var page=document.getElementById('addreqform');
+	    page.style.visibility='hidden';
+	    page.style.display='none';
+
+		// Hide the form instructions
+		var page=document.getElementById('directions');
+		page.style.visibility='hidden';
+		page.style.display='none';
+
+	    // Display the success div
+	    page=document.getElementById('submitSuccess');
+	    page.style.display='block';
+	    page.style.visibility='visible';
+
+		$.ajax({
+			type : 'POST',
+			url  : 'addressform.php',
+			data : $('#addreqform').serialize(),
+			success: function(data){
+				// Act upon the data returned, setting it to #submitSuccess <div>
+				$("#submitSuccess").html ( data );
+			}
+		});
+	}); // Ajax Form Submission Using jQuery
+
+
 }); // end Document Ready Function
 
 
-//If this function returns false, the key pressed will not be recorded in the input 
+
+function getDate()
+{
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+    today = yyyy+""+mm+""+dd;
+
+    document.getElementById("requestdate").value = today;
+}
+
+
+//If this function returns false, the key pressed will not be recorded in the input
 function checkIsNum (e)
 {
 	//This is a variable where we are storing the value of the key key, which is a numeric value
 	//that we will check later
 	var test;
-	
+
 	//How to assign the numeric value to the variable
 	test = e.which;
 
@@ -473,7 +562,7 @@ function checkIsAlpha (e)
 
 	var test;
 	test = e.which;
-	
+
 	//Okay, the range 64 to 91 is checking if a-z, either lower or upper case, was pressed
 	//The range 36 to 41is testing if an arrow key was pressed while the value 8 is checking if backspace was
 	//pressed. The value 9 is testing if tab was pressed and the value 32 is testing if space was pressed
@@ -486,11 +575,10 @@ function checkIsAlpha (e)
 		return false;
 	}
 
-}		
+}
 // before the page reloads or refreshes...
 window.onbeforeunload = function(event)
 {
 	$('#addreqform')[0].reset();
 
 };
-

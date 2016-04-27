@@ -17,7 +17,7 @@
 		<script type="text/javascript" src="javascript/jquery-validation-1.15.0/dist/additional-methods.min.js"></script><!--include jquery validate additional methods for form validation-->
 		<script type="text/javascript" src="javascript/tooltipster-master/js/jquery.tooltipster.min.js"></script><!--include tooltipster plugin to show jquery validation errors in tooltips-->
         <script type="text/javascript" src="javascript/address-request-form.js"></script><!--include custom javascript for form-->
-        <script src='https://www.google.com/recaptcha/api.js'></script><!-- include Google reCAPTCHA widget javascript -->
+				<script src='https://www.google.com/recaptcha/api.js'></script><!-- include Google reCAPTCHA widget -->
 
 	</head>
 
@@ -39,12 +39,9 @@
 											As a result, some form functionality will be limited or disabled.<br />To correct this issue, <a target="_blank" href="http://enable-javascript.com/">enable scripting on your browser</a>.</div>
 			</noscript>
 
-			<!-- The Address Request Form begins here -->
-			<form id="addreqform" method="post" action="addressform.php">
-
 			<!-- Address Request Form Title-->
 			<h1>Athens-Limestone County 911 Address Request From</h1>
-			<p style="text-align:center"><i>This form is to be used for new address requests only - not to update your current house description.</i></p>
+			<p id="directions" style="text-align:center"><i>This form is to be used for new address requests only - not to update your current house description.</i></p>
 
 			<!--div that encompasses form and headings (sizes contents to 800px width-->
 			<div class="formenclosure">
@@ -52,14 +49,20 @@
 			<!-- Line Break in page-->
 			<hr />
 
+			<div id="submitSuccess" style="visibility:hidden;display:none;">
+			</div>
+
+			<!-- The Address Request Form begins here -->
+			<form id="addreqform" method="post" action="addressform.php">
+
 				<h2>Contact Information</h2>
 				<span class="explanatoryformtext"><em><span style="color:red;">*</span> Indicates required field</em></span>
 
 				<br />
 				<br />
 
-				<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "request date"  DISABLED! Implemented in PHP
-				<input type="date" id="requestdate" name="requestdate" disabled style="display:none;"> -->
+				<!-- Hidden input field that stores the current date/time when the page is loaded. To be used as "request date"-->
+				<input type="text" id="requestdate" name="requestdate" style="display:none;">
 
 				<table class="table2">
 					<tr>
@@ -374,18 +377,19 @@
 			<br />
 			<br />
 
-      <div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
+			<div class="g-recaptcha" data-sitekey="6LfoNR4TAAAAAC3Z6L_4l3rzQSYsYFmSw0stqAGo"></div>
 
-      <br />
+			<br />
 
-			<input class="formsubmit" id="submitbutton"  type="submit" name="submit" value="Submit Address Request">
+			<input class="formsubmit" id="submitbutton" type="button" name="submit" value="Submit Address Request">
 
 			<br />
 			<br />
+
+			</form> <!-- end Address Request Form-->
 
 			</div> <!-- end formenclosure div-->
 
-			</form> <!-- end Address Request Form-->
 
 		<!-- banner residing at bottom of form-->
 		<a target="_blank" href="http://www.athens.edu">

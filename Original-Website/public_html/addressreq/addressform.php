@@ -9,9 +9,8 @@ ini_set("include_path", '/home/athens911/php:' . ini_get("include_path") );
 if (isset($_POST['g-recaptcha-response'])) { $captcha = $_POST['g-recaptcha-response']; }
 
 if (!$captcha) {
-  include("address_form_header.html");
-  echo "<p>You must verify your identity with the reCAPTCHA. Press the Back button to continue.</p>";
-  include("address_form_footer.html");
+  echo "<br /><br /><br /><div class=\"textbox\">You must verify your identity with the Google reCAPTCHA! Please press the Back button and re-submit your form.</div><br />";
+
   exit();
 }
 
@@ -23,9 +22,8 @@ $responseKeys = json_decode($response, true);
 
 // If response is false, display error. Otherwise, complete code.
 if (intval($responseKeys["success"]) !== 1) {
-  include("address_form_header.html");
-  echo "<h1>The CAPTCHA could not verify that you are not a spambot.</h1>";
-  include("address_form_footer.html");
+  echo "<br /><br /><br /><div class=\"textbox\">Your identity could not be verified by the Google reCAPTCHA.</div><br />";
+
 } else {
 
 // Call to database connection. NOT IMPLEMENTED due to client change of SOW.
@@ -190,10 +188,8 @@ if ($resArea2 != NULL) { // Makes sure a number has been entered in the second r
 
 
 if ($message != '') {
-  include("address_form_header.html");
-  echo $message;
-  echo "<p>Please press the Back button and correct these issues in your submission.</p>";
-  include("address_form_footer.html");
+  echo "<br /><br /><br /><div class=\"textbox\">$message</div><br />";
+
   exit();
 }
 
@@ -244,12 +240,12 @@ $mailer = Mail::factory('smtp', $options); // Create mailer object
 
 // Set up headers
 $headers = array();
-$headers['From'] = 'ACL911 Automated Mailer <donotrespond@alc911.org>';
-$headers['To'] = 'jackson@alc911.org, brandon@alc911.org';
+$headers['From'] = 'ALC911 Automated Mailer <donotrespond@alc911.org>';
+$headers['To'] = 'jackson@alc911.org, brandon@alc911.org, 911.alc@gmail.com';
 $headers['Subject'] = $name . ' Address Request Form Submission';
 $headers['Content-type'] = 'text/html';
 
-$recipients = 'jackson@alc911.org, brandon@alc911.org';
+$recipients = 'jackson@alc911.org, brandon@alc911.org, 911.alc@gmail.com';
 //the message body of the email that contains all the table html info
 $body = '<html><body>';
 $body .= '<h1>Address Request Form for '. $name . '</h1><br><br>';
@@ -289,11 +285,9 @@ if (PEAR::isError($result)) {
   echo htmlspecialchars($error);
 }
 
-include("address_form_header.html");
-echo '<p style="padding-left: 15px">Address request successfully submitted.</p>';
-echo '<p style="padding-left: 15px">Thank you for your submission. A representative with the Athens-Limestone
-     County 911 Center will contact you soon.</p>';
-include("address_form_footer.html");
+echo "<br /><br /><div class=\"textbox\">Thank you! We have received your address request.<br /><br />";
+echo "<a href=\"http://www.alc911.org\">Click here</a> to return to the Athens-Limestone County 911 home page.</div><br /><br />";
+
 
 } // end reCAPTCHA else
 ?>
