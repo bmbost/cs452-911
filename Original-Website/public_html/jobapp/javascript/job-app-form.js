@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
 
 	// This allows you to bypass Javascript validation when testing the form
 	// Set testmode to false to enable Javascript validation.
-	var testmode = true;
+	var testmode = false;
 
 	//call getDate() when loading the page
 	getDate();
@@ -1214,7 +1214,6 @@ function addRow(tableID) {
 		element4.style.width="35px";
 		element4.className="IsNum";
 		cell4.appendChild(element4);
-		document.getElementById("credits" + rowCount).maxLength = "5";
 
 		// Add the Major textarea field-->
 		var cell5 = row.insertCell(4);
@@ -1249,7 +1248,6 @@ function addRow(tableID) {
 		element7.style.width="40px";
 		element7.className="IsNum";
 		cell7.appendChild(element7);
-		document.getElementById("degreeyear" + rowCount).maxLength = "4";
 
 		// determine how many education rows are displayed on the page
 		var eduNum = $("#numEducation").val();
