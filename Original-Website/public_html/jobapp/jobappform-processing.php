@@ -49,13 +49,15 @@ if (intval($responseKeys["success"]) !== 1) {
 	//Initiazling part 6 of form
 	$servAF = $servFromAF = $servToAF = $disc1 = $medRec = $milBen = $spouseDis =
 	$spouseDisPer = $spouseSur = $spouseMed = " ";
-
-/*
-	//Initiazize page 1 HTML variables to PHP POST
+	
 	//Connecting to database
-	mysql_connect("localhost", "root", "");
-	mysql_select_db("jobapptestjh");
-*/
+	$con = mysqli_connect("localhost", "root", "", "finalformalc");
+
+	// Check connection
+	if (mysqli_connect_errno()){
+		echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+
 	//Initiazize page 1 HTML variables to PHP POST
 	$appDate = $_POST['applicationdate'];
 	$poS = $_POST['position'];
@@ -473,47 +475,95 @@ if (intval($responseKeys["success"]) !== 1) {
       $error = 'Error sending email: ' . $result->getMessage();
       echo htmlspecialchars($error);
     }
+	
+	//Inserting into Personal Information "Root" table
+	mysqli_query($con, "insert into pinfo
+	(ApplicationDate, Position, RecruitNumber, FirstName, MiddleInitial, LastName, DateOfBirth, MailingAddress, EmailAddress, HomePhone, 
+	City, County, StateInfo, ZipCode, WorkPhone, AlEmployee, AgencyName, TestAssist, WillingTravel, DayShift, SwingShift, 
+	GraveyardShift, RotatingShift, FullTime, PartTime, NonPermanent, Seasonal, OnCall) values
+	('".$appDate."', '".$poS."', '".$recNum."', '".$firstN."', '".$middleIN."', '".$lastN."', '".$dateOf."', '".$mAddr."', '".$eAddr."',
+	'".$homeP."', '".$cityNum."', '".$countyNum."', '".$stateNum."', '".$zipcdNum."', '".$workphoneNum."', '".$radio1."', '".$agName."', 
+	'".$radio2."', '".$radio3."', '".$shiftNum1."', '".$shiftNum2."', '".$shiftNum3."', '".$shiftNum4."', '".$scheduleNum1."', '".$scheduleNum2."', 
+	'".$scheduleNum3."', '".$scheduleNum4."', '".$scheduleNum5."')");
+	
+	//built in function that sets php variable to last inserted id
+	$setid = mysqli_insert_id($con);
+	
+	//Inserting into Background Information one-to-one table -- Uses $setid variable to do so"
+	mysqli_query($con, "insert into binfo
+	(ApplicationID, LicenseNumber, LicenseExp, CdlNumber, CdlExp, OtherNumber, OtherEXP, LanguagesSpoken, ConvictedFelon) values
+	('".$setid."', '".$driversL."', '".$driversEXP."', '".$cdlNum."', '".$cdlEXP."', '".$otherL."', '".$otherEXP."', 
+	'".$lang."', '".$convictYN."')");
+	
+	//Inserting into Education Information one-to-many table -- Uses a Primary key and Foreign key to do so
+	for($i = 1; $i <= $maxEdu; $i++){
+			$nameloc = $educationhist[$i]["schoonameandloc"];
+			$eduStart = $educationhist[$i]["schoolstartMY"];
+			$eduEnd = $educationhist[$i]["schoolendMY"];
+			$eduCredits = $educationhist[$i]["credits"];
+			$eduMajor = $educationhist[$i]["major"];
+			$eduDegree = $educationhist[$i]["degreetype"];
+			$eduDegYear = $educationhist[$i]["degreeyear"];
+			
+			if($i == 1){
+				mysqli_query($con, "insert into eduinfo
+				(ApplicationID, GradHS, SchoolInfo, SchoolStart, SchoolEnd, Credits, Major, DegreeType, DegreeYearRec) values
+				('".$setid."', '".$highSchool."', '".$nameloc."', '".$eduStart."', '".$eduEnd."', '".$eduCredits."', '".$eduMajor."', '".$eduDegree."', 
+				'".$eduDegYear."')");
+			}
+			else{
+				mysqli_query($con, "insert into eduinfo
+				(ApplicationID, SchoolInfo, SchoolStart, SchoolEnd, Credits, Major, DegreeType, DegreeYearRec) values
+				('".$setid."', '".$nameloc."', '".$eduStart."', '".$eduEnd."', '".$eduCredits."', '".$eduMajor."', '".$eduDegree."', 
+				'".$eduDegYear."')");
+			}
+	}
+
+	//Inserting into Employer Information one-to-many table -- Uses a Primary key and Foriegn
+	for($i = 1; $i <= $maxEmp; $i++){
+			$empName = $employmenthist[$i]["empname"];
+			$empAddr = $employmenthist[$i]["empaddr"];
+			$empPhone = $employmenthist[$i]["empphone"];
+			$empTitle = $employmenthist[$i]["emptitle"];
+			$empStartMY = $employmenthist[$i]["empstartMY"];
+			$empEndMY = $employmenthist[$i]["empendMY"];
+			$empTotalmths = $employmenthist[$i]["emptotalmths"];
+			$empAvghrs = $employmenthist[$i]["empavghrs"];
+			$empLastsalary = $employmenthist[$i]["emplastsalary"];
+			$empSupervisor = $employmenthist[$i]["empsupervisor"];
+			$empReasonforleaving = $employmenthist[$i]["empreasonforleaving"];
+			$empVolunteerhrs = $employmenthist[$i]["empvolunteerhrs"];
+			$empSupervised = $employmenthist[$i]["empsupervised"];
+			$empDuties = $employmenthist[$i]["empduties"];
+			
+			mysqli_query($con, "insert into empinfo
+			(ApplicationID, PresentLastEmp, EmpAddress, EmpPhone, EmpTitle, EmpStartMY, EmpEndMY, EmpTotalMonths, EmpAvgHours, 
+			EmpLastSalary, EmpSupervisor, EmpReason, EmpVolunteer, EmpSupervised, EmpDuties) values
+			('".$setid."', '".$empName."', '".$empAddr."', '".$empPhone."', '".$empTitle."', '".$empStartMY."', '".$empEndMY."', 
+			'".$empTotalmths."', '".$empAvghrs."', '".$empLastsalary."', '".$empSupervisor."', '".$empReasonforleaving."', 
+			'".$empVolunteerhrs."', '".$empSupervised."', '".$empDuties."')");
+	}
+	
+	//Inserting into Affirmative Action one-to-one table -- uses $setid to do so
+	mysqli_query($con, "insert into affactinfo
+	(ApplicationID, Hispanic, Gender, RaceOne, RaceTwo, RaceThree, RaceFour, RaceFive, RaceSix, RaceSeven, 
+	OtherRaceName, ActiveUS, ActiveUSFrom, ActiveUSTo, VietnamVet, RepublicVietnam, RepFrom, RepTo, DisabledVet, 
+	DisabledPercent, LongTermCondition) values
+	('".$setid."', '".$hisYN."', '".$genderMF."', '".$raceNum1."', '".$raceNum2."', '".$raceNum3."', '".$raceNum4."', 
+	'".$raceNum5."', '".$raceNum6."', '".$raceNum7."', '".$otherRace."', '".$activeYN."', '".$actFrom."', '".$actTo."', 
+	'".$vietVet."', '".$repVietYN."', '".$repFrom."', '".$repTo."', '".$disVet."', '".$perDis."', '".$conditionYN."')");
+	
+	//Inserting into Veterans Information one-to-one table -- uses $setid to do so
+	mysqli_query($con, "insert into vetinfo
+	(ApplicationID, HonorArmed, HonorFrom, HonorTo, DischargeType, MedalsRec, RetireBen, SpouseDischarge, SpousePercent, 
+	SurviveSpouse, SpouseMedals) values
+	('".$setid."', '".$servAF."', '".$servFromAF."', '".$servToAF."', '".$disc1."', '".$medRec."', '".$milBen."', 
+	'".$spouseDis."', '".$spouseDisPer."', '".$spouseSur."', '".$spouseMed."')");
+	
+	//Closes
+	mysqli_close($con);
 
     echo "<br /><br /><br /><div class=\"textbox\">Thank you! We have received your employment application. You can expect to be notified of your application results about 3 weeks after the closing date.</div><br />";
-
-
-	//begin database inserts
-
-	/*//Inserting into "root table"
-	$select = "insert into pinfo
-	(Position, RecruitNumber, FirstName) values
-	('".$poS."', '".$recNum."', '".$firstN."')";
-
-	//Inserting into one-to-one table -- Uses "LAST_INSERT_ID() to do so"
-	$select2 = "insert into binfo
-	(ApplicationID, LicenseNumber, LicenseExp, CdlNumber, CdlExp) values
-	(LAST_INSERT_ID(), '".$driversL."', '".$driversEXP."', '".$cdlNum."', '".$cdlEXP."')";
-
-	//CODE ONLY INSERTS LAST ROW --EDUCATION 5
-	/*foreach( $eduPerson as $key => $n){
-		//print_r ($n);
-		$select3 = "insert into eduinfo
-		(ApplicationID, SchoolInfo) values
-		(LAST_INSERT_ID(), '".$n['schoonameandloc']."')";
-	}*/
-
-	/*for($i=2;$i<5;$i++){
-		$select3 = "insert into eduinfo
-		(ApplicationID, SchoolInfo) values
-		(LAST_INSERT_ID(), '".$eduPerson[$i]['schoonameandloc']."')";
-	}*/
-	/*$i = 0;
-	$select3 = "insert into eduinfo
-	(ApplicationID, SchoolInfo) values
-	(LAST_INSERT_ID(), '".$eduPerson[$i]['schoonameandloc']."')";
-
-	//queries for inserts
-	$sql=mysql_query($select);
-	$sql=mysql_query($select2);
-	$sql=mysql_query($select3);
-
-	mysql_close();
-*/
 
 } // end else for captcha
 ?>
