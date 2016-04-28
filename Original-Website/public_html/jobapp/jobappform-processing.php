@@ -29,8 +29,7 @@ if (intval($responseKeys["success"]) !== 1) {
 	$appDate = $poS = $recNum = $firstN = $middleIN = $lastN = $dateOf = $mAddr = $eAddr =
 	$homeP = $cityNum = $countyNum = $stateNum = $zipcdNum = $workphoneNum = $radio1 = $agName = $radio2 = $radio3 =
 	$shiftNum1 = $shiftNum2 = $shiftNum3 = $shiftNum4 = $scheduleNum1 = $scheduleNum2 = $scheduleNum3 = $scheduleNum4 =
-	$scheduleNum5 = $convictYN = $hisYN = $genderMF = $raceNum1 = $raceNum2 = $raceNum3 = $raceNum4 = $raceNum5 = $raceNum6 = $raceNum7 =
-	$activeYN = $conditionYN = " ";
+	$scheduleNum5 = " ";
 
 	//Initiazling part 2 of form
 	$driversL = $driversEXP = $cdlNum = $cdlEXP = $otherL = $otherEXP = $lang = $convictYN = " ";
@@ -39,12 +38,13 @@ if (intval($responseKeys["success"]) !== 1) {
 	$maxEdu = $highSchool = $nameloc = $eduStart = $eduEnd = $eduCredits = $eduMajor = $eduDegree = $eduDegYear = " ";
 
 	//Initiazling part 4 of form
-	$maxEmp = $employmenthist = $maxEmp = $empName = $empAddr = $empPhone = $empTitle = $empStartMY = $empEndMY = $empTotalmths = $empAvghrs = $empLastsalary = $empSupervisor =
+	$maxEmp = $employmenthist = $maxEmp = $empName = $empAddr = $empPhone = $empTitle = $empStartMY = $empEndMY = 
+	$empTotalmths = $empAvghrs = $empLastsalary = $empSupervisor =
 	$empReasonforleaving = $empVolunteerhrs = $empSupervised = $empDuties = " ";
 
 	//Initiazling part 5 of form
-	$hisYN = $genderMF = $raceNum1 = $raceNum2 = $raceNum3 = $raceNum4 = $raceNum5 = $raceNum6 = $raceNum7 = $activeYN = $actFrom = $actTo =
-	$vietVet = $repVietYN = $repFrom = $repTo = $disVet = $perDis = $conditionYN = " ";
+	$hisYN = $genderMF = $raceNum1 = $raceNum2 = $raceNum3 = $raceNum4 = $raceNum5 = $raceNum6 = $raceNum7 = $otherRace = 
+	$activeYN = $actFrom = $actTo = $vietVet = $repVietYN = $repFrom = $repTo = $disVet = $perDis = $conditionYN = " ";
 
 	//Initiazling part 6 of form
 	$servAF = $servFromAF = $servToAF = $disc1 = $medRec = $milBen = $spouseDis =
@@ -199,6 +199,7 @@ if (intval($responseKeys["success"]) !== 1) {
         }
 	if(!empty($_POST['race7'])) {
         $raceNum7=$_POST['race7'];
+		$otherRace=$_POST['otherracename'];
         }
 	if(!empty($_POST['activedutyYN'])) {
         $activeYN=$_POST['activedutyYN'];
@@ -208,11 +209,11 @@ if (intval($responseKeys["success"]) !== 1) {
 				$actTo=$_POST['actdutytodate'];
 				if(!empty($_POST['vietnamvetTF'])) {
 					$vietVet=$_POST['vietnamvetTF'];
-					if($vietVet == "on"){
+					if($vietVet == "1"){
 						$vietVet = "Yes";
 						if(!empty($_POST['repubofvietnamYN'])) {
 							$repVietYN=$_POST['repubofvietnamYN'];
-							if($repVietYN == "Yes"){
+							if($repVietYN == "yes"){
 								$repFrom=$_POST['vietnamfromdate'];
 								$repTo=$_POST['vietnamtodate'];
 							}
@@ -221,7 +222,7 @@ if (intval($responseKeys["success"]) !== 1) {
 				}
 				if(!empty($_POST['disabledvetTF'])) {
 					$disVet=$_POST['disabledvetTF'];
-					if($disVet == "on"){
+					if($disVet == "1"){
 						$disVet = "Yes";
 						$perDis=$_POST['pdisablednum'];
 					}
@@ -411,7 +412,7 @@ if (intval($responseKeys["success"]) !== 1) {
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum1) . "</td></tr>";
 		if($raceNum2 == "Alaskan Native")
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum2) . "</td></tr>";
-		if($raceNum3 == "Native Hawaiin or Other Pacific Islander")
+		if($raceNum3 == "Native Hawaiian or Other Pacific Islander")
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum3) . "</td></tr>";
 		if($raceNum4 == "Asian")
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum4) . "</td></tr>";
@@ -419,8 +420,10 @@ if (intval($responseKeys["success"]) !== 1) {
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum5) . "</td></tr>";
 		if($raceNum6 == "White/Caucasian")
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum6) . "</td></tr>";
-		if($raceNum7 == "Other")
+		if($raceNum7 == "Other"){
 			$message .= "<tr><td><strong>What race or culture do you consider yourself?:</strong> </td><td>" . strip_tags($raceNum7) . "</td></tr>";
+			$message .= "<tr><td><strong>Indicate Races or Cultures:</strong> </td><td>" . strip_tags($otherRace) . "</td></tr>";
+		}
 		$message .= "<tr><td><strong>Have you ever been on active duty in the US Armed Forces?:</strong> </td><td>" . strip_tags($activeYN) . "</td></tr>";
 		if($activeYN == "yes"){
 			$message .= "<tr><td><strong>Active From:</strong> </td><td>" . strip_tags($actFrom) . "</td></tr>";
@@ -428,7 +431,7 @@ if (intval($responseKeys["success"]) !== 1) {
 			if($vietVet == "Yes"){
 				$message .= "<tr><td><strong>Are you a veteran from the Vietnam Era?</strong> </td><td>" . strip_tags($vietVet) . "</td></tr>";
 				$message .= "<tr><td><strong>Did you serve in the Republic of Vietnam?</strong> </td><td>" . strip_tags($repVietYN) . "</td></tr>";
-				if($repVietYN == "Yes"){
+				if($repVietYN == "yes"){
 					$message .= "<tr><td><strong>Served From:</strong> </td><td>" . strip_tags($repFrom) . "</td></tr>";
 					$message .= "<tr><td><strong>Served To:</strong> </td><td>" . strip_tags($repTo) . "</td></tr>";
 				}
